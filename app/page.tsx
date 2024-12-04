@@ -1,10 +1,10 @@
 import Image from "next/image";
-import admin from "./adminPages/admin"
+import AdminPage from "./adminPages/admin"
 
 export default function Home() {
   return (
     <div>
-      
+      <AdminPage></AdminPage>
     </div>
 
   );
