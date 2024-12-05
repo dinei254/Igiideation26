@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TitleTable from "@/components/ui/titleTable"
+import TitleTable from "@/components/ui/titleTable";
 
 export default function AdminPage() {
   return (
@@ -7,7 +7,8 @@ export default function AdminPage() {
       <div>
         <h1 className="text-6xl m-20">WELCOME ADMIN ! </h1>
       </div>
-      <div className="mx-10">
+    
+      <div className="mx-20 px-5">
         <TitleTable></TitleTable>
       </div>
     </div>
