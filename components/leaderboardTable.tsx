@@ -16,7 +16,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -40,48 +39,48 @@ import {
 
 const data: Payment[] = [
   {
-    id: 1,
-    amount: 316,
-    status: "success",
-    title: "ken99@yahoo.com",
+    userRank: 1,
+    mark: 316,
+    position: "Admin",
+    User: "ken99@yahoo.com",
   },
   {
-    id: 2,
-    amount: 242,
-    status: "success",
-    title: "Abe45@gmail.com",
+    userRank: 2,
+    mark: 242,
+    position: "Admin",
+    User: "Abe45@gmail.com",
   },
   {
-    id: 3,
-    amount: 837,
-    status: "processing",
-    title: "Monserrat44@gmail.com",
+    userRank: 3,
+    mark: 837,
+    position: "Judge",
+    User: "Monserrat44@gmail.com",
   },
   {
-    id: 4,
-    amount: 874,
-    status: "success",
-    title: "Silas22@gmail.com",
+    userRank: 4,
+    mark: 874,
+    position: "Judge",
+    User: "Silas22@gmail.com",
   },
   {
-    id: 5,
-    amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
+    userRank: 5,
+    mark: 721,
+    position: "Judge",
+    User: "carmella@hotmail.com",
   },
   {
-    id: 6,
-    amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
+    userRank: 6,
+    mark: 721,
+    position: "Judge",
+    User: "carmella@hotmail.com",
   },
 ];
 
 export type Payment = {
-  id: number;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  title: string;
+  userRank: number;
+  mark: number;
+  position: "Judge" | "Admin";
+  User: string;
 };
 
 const editRow = (row: any) => {
@@ -94,39 +93,25 @@ const deleteRow = (row: any) => {
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => <div>{row.getValue("id")}</div>,
+    accessorKey: "userRank",
+    header: "Rank",
+    cell: ({ row }) => <div>{row.getValue("userRank")}</div>,
   },
   {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
+    accessorKey: "User",
+    header: "User",
+    cell: ({ row }) => <div className="lowercase">{row.getValue("User")}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "mark",
+    header: "Mark",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Action</div>,
-    cell: ({ row }) => (
-      <div className="flex justify-end space-x-2">
-        <Button size="sm" onClick={() => editRow(row)}>
-          Edit
-        </Button>
-        <Button size="sm" onClick={() => deleteRow(row)}>
-          Delete
-        </Button>
-      </div>
+      <div className="capitalize">{row.getValue("mark")}</div>
     ),
   },
 ];
 
-function TitleTable() {
+function LeaderboardTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -157,41 +142,13 @@ function TitleTable() {
   return (
     <div className="w-full">
       <div className="flex items-center py-4 gap-[45rem] ">
-        <Input
-          placeholder="Filter title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <div className="flex flex-row">
-          <Link href="/Leaderboard">
-            <Button className="mr-5 text-black bg-white border-2 hover:bg-gray-200">
-              Leaderboard
-            </Button>
-          </Link>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Create <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex flex-col">
-              <Link href="/createUser" className=" ">
-                <Button className="bg-white text-black hover:text-white px-12">
-                  User
-                </Button>
-              </Link>
-
-              <Button className="bg-white text-black hover:text-white">
-                Title
-              </Button>
-            </DropdownMenuContent>
-          </DropdownMenu>
+       
+        <div className="flex flex-row  ">
+          <Button className="mr-5 ml-[66rem]">Create Admin</Button>
+          <Button>Create Judge</Button>
         </div>
       </div>
+      {/* the table */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -246,4 +203,4 @@ function TitleTable() {
   );
 }
 
-export default TitleTable;
+export default LeaderboardTable;

@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import UserTable from "@/components/userTable";
+import LeaderboardTable from "@/components/leaderboardTable";
 
 export default function CreateUser() {
   return (
     <div>
-      <div>
-        <h1 className="text-6xl m-20 pl-10">List of User :  </h1>
-      </div>
+      <div className="text-6xl ml-36 mt-20">Leaderboard</div>
       <div className="mx-28 my-10">
-        <UserTable></UserTable>
+        <LeaderboardTable></LeaderboardTable>
       </div>
     </div>
   );
