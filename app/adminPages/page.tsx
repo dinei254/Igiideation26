@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TitleTable from "@/components/ui/titleTable";
+import TitleTable from "@/components/titleTable";
 
 export default function AdminPage() {
   return (

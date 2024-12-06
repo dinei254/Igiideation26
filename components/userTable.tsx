@@ -1,6 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+// import { useRouter } from "next/navigation";
+// import { Link } from "react-router-dom";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -39,46 +42,46 @@ const data: Payment[] = [
   {
     id: 1,
     amount: 316,
-    status: "success",
-    title: "ken99@yahoo.com",
+    position: "Admin",
+    User: "ken99@yahoo.com",
   },
   {
     id: 2,
     amount: 242,
-    status: "success",
-    title: "Abe45@gmail.com",
+    position: "Admin",
+    User: "Abe45@gmail.com",
   },
   {
     id: 3,
     amount: 837,
-    status: "processing",
-    title: "Monserrat44@gmail.com",
+    position: "Judge",
+    User: "Monserrat44@gmail.com",
   },
   {
     id: 4,
     amount: 874,
-    status: "success",
-    title: "Silas22@gmail.com",
+    position: "Judge",
+    User: "Silas22@gmail.com",
   },
   {
     id: 5,
     amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
+    position: "Judge",
+    User: "carmella@hotmail.com",
   },
   {
     id: 6,
     amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
+    position: "Judge",
+    User: "carmella@hotmail.com",
   },
 ];
 
 export type Payment = {
   id: number;
   amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  title: string;
+  position: "Judge" | "Admin";
+  User: string;
 };
 
 const editRow = (row: any) => {
@@ -96,71 +99,20 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <div>{row.getValue("id")}</div>,
   },
   {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
+    accessorKey: "User",
+    header: "User",
+    cell: ({ row }) => <div className="lowercase">{row.getValue("User")}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "position",
+    header: "Position",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">{row.getValue("position")}</div>
     ),
   },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Action</div>,
-    cell: ({ row }) => (
-      <div className="flex justify-end space-x-2">
-        <Button
-          //variant="primary"
-          size="sm"
-          onClick={() => editRow(row)}
-        >
-          Edit
-        </Button>
-        <Button
-          // variant="secondary"
-          size="sm"
-          onClick={() => deleteRow(row)}
-        >
-          Delete
-        </Button>
-      </div>
-    ),
-  },
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   cell: ({ row }) => {
-  //     const payment = row.original;
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(payment.id)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
 ];
 
-function TitleTable() {
+function UserTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -192,34 +144,21 @@ function TitleTable() {
     <div className="w-full">
       <div className="flex items-center py-4 gap-[45rem] ">
         <Input
-          placeholder="Filter title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter User..."
+          value={(table.getColumn("User")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("User")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
         <div className="flex flex-row">
-          <Button className="mr-5 text-black bg-white border-2 hover:bg-gray-200">
-            Leaderboard
+          <Button className="mr-5 ">
+            Create Admin
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Create <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex flex-col">
-              <Button className="bg-white text-black hover:text-white">
-                User
-              </Button>
-              <Button className="bg-white text-black hover:text-white">
-                Title
-              </Button>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button>Create Judge</Button>
         </div>
       </div>
+      {/* the table */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -274,4 +213,4 @@ function TitleTable() {
   );
 }
 
-export default TitleTable;
+export default UserTable;
