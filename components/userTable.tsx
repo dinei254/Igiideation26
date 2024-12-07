@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { AdminCard } from "./adminCard";
 // import { useRouter } from "next/navigation";
 // import { Link } from "react-router-dom";
 import {
@@ -146,7 +147,9 @@ function UserTable() {
           className="max-w-sm"
         />
         <div className="flex flex-row">
-          <Button className="mr-5 ">Create Admin</Button>
+          <Button className="mr-5 ">
+            <AdminCard></AdminCard>
+          </Button>
           <Button>Create Judge</Button>
         </div>
       </div>

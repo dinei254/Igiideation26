@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import AdminForm from "./createAdminForm";
+import AdminForm from "./adminForm";
 
 export function AdminCard() {
   return (

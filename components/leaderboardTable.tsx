@@ -35,7 +35,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AdminCard } from "./createAdminCard";
+import { AdminCard } from "./adminCard";
 
 const data: Leaderboard[] = [
   {
@@ -81,14 +81,6 @@ export type Leaderboard = {
   mark: number;
   position: "Judge" | "Admin";
   User: string;
-};
-
-const editRow = (row: any) => {
-  console.log("Button 1 clicked for row:", row.original);
-};
-
-const deleteRow = (row: any) => {
-  console.log("Button 2 clicked for row:", row.original);
 };
 
 export const columns: ColumnDef<Leaderboard>[] = [
@@ -139,14 +131,6 @@ function LeaderboardTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4 gap-[45rem] ">
-        <div className="flex flex-row  ">
-          <Button className="mr-5 ml-[66rem] bg-black">
-            <AdminCard></AdminCard>
-          </Button>
-          <Button>Create Judge</Button>
-        </div>
-      </div>
       {/* the table */}
       <div className="rounded-md border">
         <Table>
