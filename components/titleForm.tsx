@@ -62,7 +62,7 @@ export default function TitleForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-[35rem] bg-pink-300 px-10 ml-20"
+        className="space-y-8 w-[23rem] "
       >
         {/* Title Field */}
         <FormField
@@ -88,6 +88,21 @@ export default function TitleForm() {
               <FormLabel>Video:</FormLabel>
               <FormControl>
                 <Input placeholder="Video link" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Poster Field */}
+        <FormField
+          control={form.control}
+          name="poster"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center gap-5">
+              <FormLabel>Poster:</FormLabel>
+              <FormControl>
+                <Input placeholder="Poster link" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -126,25 +141,9 @@ export default function TitleForm() {
         >
           Add Support Link
         </Button>
-
-        {/* Poster Field */}
-        <FormField
-          control={form.control}
-          name="poster"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-5">
-              <FormLabel>Poster:</FormLabel>
-              <FormControl>
-                <Input placeholder="Poster link" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         {/* Submit Button */}
-        <Button type="submit" className="mt-4 ml-[25.5rem] mb-5">
-          Submit
+        <Button type="submit" className="mt-4 ml-[18rem] mb-5">
+          Create
         </Button>
       </form>
     </Form>

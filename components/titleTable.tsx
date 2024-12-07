@@ -126,7 +126,7 @@ export const columns: ColumnDef<Title>[] = [
 
 function TitleTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  
+
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -134,8 +134,6 @@ function TitleTable() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  
-  
   const table = useReactTable({
     data,
     columns,
@@ -179,18 +177,16 @@ function TitleTable() {
                 Create <ChevronDown />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex flex-col">
+            <DropdownMenuContent className="flex flex-col justify-center items-center ">
               <Link href="/createUser" className=" ">
-                <Button className="bg-white text-black hover:text-white px-12">
+                <Button className="bg-white text-black hover:text-white px-[2rem] ">
                   User
                 </Button>
               </Link>
-             
-                <Button className="bg-white text-black hover:text-white"
-                  >
-                  Title
-                </Button>
-              
+
+              <Button className="bg-white">
+                <TitleCard></TitleCard>
+              </Button>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
