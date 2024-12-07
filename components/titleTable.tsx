@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { DeleteCard } from "./deleteCard";
 import {
   Table,
   TableBody,
@@ -82,14 +83,6 @@ export type Title = {
   title: string;
 };
 
-const editRow = (row: any) => {
-  console.log("Button 1 clicked for row:", row.original);
-};
-
-const deleteRow = (row: any) => {
-  console.log("Button 2 clicked for row:", row.original);
-};
-
 export const columns: ColumnDef<Title>[] = [
   {
     accessorKey: "id",
@@ -113,12 +106,10 @@ export const columns: ColumnDef<Title>[] = [
     header: () => <div className="text-right">Action</div>,
     cell: ({ row }) => (
       <div className="flex justify-end space-x-2">
-        <Button size="sm" onClick={() => editRow(row)}>
-          Edit
-        </Button>
-        <Button size="sm" onClick={() => deleteRow(row)}>
-          Delete
-        </Button>
+        <Button size="sm">Edit</Button>
+        <div>
+          <DeleteCard></DeleteCard>
+        </div>
       </div>
     ),
   },
