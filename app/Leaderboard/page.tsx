@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+
 import LeaderboardTable from "@/components/leaderboardTable";
 
 export default function CreateUser() {

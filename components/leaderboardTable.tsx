@@ -35,6 +35,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AdminCard } from "./createAdminCard";
 
 const data: Leaderboard[] = [
   {
@@ -104,9 +105,7 @@ export const columns: ColumnDef<Leaderboard>[] = [
   {
     accessorKey: "mark",
     header: "Mark",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("mark")}</div>
-    ),
+    cell: ({ row }) => <div className="capitalize">{row.getValue("mark")}</div>,
   },
 ];
 
@@ -141,9 +140,10 @@ function LeaderboardTable() {
   return (
     <div className="w-full">
       <div className="flex items-center py-4 gap-[45rem] ">
-       
         <div className="flex flex-row  ">
-          <Button className="mr-5 ml-[66rem]">Create Admin</Button>
+          <Button className="mr-5 ml-[66rem] bg-black">
+            <AdminCard></AdminCard>
+          </Button>
           <Button>Create Judge</Button>
         </div>
       </div>
