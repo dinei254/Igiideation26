@@ -18,13 +18,13 @@ export function TitleCard() {
       <DialogTrigger asChild>
         <Button
           // variant="outline"
-          className="bg-white text-black hover:text-white"
+          className="bg-white text-black hover:text-white px-[2rem]"
         >
           Title
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-          <h2 className="font-semibold text-xl">Create Title</h2>
+        <h2 className="font-semibold text-xl">Create Title</h2>
         <TitleForm></TitleForm>
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>

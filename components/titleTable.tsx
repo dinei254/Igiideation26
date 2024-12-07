@@ -184,9 +184,7 @@ function TitleTable() {
                 </Button>
               </Link>
 
-              <Button className="bg-white">
-                <TitleCard></TitleCard>
-              </Button>
+              <TitleCard></TitleCard>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

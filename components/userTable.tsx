@@ -3,8 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { AdminCard } from "./adminCard";
-// import { useRouter } from "next/navigation";
-// import { Link } from "react-router-dom";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -30,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { JudgeCard } from "./judgeCard";
 import {
   Table,
   TableBody,
@@ -77,14 +77,6 @@ export type User = {
 
   position: "Judge" | "Admin";
   User: string;
-};
-
-const editRow = (row: any) => {
-  console.log("Button 1 clicked for row:", row.original);
-};
-
-const deleteRow = (row: any) => {
-  console.log("Button 2 clicked for row:", row.original);
 };
 
 export const columns: ColumnDef<User>[] = [
@@ -147,10 +139,12 @@ function UserTable() {
           className="max-w-sm"
         />
         <div className="flex flex-row">
-          <Button className="mr-5 ">
+          <div className="mr-5">
             <AdminCard></AdminCard>
-          </Button>
-          <Button>Create Judge</Button>
+          </div>
+          <div>
+            <JudgeCard></JudgeCard>
+          </div>
         </div>
       </div>
       {/* the table */}
