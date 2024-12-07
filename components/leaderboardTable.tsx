@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
-// import { Link } from "react-router-dom";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -37,7 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data: Payment[] = [
+const data: Leaderboard[] = [
   {
     userRank: 1,
     mark: 316,
@@ -76,7 +75,7 @@ const data: Payment[] = [
   },
 ];
 
-export type Payment = {
+export type Leaderboard = {
   userRank: number;
   mark: number;
   position: "Judge" | "Admin";
@@ -91,7 +90,7 @@ const deleteRow = (row: any) => {
   console.log("Button 2 clicked for row:", row.original);
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Leaderboard>[] = [
   {
     accessorKey: "userRank",
     header: "Rank",

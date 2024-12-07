@@ -38,48 +38,42 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data: Payment[] = [
+const data: User[] = [
   {
     id: 1,
-    amount: 316,
     position: "Admin",
     User: "ken99@yahoo.com",
   },
   {
     id: 2,
-    amount: 242,
     position: "Admin",
     User: "Abe45@gmail.com",
   },
   {
     id: 3,
-    amount: 837,
     position: "Judge",
     User: "Monserrat44@gmail.com",
   },
   {
     id: 4,
-    amount: 874,
     position: "Judge",
     User: "Silas22@gmail.com",
   },
   {
     id: 5,
-    amount: 721,
     position: "Judge",
     User: "carmella@hotmail.com",
   },
   {
     id: 6,
-    amount: 721,
     position: "Judge",
     User: "carmella@hotmail.com",
   },
 ];
 
-export type Payment = {
+export type User = {
   id: number;
-  amount: number;
+
   position: "Judge" | "Admin";
   User: string;
 };
@@ -92,7 +86,7 @@ const deleteRow = (row: any) => {
   console.log("Button 2 clicked for row:", row.original);
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -152,9 +146,7 @@ function UserTable() {
           className="max-w-sm"
         />
         <div className="flex flex-row">
-          <Button className="mr-5 ">
-            Create Admin
-          </Button>
+          <Button className="mr-5 ">Create Admin</Button>
           <Button>Create Judge</Button>
         </div>
       </div>

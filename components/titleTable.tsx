@@ -2,8 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
-// import { Link } from "react-router-dom";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -17,8 +15,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
+import { TitleCard } from "./titleCard";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -38,7 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data: Payment[] = [
+const data: Title[] = [
   {
     id: 1,
     amount: 316,
@@ -77,7 +75,7 @@ const data: Payment[] = [
   },
 ];
 
-export type Payment = {
+export type Title = {
   id: number;
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
@@ -92,7 +90,7 @@ const deleteRow = (row: any) => {
   console.log("Button 2 clicked for row:", row.original);
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Title>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -128,6 +126,7 @@ export const columns: ColumnDef<Payment>[] = [
 
 function TitleTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -135,6 +134,8 @@ function TitleTable() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  
+  
   const table = useReactTable({
     data,
     columns,
@@ -184,10 +185,12 @@ function TitleTable() {
                   User
                 </Button>
               </Link>
-
-              <Button className="bg-white text-black hover:text-white">
-                Title
-              </Button>
+             
+                <Button className="bg-white text-black hover:text-white"
+                  >
+                  Title
+                </Button>
+              
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import LeaderboardTable from "@/components/leaderboardTable";
+import TitleForm from "@/components/titleForm";
 
 export default function CreateUser() {
   return (
@@ -9,6 +10,7 @@ export default function CreateUser() {
       <div className="mx-28 my-10">
         <LeaderboardTable></LeaderboardTable>
       </div>
+        <TitleForm></TitleForm>
     </div>
   );
 }
