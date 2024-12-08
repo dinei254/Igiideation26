@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { AdminCard } from "./admin-card";
 
 import {
   ColumnDef,
@@ -15,6 +16,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { JudgeCard } from "./judge-card";
 import {
   Table,
   TableBody,
@@ -35,59 +38,52 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AdminCard } from "./adminCard";
 
-const data: Leaderboard[] = [
+const data: User[] = [
   {
-    userRank: 1,
-    mark: 316,
+    id: 1,
     position: "Admin",
     User: "ken99@yahoo.com",
   },
   {
-    userRank: 2,
-    mark: 242,
+    id: 2,
     position: "Admin",
     User: "Abe45@gmail.com",
   },
   {
-    userRank: 3,
-    mark: 837,
+    id: 3,
     position: "Judge",
     User: "Monserrat44@gmail.com",
   },
   {
-    userRank: 4,
-    mark: 874,
+    id: 4,
     position: "Judge",
     User: "Silas22@gmail.com",
   },
   {
-    userRank: 5,
-    mark: 721,
+    id: 5,
     position: "Judge",
     User: "carmella@hotmail.com",
   },
   {
-    userRank: 6,
-    mark: 721,
+    id: 6,
     position: "Judge",
     User: "carmella@hotmail.com",
   },
 ];
 
-export type Leaderboard = {
-  userRank: number;
-  mark: number;
+export type User = {
+  id: number;
+
   position: "Judge" | "Admin";
   User: string;
 };
 
-export const columns: ColumnDef<Leaderboard>[] = [
+export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: "userRank",
-    header: "Rank",
-    cell: ({ row }) => <div>{row.getValue("userRank")}</div>,
+    accessorKey: "id",
+    header: "ID",
+    cell: ({ row }) => <div>{row.getValue("id")}</div>,
   },
   {
     accessorKey: "User",
@@ -95,13 +91,15 @@ export const columns: ColumnDef<Leaderboard>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("User")}</div>,
   },
   {
-    accessorKey: "mark",
-    header: "Mark",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("mark")}</div>,
+    accessorKey: "position",
+    header: "Position",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("position")}</div>
+    ),
   },
 ];
 
-function LeaderboardTable() {
+function UserTable() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -131,6 +129,24 @@ function LeaderboardTable() {
 
   return (
     <div className="w-full">
+      <div className="flex items-center py-4 gap-[45rem] ">
+        <Input
+          placeholder="Filter User..."
+          value={(table.getColumn("User")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("User")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <div className="flex flex-row">
+          <div className="mr-5">
+            <AdminCard></AdminCard>
+          </div>
+          <div>
+            <JudgeCard></JudgeCard>
+          </div>
+        </div>
+      </div>
       {/* the table */}
       <div className="rounded-md border">
         <Table>
@@ -186,4 +202,4 @@ function LeaderboardTable() {
   );
 }
 
-export default LeaderboardTable;
+export default UserTable;

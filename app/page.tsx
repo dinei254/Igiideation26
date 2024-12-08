@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AdminPage from "./adminPages/page"
+import AdminPage from "./admin/page";
 import Link from "next/link";
 
 export default function Home() {
@@ -7,6 +7,5 @@ export default function Home() {
     <div>
       <AdminPage></AdminPage>
     </div>
-
   );
 }

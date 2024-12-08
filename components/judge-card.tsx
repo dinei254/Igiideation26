@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import AdminForm from "./adminForm";
+import JudgeForm from "./judge-form";
 
-export function AdminCard() {
+export function JudgeCard() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,12 +20,12 @@ export function AdminCard() {
           // variant="outline"
           className="bg-black text-white hover:text-white"
         >
-          Create Admin
+          Create Judge
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogTitle>Create Admin</DialogTitle>
-        <AdminForm></AdminForm>
+        <DialogTitle>Create Judge</DialogTitle>
+        <JudgeForm></JudgeForm>
       </DialogContent>
     </Dialog>
   );

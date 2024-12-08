@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import UserTable from "@/components/userTable";
+import UserTable from "@/components/user-table";
 
 export default function CreateUser() {
   return (

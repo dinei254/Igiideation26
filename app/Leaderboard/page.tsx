@@ -1,5 +1,5 @@
 
-import LeaderboardTable from "@/components/leaderboardTable";
+import LeaderboardTable from "@/components/leaderboard-table";
 
 export default function CreateUser() {
   return (

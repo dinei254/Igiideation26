@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TitleCard } from "./titleCard";
+import { TitleCard } from "./title-card";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { DeleteCard } from "./deleteCard";
+import { DeleteCard } from "./delete-card";
 import {
   Table,
   TableBody,
@@ -36,6 +36,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { EditCard } from "./edit-card";
 
 const data: Title[] = [
   {
@@ -106,7 +107,7 @@ export const columns: ColumnDef<Title>[] = [
     header: () => <div className="text-right">Action</div>,
     cell: ({ row }) => (
       <div className="flex justify-end space-x-2">
-        <Button size="sm">Edit</Button>
+        <div><EditCard></EditCard></div>
         <div>
           <DeleteCard></DeleteCard>
         </div>
@@ -156,7 +157,7 @@ function TitleTable() {
           className="max-w-sm"
         />
         <div className="flex flex-row">
-          <Link href="/Leaderboard">
+          <Link href="/leaderboard">
             <Button className="mr-5 text-black bg-white border-2 hover:bg-gray-200">
               Leaderboard
             </Button>
@@ -169,7 +170,7 @@ function TitleTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="flex flex-col justify-center items-center ">
-              <Link href="/createUser" className=" ">
+              <Link href="/create-user" className=" ">
                 <Button className="bg-white text-black hover:text-white px-[2rem] ">
                   User
                 </Button>

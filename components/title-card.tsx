@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import TitleForm from "./titleForm"
+import TitleForm from "./title-form"
 
 export function TitleCard() {
   return (
@@ -24,7 +24,7 @@ export function TitleCard() {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <h2 className="font-semibold text-xl">Create Title</h2>
+        <DialogTitle>Create Title</DialogTitle>
         <TitleForm></TitleForm>
         {/* <DialogFooter>
           <Button type="submit">Save changes</Button>

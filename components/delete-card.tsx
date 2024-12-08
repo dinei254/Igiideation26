@@ -15,14 +15,16 @@ export function DeleteCard() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="bg-red-500">Delete</Button>
+        <Button variant="outline" className="hover:bg-red-500 ">
+          Delete
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            title and remove the data from the database.
+            This action cannot be undone. This will permanently delete the title
+            and remove the data from the database.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

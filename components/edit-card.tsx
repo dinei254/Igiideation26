@@ -10,22 +10,25 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import JudgeForm from "./judgeForm";
+import EditForm from "./edit-form";
 
-export function JudgeCard() {
+export function EditCard() {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           // variant="outline"
-          className="bg-black text-white hover:text-white"
+          className=" hover:text-white "
         >
-          Create Judge
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogTitle>Create Judge</DialogTitle>
-        <JudgeForm></JudgeForm>
+        <DialogTitle>Edit Title</DialogTitle>
+        <EditForm></EditForm>
+        {/* <DialogFooter>
+          <Button type="submit">Save changes</Button>
+        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );
