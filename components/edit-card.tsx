@@ -2,33 +2,26 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import EditForm from "./edit-form";
+import { Title } from "./title-table"; // Make sure to import the Title type
 
-export function EditCard() {
+interface EditCardProps {
+  title: Title;
+  onEdit: (updatedTitle: Title) => void;
+}
+
+export function EditCard({ title, onEdit }: EditCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          // variant="outline"
-          className=" hover:text-white "
-        >
-          Edit
-        </Button>
+        <Button className="hover:text-white">Edit</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogTitle>Edit Title</DialogTitle>
-        <EditForm></EditForm>
-        {/* <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter> */}
+        <EditForm title={title} onSubmit={onEdit} />
       </DialogContent>
     </Dialog>
   );

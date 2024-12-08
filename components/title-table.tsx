@@ -27,7 +27,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { DeleteCard } from "./delete-card";
 import {
   Table,
   TableBody,
@@ -36,95 +35,143 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { EditCard } from "./edit-card";
-
-const data: Title[] = [
-  {
-    id: 1,
-    amount: 316,
-    status: "success",
-    title: "ken99@yahoo.com",
-  },
-  {
-    id: 2,
-    amount: 242,
-    status: "success",
-    title: "Abe45@gmail.com",
-  },
-  {
-    id: 3,
-    amount: 837,
-    status: "processing",
-    title: "Monserrat44@gmail.com",
-  },
-  {
-    id: 4,
-    amount: 874,
-    status: "success",
-    title: "Silas22@gmail.com",
-  },
-  {
-    id: 5,
-    amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
-  },
-  {
-    id: 6,
-    amount: 721,
-    status: "failed",
-    title: "carmella@hotmail.com",
-  },
-];
+import { TitleDialog } from "@/components/title-dialog";
+import { EditCard } from "@/components/edit-card";
+import { DeleteCard } from "@/components/delete-card";
 
 export type Title = {
   id: number;
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
   title: string;
+  video: string;
+  support: string;
+  poster: string;
 };
 
-export const columns: ColumnDef<Title>[] = [
+const initialData: Title[] = [
   {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => <div>{row.getValue("id")}</div>,
+    id: 1,
+    amount: 316,
+    status: "pending",
+    title: "project ikan keli",
+    video: "video.com",
+    support: "support.com",
+    poster: "poster.com",
   },
   {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
+    id: 2,
+    amount: 242,
+    status: "pending",
+    title: "Maybank Virtual bank",
+    video: "video.com",
+    support: "support.com",
+    poster: "poster.com",
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
+    id: 3,
+    amount: 837,
+    status: "processing",
+    title: "Monserrat44@gmail.com",
+    video: "video.com",
+    support: "support.com",
+    poster: "poster.com",
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Action</div>,
-    cell: ({ row }) => (
-      <div className="flex justify-end space-x-2">
-        <div><EditCard></EditCard></div>
-        <div>
-          <DeleteCard></DeleteCard>
-        </div>
-      </div>
-    ),
+    id: 4,
+    amount: 874,
+    status: "success",
+    title: "Silas22@gmail.com",
+    video: "video.com",
+    support: "support.com",
+    poster: "poster.com",
+  },
+  {
+    id: 5,
+    amount: 721,
+    status: "failed",
+    title: "carmella@hotmail.com",
+    video: "video.com",
+    support: "support.com",
+    poster: "poster.com",
   },
 ];
 
 function TitleTable() {
+  const [data, setData] = React.useState<Title[]>(initialData);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [selectedTitle, setSelectedTitle] = React.useState("");
+  const [selectedVideo, setSelectedVideo] = React.useState("");
+  const [selectedSupport, setSelectedSupport] = React.useState("");
+  const [selectedPoster, setSelectedPoster] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
-
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const handleTitleUpdate = (updatedTitle: Title ) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === updatedTitle.id ? updatedTitle : item
+      )
+    );
+  };
+
+  const handleTitleDelete = (id: number) => {
+    setData((prevData) => prevData.filter((item) => item.id !== id));
+  };
+
+  const columns: ColumnDef<Title>[] = [
+    {
+      accessorKey: "id",
+      header: "ID",
+      cell: ({ row }) => <div>{row.getValue("id")}</div>,
+    },
+    {
+      accessorKey: "title",
+      header: "Title",
+      cell: ({ row }) => {
+        const { title, video, support, poster } = row.original;
+        return (
+          <div
+            className="lowercase cursor-pointer hover:underline"
+            onClick={() => {
+              setSelectedTitle(title);
+              setSelectedVideo(video);
+              setSelectedSupport(support);
+              setSelectedPoster(poster);
+              setIsDialogOpen(true);
+            }}
+          >
+            {title}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("status")}</div>
+      ),
+    },
+    {
+      accessorKey: "amount",
+      header: () => <div className="text-right">Action</div>,
+      cell: ({ row }) => {
+        const title = row.original;
+        return (
+          <div className="flex justify-end space-x-2">
+            <EditCard title={title} onEdit={handleTitleUpdate} />
+            <DeleteCard onDelete={() => handleTitleDelete(title.id)} />
+          </div>
+        );
+      },
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -181,23 +228,22 @@ function TitleTable() {
           </DropdownMenu>
         </div>
       </div>
+      <div className="rounded-md border"></div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -231,6 +277,14 @@ function TitleTable() {
           </TableBody>
         </Table>
       </div>
+      <TitleDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        title={selectedTitle}
+        video={selectedVideo}
+        support={selectedSupport}
+        poster={selectedPoster}
+      />
     </div>
   );
 }
