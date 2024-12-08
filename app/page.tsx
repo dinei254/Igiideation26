@@ -7,9 +7,14 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Sponsor from "@/app/components/sponsors"
+import AdminPage from "./admin/page";
+import Link from "next/link";
 
 export default function Landing() {
   return (
+          
+      </>    
+      <AdminPage></AdminPage>
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <Link href="#" className="flex items-center justify-center" prefetch={false}>
@@ -127,9 +132,11 @@ export default function Landing() {
           </Link>
         </nav>
       </footer>
-    </div>
+    </>
   )
 }
+
+
 
 function MountainIcon(props) {
   return (
