@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function Login() {
   return (
@@ -24,6 +25,14 @@ export default function Login() {
             <Button type="submit" className="w-full">
               Login
             </Button>
+            <div className="flex justify-between mt-4">
+              <Link href="/admin/" className="text-sm text-blue-500 hover:underline">
+                Go to Admin Page
+              </Link>
+              <Link href="/judge" className="text-sm text-blue-500 hover:underline">
+                Go to Dashboard
+              </Link>
+            </div>
           </div>
         </CardContent>
       </Card>
