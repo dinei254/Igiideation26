@@ -5,7 +5,7 @@
  */
 import Link from "next/link"
 import Sponsor from "@/components/sponsors"
-import AdminPage from "./admin/page";
+import AdminPage from "./admin/dashboard/projects/page";
 
 export default function Landing() {
   return (

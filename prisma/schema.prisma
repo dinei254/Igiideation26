@@ -35,22 +35,23 @@ model Judge {
 
 model Project {
   id                      String               @id @default(uuid()) @map("_id")
-  teamName                String
-  advisorName             String
-  teamLeaderName          String
-  participantsName        String[]
-  email                   String
-  phoneNumber             String
   titleOfInnovation       String
-  categoryOfInnovation    String
   abstractLink            String
-  supportingDocumentLinks String[]
+  supportingDocumentLink1 String
+  supportingDocumentLink2 String
+  supportingDocumentLink3 String
   posterLink              String
   videoLink               String
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
+  status                  ProjectStatus
   JudgeProjectBridge      JudgeProjectBridge[]
   marks                   Mark[]
+}
+
+enum ProjectStatus {
+  PENDING
+  COMPLETE
 }
 
 model Mark {
