@@ -1,15 +1,10 @@
 "use client";
 
+import { FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -19,9 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TitleDialog } from "@/components/title-dialog";
 import { useState } from "react";
-import { Project } from "@prisma/client";
+import { Judge, Project } from "@prisma/client";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,14 +26,34 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import AdminHeader from "@/components/admin-header";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { ImCross } from "react-icons/im";
 
 export default function AdminDashboardPage() {
   const [projects, setProjects] = useState<Project[]>();
+  const [judges, setJudges] = useState<Judge[]>();
+  const [selectedJudgesName, setSelectedJudgesName] = useState<Judge[]>([]);
+  const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [projectForm, setProjectForm] = useState({
     titleOfInnovation: "",
     abstractLink: "",
@@ -64,16 +78,33 @@ export default function AdminDashboardPage() {
 
   const handleGetProjects = async () => {
     setIsLoading(true);
+
     try {
       const res = await fetch("/api/projects", { method: "GET" });
       if (res.ok) {
         const data = await res.json();
         setProjects(data);
+        setUpdatedProjectForm(data);
       }
     } catch (error: any) {
       console.error(`Failed to load projects`, error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGetJudges = async () => {
+    try {
+      const res = await fetch("/api/judges", {
+        method: "GET",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setJudges(data);
+      }
+    } catch (error) {
+      console.error(`Failed to get judges : ${error}`);
     }
   };
 
@@ -105,10 +136,24 @@ export default function AdminDashboardPage() {
     });
   };
 
-  const handleUpdateProject = async () => {
+  const handleUpdateProjectForm = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setUpdatedProjectForm({
+      ...projectForm,
+      [id]: value,
+    });
+  };
+
+  const handleUpdateProject = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+
     try {
       const formData = new FormData();
-      formData.append("project", JSON.stringify(projectForm));
+      formData.append("project", JSON.stringify(updatedProjectForm));
+      formData.append("id", id);
 
       const res = await fetch("/api/project", {
         method: "PATCH",
@@ -119,7 +164,7 @@ export default function AdminDashboardPage() {
         location.reload();
       }
     } catch (error) {
-      console.error(`Failed to create project : ${error}`);
+      console.error(`Failed to update project : ${error}`);
     }
   };
 
@@ -141,22 +186,49 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const handleAssignJudges = async (projectId: string) => {
+    try {
+      const formdata = new FormData();
+      formdata.append("judges", JSON.stringify(selectedJudges));
+      formdata.append("projectId", projectId);
+
+      const res = await fetch("/api/assign-judge", {
+        method: "POST",
+        body: formdata,
+      });
+
+      if (res.ok) {
+        location.reload();
+      }
+    } catch (error: any) {
+      console.error(`Failed to assign judges : ${error}`);
+    }
+  };
+
   useEffect(() => {
-    handleGetProjects();
+    async function getData() {
+      await handleGetProjects();
+      await handleGetJudges();
+    }
+
+    getData();
   }, []);
 
   return (
     <div>
+      <AdminHeader />
       <div className="m-20 px-5">
-        <div>
-          <h1 className="text-3xl">Welcome Admin! </h1>
-        </div>
+        <h1 className="text-2xl mb-5 font-semibold">Projects Dashboard</h1>
         <div className="w-full">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
+                <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
                 <BreadcrumbLink href="/admin/dashboard/projects">
-                  Project Dashboard
+                  Projects
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -166,11 +238,12 @@ export default function AdminDashboardPage() {
           <div className="flex items-center py-4 justify-between">
             <Input placeholder="Filter title..." className="max-w-sm" />
             <div className="flex flex-row">
-              <Link href="/admin/leaderboard">
-                <Button className="mr-5 text-black bg-white border-2 hover:bg-gray-200">
-                  Leaderboard
-                </Button>
-              </Link>
+              <Button
+                className="mr-5 text-black bg-white border-2 hover:bg-gray-200"
+                asChild
+              >
+                <Link href="/admin/dashboard/leaderboard">Leaderboard</Link>
+              </Button>
 
               <Dialog>
                 <DialogTrigger className="bg-primary text-secondary font-semibold rounded-md p-1 px-2">
@@ -234,21 +307,6 @@ export default function AdminDashboardPage() {
                   </form>
                 </DialogContent>
               </Dialog>
-
-              {/* <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Create <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex flex-col justify-center items-center ">
-                  <Link href="/create-user" className=" ">
-                    <Button className="bg-white text-black hover:text-white px-[2rem] ">
-                      User
-                    </Button>
-                  </Link>
-                </DropdownMenuContent>
-              </DropdownMenu> */}
             </div>
           </div>
           <div className="rounded-md border">
@@ -258,6 +316,7 @@ export default function AdminDashboardPage() {
                   <TableHead>Project ID</TableHead>
                   <TableHead>Project title</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead>Judges assigned</TableHead>
                   <TableHead>Action(s)</TableHead>
                 </TableRow>
               </TableHeader>
@@ -268,27 +327,50 @@ export default function AdminDashboardPage() {
                     <TableCell>{project.id}</TableCell>
                     <TableCell>{project.titleOfInnovation}</TableCell>
                     <TableCell>{project.status}</TableCell>
+                    <TableCell>
+                      {project.assignedJudges?.length || 0} judge(s)
+                    </TableCell>
                     <TableCell className="flex items-center gap-x-2">
-                      <FaTrash
-                        className="cursor-pointer"
-                        onClick={() => handleDeleteProject(project.id)}
-                      />
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <FaTrash
+                              className="cursor-pointer"
+                              onClick={() => handleDeleteProject(project.id)}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Delete project</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
 
                       <Dialog>
                         <DialogTrigger>
-                          <FaEdit />
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <FaEdit className="cursor-pointer" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Edit project</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
                             <DialogTitle>Update Project</DialogTitle>
                           </DialogHeader>
-                          <form onSubmit={handleUpdateProject}>
+                          <form
+                            onSubmit={(e) => handleUpdateProject(e, project.id)}
+                          >
                             <div>
                               <Label>Title of innovation</Label>
                               <Input
                                 id="titleOfInnovation"
                                 required
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 defaultValue={project.titleOfInnovation}
                               />
                             </div>
@@ -296,7 +378,7 @@ export default function AdminDashboardPage() {
                               <Label>Abstract Link</Label>
                               <Input
                                 id="abstractLink"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 defaultValue={project.abstractLink}
                               />
                             </div>
@@ -304,7 +386,7 @@ export default function AdminDashboardPage() {
                               <Label>Poster Link</Label>
                               <Input
                                 id="posterLink"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 defaultValue={project.posterLink}
                               />
                             </div>
@@ -312,7 +394,7 @@ export default function AdminDashboardPage() {
                               <Label>Video Link</Label>
                               <Input
                                 id="videoLink"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 defaultValue={project.videoLink}
                               />
                             </div>
@@ -320,20 +402,20 @@ export default function AdminDashboardPage() {
                               <Label>Supporting documents</Label>
                               <Input
                                 placeholder="Supporting document 1"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 id="supportingDocumentLink1"
                                 defaultValue={project.supportingDocumentLink1}
                               />
                               <Input
                                 placeholder="Supporting document 2"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 id="supportingDocumentLink2"
                                 defaultValue={project.supportingDocumentLink2}
                               />
                               <Input
                                 placeholder="Supporting document 3"
                                 id="supportingDocumentLink3"
-                                onChange={(e) => handleChangeProjectForm(e)}
+                                onChange={(e) => handleUpdateProjectForm(e)}
                                 defaultValue={project.supportingDocumentLink3}
                               />
                             </div>
@@ -341,6 +423,85 @@ export default function AdminDashboardPage() {
                               Create Title
                             </Button>
                           </form>
+                        </DialogContent>
+                      </Dialog>
+
+                      <Dialog>
+                        <DialogTrigger>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <FaUserCheck className="cursor-pointer" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Assign Mentor</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Assign Judges</DialogTitle>
+                            <DialogDescription>
+                              Choose judges to be assigned to project "
+                              {project.titleOfInnovation}"
+                            </DialogDescription>
+                          </DialogHeader>
+                          <Select
+                            onValueChange={(value) => {
+                              const parsedJudge = JSON.parse(value);
+                              if (
+                                selectedJudges.find(
+                                  (judge) => judge.name === parsedJudge.name
+                                ) === undefined
+                              )
+                                setSelectedJudges([
+                                  ...selectedJudges!,
+                                  parsedJudge,
+                                ]);
+                            }}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select judges" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {judges?.map((judge) => (
+                                <SelectItem
+                                  key={judge.id}
+                                  value={JSON.stringify(judge)}
+                                >
+                                  {judge.name} (Currently judging :{" "}
+                                  {judge.projectToBeJudged?.length || 0}{" "}
+                                  project)
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <div className="mt-3 flex-wrap ">
+                            {selectedJudges?.map((judge) => (
+                              <Badge key={judge.id} className="mx-1">
+                                {judge.name}{" "}
+                                <ImCross
+                                  size={6}
+                                  className="ml-2 cursor-pointer"
+                                  onClick={() => {
+                                    const filteredJudges =
+                                      selectedJudges.filter(
+                                        (currentJudge) =>
+                                          currentJudge.id !== judge.id
+                                      );
+                                    setSelectedJudges(filteredJudges);
+                                  }}
+                                />
+                              </Badge>
+                            ))}
+                          </div>
+                          <Button
+                            className="w-full mt-5"
+                            onClick={() => handleAssignJudges(project.id)}
+                          >
+                            Assign Mentors
+                          </Button>
                         </DialogContent>
                       </Dialog>
                     </TableCell>

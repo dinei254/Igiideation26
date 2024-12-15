@@ -64,6 +64,7 @@ export async function PATCH(req: NextRequest) {
     const updatedProject: Project = JSON.parse(
       formData.get("project") as string
     );
+    const id = formData.get("id") as string;
 
     if (!updatedProject)
       return NextResponse.json(
@@ -73,7 +74,7 @@ export async function PATCH(req: NextRequest) {
 
     const project = await prisma.project.update({
       where: {
-        id: updatedProject.id,
+        id: id,
       },
       data: {
         titleOfInnovation: updatedProject.titleOfInnovation,

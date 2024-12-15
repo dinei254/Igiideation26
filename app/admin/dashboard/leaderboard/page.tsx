@@ -1,4 +1,3 @@
-
 import LeaderboardTable from "@/components/leaderboard-table";
 
 export default function CreateUser() {
@@ -8,7 +7,6 @@ export default function CreateUser() {
       <div className="mx-28 my-10">
         <LeaderboardTable></LeaderboardTable>
       </div>
-        
     </div>
   );
 }

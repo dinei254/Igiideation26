@@ -6,7 +6,9 @@ import prisma from "@/prisma/db";
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
+
     const type = formData.get("type") as string;
+    console.log(type);
 
     if (!type) {
       return NextResponse.json(
@@ -75,7 +77,7 @@ export async function POST(req: NextRequest) {
       }
     }
   } catch (error) {
-    throw error;
+    console.error(error);
   }
 }
 
@@ -90,7 +92,10 @@ export const hashPassword = async (password: string) => {
   }
 };
 
-export const verifyPassword = async (password: string, hashedPassword: string) => {
+export const verifyPassword = async (
+  password: string,
+  hashedPassword: string
+) => {
   try {
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
