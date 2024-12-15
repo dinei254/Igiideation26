@@ -19,18 +19,37 @@ const questions = [
 export default function EvalForm({ projectId }: { projectId: string }) {
   const [ratings, setRatings] = useState<Record<string, string>>({})
   const [juryComments, setJuryComments] = useState<string>('')
+  const [error, setError] = useState<string | null>(null)
+  const [averageScore, setAverageScore] = useState<number | null>(null)
 
   const handleSubmit = () => {
+    // Check if all questions are rated
+    const unansweredQuestions = questions.filter(question => !ratings[question])
+    if (unansweredQuestions.length > 0) {
+      setError(`Please rate all questions: ${unansweredQuestions.join(', ')}`)
+      return
+    }
+
+    // Clear error
+    setError(null)
+
+    // Calculate the average score
+    const scores = Object.values(ratings).map(Number)
+    const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length
+    setAverageScore(avgScore)
+
+    // Result object
     const result = {
       project_id: projectId,
       ratings,
       jury_comments: juryComments,
+      average_score: avgScore.toFixed(2),
     }
     console.log(JSON.stringify(result, null, 2))
   }
 
   const handleReviewRubrics = () => {
-    const rubricUrl = '/rubrics.pdf'
+    const rubricUrl = '/Judges-Criteria-Rubric.pdf'
     window.open(rubricUrl, '_blank')
   }
 
@@ -75,6 +94,12 @@ export default function EvalForm({ projectId }: { projectId: string }) {
             onChange={(e) => setJuryComments(e.target.value)}
           />
         </div>
+        {error && (
+          <p className="text-red-600 font-medium">{error}</p>
+        )}
+        {averageScore !== null && (
+          <p className="text-green-600 font-medium">Average Score: {averageScore.toFixed(2)}</p>
+        )}
       </CardContent>
       <CardFooter className="flex justify-between p-4">
         <Button variant="outline" onClick={handleReviewRubrics}>
