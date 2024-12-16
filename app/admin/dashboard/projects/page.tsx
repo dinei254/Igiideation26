@@ -1,6 +1,6 @@
 "use client";
 
-import { FaUserCheck } from "react-icons/fa";
+import { FaPlus, FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import Link from "next/link";
@@ -191,7 +191,7 @@ export default function AdminDashboardPage() {
       const formdata = new FormData();
       formdata.append("judges", JSON.stringify(selectedJudges));
       formdata.append("projectId", projectId);
-
+      1;
       const res = await fetch("/api/assign-judge", {
         method: "POST",
         body: formdata,
@@ -218,7 +218,9 @@ export default function AdminDashboardPage() {
     <div>
       <AdminHeader />
       <div className="m-20 px-5">
-        <h1 className="text-2xl mb-5 font-semibold">Projects Dashboard</h1>
+        <h1 className="text-2xl mb-5 font-semibold">
+          Project Management Dashboard
+        </h1>
         <div className="w-full">
           <Breadcrumb>
             <BreadcrumbList>
@@ -246,8 +248,9 @@ export default function AdminDashboardPage() {
               </Button>
 
               <Dialog>
-                <DialogTrigger className="bg-primary text-secondary font-semibold rounded-md p-1 px-2">
-                  Create Title
+                <DialogTrigger className="bg-primary text-secondary rounded-md p-1 px-2 flex items-center gap-x-2">
+                  <FaPlus />
+                  Create Project
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>

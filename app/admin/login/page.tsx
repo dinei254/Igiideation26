@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { Spinner } from "@/components/spinner-loading";
 import { redirect } from "next/navigation";
@@ -21,7 +22,8 @@ const AdminLoginPage = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loginStatus, setLoginStatus] = useState("idle");
-
+  const router = useRouter();
+  
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -49,7 +51,9 @@ const AdminLoginPage = () => {
       setIsLoading(false);
       setLoginStatus("idle");
 
-      if (isAuth) redirect("/admin/dashboard/projects");
+      if (isAuth) {
+        router.push("/admin/dashboard/projects");
+      }
     }
   };
 

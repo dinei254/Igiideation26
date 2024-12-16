@@ -233,7 +233,7 @@ const UsersDashboardPage = () => {
     <div>
       <AdminHeader />
       <div className="m-20 px-5">
-        <h1 className="text-2xl font-semibold mb-5">Users Dashboard</h1>
+        <h1 className="text-2xl font-semibold mb-5">Account Management Dashboard</h1>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

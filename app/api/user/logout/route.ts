@@ -1,11 +1,15 @@
-import prisma from "@/prisma/db";
-import { deleteSession } from "@/util/session";
+import { decrypt, deleteSession } from "@/util/session";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
-    const userId = formData.get("id") as string;
+    const sessionCookie = req.cookies.get("session");
+    const session = sessionCookie?.value;
+
+    const payload = await decrypt(session);
+    const userId = payload?.userId;
+
+    console.log(userId)
 
     if (!userId)
       return NextResponse.json(
@@ -15,7 +19,10 @@ export async function POST(req: NextRequest) {
 
     await deleteSession(userId);
 
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.json(
+      { message: "Successfully logout" },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error(`Failed to logout from account`, error);
     throw error;
