@@ -15,7 +15,7 @@ export const GoogleDriveVideo: React.FC<GoogleDriveVideoProps> = ({ fileId, widt
         src={embedUrl}
         width={width}
         height={height}
-        allow="autoplay"
+        allow="autoplay; fullscreen"
         className="w-full h-full"
       ></iframe>
     </div>
