@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
     const payload = await decrypt(session);
     const userId = payload?.userId;
 
-    console.log(userId)
 
     if (!userId)
       return NextResponse.json(

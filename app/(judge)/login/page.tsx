@@ -10,11 +10,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { redirect } from "next/navigation";
 import { Spinner } from "@/components/spinner-loading";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { JudgeContext } from "@/hooks/JudgeProvider";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -22,6 +22,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [loginStatus, setLoginStatus] = useState("idle");
   const router = useRouter();
+  const judge = useContext(JudgeContext);
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,8 +40,11 @@ export default function Login() {
         body: formData,
       });
 
+      const judgeInfo = await res.json();
+
       if (res.ok) {
         isAuth = true;
+        judge?.setJudgeId(judgeInfo.id);
       } else {
         setLoginStatus("failed");
       }
@@ -59,7 +63,9 @@ export default function Login() {
       <form onSubmit={handleLogin}>
         <Card className="mx-auto max-w-sm">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Login as Judge</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              Login as Judge Account
+            </CardTitle>
             <CardDescription>
               Enter your email and password to login to your account
             </CardDescription>

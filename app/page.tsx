@@ -5,7 +5,7 @@
  */
 import Link from "next/link";
 import Sponsor from "@/components/sponsors";
-import AdminPage from "./admin/dashboard/projects/page";
+import AdminPage from "./(admin)/admin/dashboard/projects/page";
 import Image from "next/image";
 
 export default function Landing() {
