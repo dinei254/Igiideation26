@@ -8,7 +8,6 @@ import {
   FileText,
   File,
   Star,
-  PlusCircle,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
