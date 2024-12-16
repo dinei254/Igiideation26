@@ -8,7 +8,25 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const projectId = formData.get("projectId") as string;
-    const mark: Mark = JSON.parse(formData.get("mark") as string);
+    const noveltyAndUniquenessMark = parseInt(
+      formData.get("noveltyAndUniquenessMark") as string
+    );
+    const benefitToMankindMark = parseInt(
+      formData.get("benefitToMankindMark") as string
+    );
+    const commercializationMark = parseInt(
+      formData.get("commercializationMark") as string
+    );
+    const statusOfInventionMark = parseInt(
+      formData.get("statusOfInventionMark") as string
+    );
+    const videoPresentationMark = parseInt(
+      formData.get("videoPresentationMark") as string
+    );
+    const supportingDocumentMark = parseInt(
+      formData.get("supportingDocumentMark") as string
+    );
+    const comments = formData.get("comments") as string;
     const sessionCookie = req.cookies.get("session");
     const jwt = sessionCookie?.value;
 
@@ -48,13 +66,13 @@ export async function POST(req: NextRequest) {
       data: {
         marks: {
           create: {
-            noveltyAndUniquessMark: mark.noveltyAndUniquessMark,
-            benefitToMankindMark: mark.benefitToMankindMark,
-            commercializationMark: mark.commercializationMark,
-            statusOfInventionMark: mark.statusOfInventionMark,
-            videoPresentationMark: mark.videoPresentationMark,
-            supportingDocumentMark: mark.supportingDocumentMark,
-            comments: mark.comments,
+            noveltyAndUniquenessMark: noveltyAndUniquenessMark,
+            benefitToMankindMark: benefitToMankindMark,
+            commercializationMark: commercializationMark,
+            statusOfInventionMark: statusOfInventionMark,
+            videoPresentationMark: videoPresentationMark,
+            supportingDocumentMark: supportingDocumentMark,
+            comments: comments,
           },
         },
       },

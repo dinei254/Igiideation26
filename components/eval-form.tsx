@@ -12,12 +12,21 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { FileText } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 const questions = [
   "Novelty & Uniqueness",
   "Benefit to Mankind",
   "Commercialization",
-  "Status of Invention/Innovation/Design",
+  "Status of Invention / Innovation / Design",
   "Video Presentation",
   "Supporting Documents",
 ];
@@ -26,10 +35,15 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   const [ratings, setRatings] = useState<Record<string, string>>({});
   const [juryComments, setJuryComments] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [averageScore, setAverageScore] = useState<number | null>(null);
+  const [accummulatedScore, setaccummulatedScore] = useState<number | null>(
+    null
+  );
+  const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if all questions are rated
+
+    let isMarkProjectSuccess = false;
     const unansweredQuestions = questions.filter(
       (question) => !ratings[question]
     );
@@ -43,16 +57,42 @@ export default function EvalForm({ projectId }: { projectId: string }) {
 
     // Calculate the average score
     const scores = Object.values(ratings).map(Number);
-    const avgScore = scores.reduce((a, b) => a + b, 0);
-    setAverageScore(avgScore);
+    const totalScore = scores.reduce((a, b) => a + b, 0);
+    console.log(totalScore);
+    setaccummulatedScore(totalScore);
 
     // Result object
     const result = {
       project_id: projectId,
       ratings,
       jury_comments: juryComments,
-      average_score: avgScore.toFixed(2),
+      average_score: totalScore.toFixed(2),
     };
+
+    const formData = new FormData();
+    formData.append("projectId", result.project_id);
+    formData.append("noveltyAndUniquenessMark", result.ratings[questions[0]]);
+    formData.append("benefitToMankindMark", result.ratings[questions[1]]);
+    formData.append("commercializationMark", result.ratings[questions[2]]);
+    formData.append("statusOfInventionMark", result.ratings[questions[3]]);
+    formData.append("videoPresentationMark", result.ratings[questions[4]]);
+    formData.append("supportingDocumentMark", result.ratings[questions[5]]);
+    formData.append("comments", result.jury_comments);
+
+    try {
+      const res = await fetch(`/api/mark-project/${projectId}`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        isMarkProjectSuccess = true;
+      }
+    } catch (error: any) {
+      console.error(error);
+    } finally {
+      if (isMarkProjectSuccess) router.push("/judge");
+    }
   };
 
   const handleReviewRubrics = () => {
@@ -112,9 +152,9 @@ export default function EvalForm({ projectId }: { projectId: string }) {
           />
         </div>
         {error && <p className="text-red-600 font-medium">{error}</p>}
-        {averageScore !== null && (
+        {accummulatedScore !== null && (
           <p className="text-green-600 font-medium">
-            Average Score: {averageScore.toFixed(2)}
+            Average Score: {accummulatedScore.toFixed(2)}
           </p>
         )}
       </CardContent>
@@ -123,7 +163,51 @@ export default function EvalForm({ projectId }: { projectId: string }) {
           <FileText className="mr-2 h-4 w-4" />
           Review Rubrics
         </Button>
-        <Button onClick={handleSubmit}>Submit Evaluation</Button>
+        {/* <Button onClick={handleSubmit}>Submit Evaluation</Button> */}
+        <Dialog>
+          <DialogTrigger className="bg-primary text-white p-2 px-3 rounded-md">
+            Submit marks
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Submit Mark</DialogTitle>
+              <DialogDescription>
+                Are you absolutely sure to submit the mark? <br />
+                <span className="text-red-500 font-semibold">
+                  Submitted mark may cannot be changed after submission.
+                </span>
+              </DialogDescription>
+            </DialogHeader>
+            <h3 className="font-semibold">Summary</h3>
+            <div className="flex justify-between">
+              <p>Novelty & Uniqueness</p>
+              <p className="font-semibold">{ratings[questions[0]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Benefit to Mankind</p>
+              <p className="font-semibold">{ratings[questions[1]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Commercialization</p>
+              <p className="font-semibold">{ratings[questions[2]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Status of Invention / Innovation / Design</p>
+              <p className="font-semibold">{ratings[questions[3]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Video Presentation</p>
+              <p className="font-semibold">{ratings[questions[4]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Supporting Documents</p>
+              <p className="font-semibold">{ratings[questions[5]]}</p>
+            </div>
+            <Button className="mt-5" onClick={handleSubmit}>
+              Submit mark
+            </Button>
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );

@@ -1,16 +1,16 @@
 import React from 'react';
 
 interface GoogleDriveVideoProps {
-  fileId: string;
+  videoLink: string;
   width?: number;
   height?: number;
 }
 
-export const GoogleDriveVideo: React.FC<GoogleDriveVideoProps> = ({ fileId, width = 640, height = 360 }) => {
-  const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+export const GoogleDriveVideo: React.FC<GoogleDriveVideoProps> = ({ videoLink, width = 640, height = 640 }) => {
+  const embedUrl = videoLink;
 
   return (
-    <div className="aspect-w-16 aspect-h-9">
+    <div className="h-screen">
       <iframe
         src={embedUrl}
         width={width}
@@ -23,5 +23,5 @@ export const GoogleDriveVideo: React.FC<GoogleDriveVideoProps> = ({ fileId, widt
 }
 
 // Usage
-const videoId = "1Q_mBewWcVhYwCZpJWFmzHU3-iZIlJqQU"; // Extracted from the debug info
-<GoogleDriveVideo fileId={"1Q_mBewWcVhYwCZpJWFmzHU3-iZIlJqQU"} />;
+// const videoId = "1Q_mBewWcVhYwCZpJWFmzHU3-iZIlJqQU"; // Extracted from the debug info
+// <GoogleDriveVideo videoLink={"1Q_mBewWcVhYwCZpJWFmzHU3-iZIlJqQU"} />;

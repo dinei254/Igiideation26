@@ -59,9 +59,9 @@ export default function AdminDashboardPage() {
     abstractLink: "",
     posterLink: "",
     videoLink: "",
-    supportingDocument1: "",
-    supportingDocument2: "",
-    supportingDocument3: "",
+    supportingDocumentLink1: "",
+    supportingDocumentLink2: "",
+    supportingDocumentLink3: "",
   });
 
   const [updatedProjectForm, setUpdatedProjectForm] = useState({
@@ -69,9 +69,9 @@ export default function AdminDashboardPage() {
     abstractLink: "",
     posterLink: "",
     videoLink: "",
-    supportingDocument1: "",
-    supportingDocument2: "",
-    supportingDocument3: "",
+    supportingDocumentLink1: "",
+    supportingDocumentLink2: "",
+    supportingDocumentLink3: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -134,14 +134,16 @@ export default function AdminDashboardPage() {
       ...projectForm,
       [id]: value,
     });
+
   };
 
   const handleUpdateProjectForm = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUpdatedProjectForm({
-      ...projectForm,
+      ...updatedProjectForm,
       [id]: value,
     });
+
   };
 
   const handleUpdateProject = async (
@@ -149,6 +151,7 @@ export default function AdminDashboardPage() {
     id: string
   ) => {
     e.preventDefault();
+
 
     try {
       const formData = new FormData();

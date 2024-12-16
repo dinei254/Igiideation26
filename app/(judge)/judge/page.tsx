@@ -20,9 +20,9 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
 export default function AdminPage() {
   const judge = useContext(JudgeContext);
@@ -39,7 +39,6 @@ export default function AdminPage() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setProjects(data);
       }
     } catch (error: any) {
@@ -52,7 +51,6 @@ export default function AdminPage() {
   const handleEvaluateProject = async () => {};
 
   useEffect(() => {
-    console.log("helo");
     if (judge?.judgeId) handleGetProjects();
   }, [judge]);
 
@@ -74,14 +72,9 @@ export default function AdminPage() {
               <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/dashboard/projects">
-                Projects
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
           </BreadcrumbList>
         </Breadcrumb>
+
         <div className="w-full">
           <div className="flex items-center py-4 gap-[45rem] ">
             <Input placeholder="Filter title..." className="max-w-sm" />
@@ -105,9 +98,11 @@ export default function AdminPage() {
                         {project.titleOfInnovation}
                       </TableCell>
                       <TableCell>
-                        <Button onClick={handleEvaluateProject}>
-                          Evaluate
-                        </Button>
+                        <Link href={`/evaluate/${project.id}`}>
+                          <Button onClick={handleEvaluateProject}>
+                            Evaluate
+                          </Button>
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))}

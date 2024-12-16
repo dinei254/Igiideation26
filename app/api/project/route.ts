@@ -72,6 +72,7 @@ export async function PATCH(req: NextRequest) {
         { status: 400 }
       );
 
+
     const project = await prisma.project.update({
       where: {
         id: id,
