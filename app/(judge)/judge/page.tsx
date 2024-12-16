@@ -31,12 +31,12 @@ export default function AdminPage() {
 
   const handleGetProjects = async () => {
     setIsLoading(true);
-    
+
     try {
       const res = await fetch(`/api/projects?judgeId=${judge?.judgeId}`, {
         method: "GET",
       });
-      
+
       if (res.ok) {
         const data = await res.json();
         console.log(data);
@@ -48,11 +48,11 @@ export default function AdminPage() {
       setIsLoading(false);
     }
   };
-  
+
   const handleEvaluateProject = async () => {};
-  
+
   useEffect(() => {
-    console.log("helo")
+    console.log("helo");
     if (judge?.judgeId) handleGetProjects();
   }, [judge]);
 
