@@ -11,11 +11,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export function DeleteCard() {
+interface DeleteCardProps {
+  onDelete: () => void;
+}
+
+export function DeleteCard({ onDelete }: DeleteCardProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="hover:bg-red-500 ">
+        <Button variant="outline" className="hover:bg-red-500 hover:text-white">
           Delete
         </Button>
       </AlertDialogTrigger>
@@ -29,7 +33,7 @@ export function DeleteCard() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={onDelete}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

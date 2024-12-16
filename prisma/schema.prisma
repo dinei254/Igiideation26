@@ -12,3 +12,76 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Admin {
+  id        String   @id @default(uuid()) @map("_id")
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Judge {
+  id                 String               @id @default(uuid()) @map("_id")
+  name               String
+  email              String               @unique
+  password           String
+  association        String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  JudgeProjectBridge JudgeProjectBridge[]
+  projectToBeJudged  String[]
+}
+
+model Project {
+  id                      String               @id @default(uuid()) @map("_id")
+  titleOfInnovation       String
+  abstractLink            String
+  supportingDocumentLink1 String
+  supportingDocumentLink2 String
+  supportingDocumentLink3 String
+  posterLink              String
+  videoLink               String
+  createdAt               DateTime             @default(now())
+  updatedAt               DateTime             @updatedAt
+  status                  ProjectStatus
+  JudgeProjectBridge      JudgeProjectBridge[]
+  assignedJudges          String[]
+  marks                   Mark[]
+}
+
+enum ProjectStatus {
+  PENDING
+  COMPLETE
+}
+
+model Mark {
+  id                     String   @id @default(uuid()) @map("_id")
+  noveltyAndUniquessMark Int
+  benefitToMankindMark   Int
+  commercializationMark  Int
+  statusOfInventionMark  Int
+  videoPresentationMark  Int
+  supportingDocumentMark Int
+  comments               String?
+  project                Project? @relation(fields: [projectId], references: [id])
+  projectId              String?
+}
+
+model JudgeProjectBridge {
+  id        String  @id @default(uuid()) @map("_id")
+  judge     Judge   @relation(fields: [judgeId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
+  judgeId   String
+  projectId String
+
+  @@unique([judgeId, projectId])
+}
+
+model Session {
+  id        String   @id @default(uuid()) @map("_id")
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
