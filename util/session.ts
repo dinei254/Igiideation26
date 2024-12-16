@@ -38,7 +38,7 @@ const createSession = async (userId: string) => {
   const payload = { userId, expiresAt };
   const jwt = await encrypt(payload);
 
-  (await cookies()).set("session", jwt, {
+  cookies().set("session", jwt, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,

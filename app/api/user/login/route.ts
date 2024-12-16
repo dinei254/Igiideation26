@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { verifyPassword } from "../create/route";
 import { createSession } from "@/util/session";
+import { AdminCard } from "@/components/admin-card";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,62 +18,27 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
 
-    // login for admin account
     if (type === "ADMIN") {
-      const admin = await prisma.admin.findFirst({
-        where: { email: email },
-      });
-
-      if (admin) {
-        const isMatchPassword = await verifyPassword(password, admin.password);
-
-        if (isMatchPassword) {
-          await createSession(admin.id);
-          return NextResponse.json(
-            { message: "Successfully login to admin account" },
-            { status: 200 }
-          );
-        } else {
-          return NextResponse.json(
-            { message: "Not authenticated to admin account" },
-            { status: 401 }
-          );
-        }
-      } else {
+      const loginAdminResult = await loginAsAdmin(email, password);
+      if (loginAdminResult === 401)
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      else if (loginAdminResult === 404)
         return NextResponse.json(
           { message: "Admin account not found" },
           { status: 404 }
         );
-      }
-      // login for judge account
+      else return NextResponse.json(loginAdminResult, { status: 200 });
     } else if (type === "JUDGE") {
-      const judge = await prisma.judge.findFirst({
-        where: {
-          email: email,
-        },
-      });
+      const loginJudgeResult = await loginAsJudge(email, password);
 
-      if (judge) {
-        const isMatchPassword = await verifyPassword(password, judge.password);
-
-        if (isMatchPassword) {
-          await createSession(judge.id);
-          return NextResponse.json(
-            { message: "Successfully login to judge account" },
-            { status: 200 }
-          );
-        } else {
-          return NextResponse.json(
-            { message: "Not authenticated to judge account" },
-            { status: 401 }
-          );
-        }
-      } else {
+      if (loginJudgeResult === 401)
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      else if (loginJudgeResult === 404)
         return NextResponse.json(
           { message: "Judge account not found" },
           { status: 404 }
         );
-      }
+      else return NextResponse.json(loginJudgeResult, { status: 200 });
     } else {
       console.error("Unspecified account type");
       return NextResponse.json(
@@ -83,5 +49,45 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error(`Failed to login account`, error);
     throw error;
+  }
+}
+
+async function loginAsAdmin(email: string, password: string) {
+  const admin = await prisma.admin.findFirst({
+    where: { email: email },
+  });
+
+  if (admin) {
+    const isMatchPassword = await verifyPassword(password, admin.password);
+
+    if (isMatchPassword) {
+      await createSession(admin.id);
+      return admin;
+    } else {
+      return 401; // unauthorized
+    }
+  } else {
+    return 404; // admin not found
+  }
+}
+
+async function loginAsJudge(email: string, password: string) {
+  const judge = await prisma.judge.findFirst({
+    where: {
+      email: email,
+    },
+  });
+
+  if (judge) {
+    const isMatchPassword = await verifyPassword(password, judge.password);
+
+    if (isMatchPassword) {
+      await createSession(judge.id);
+      return judge;
+    } else {
+      return 401;
+    }
+  } else {
+    return 404;
   }
 }

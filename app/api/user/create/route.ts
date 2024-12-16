@@ -6,9 +6,11 @@ import prisma from "@/prisma/db";
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const association = formData.get("association") as string;
     const type = formData.get("type") as string;
-    console.log(type);
 
     if (!type) {
       return NextResponse.json(
@@ -17,64 +19,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // create admin account
     if (type == "ADMIN") {
-      const name = formData.get("name") as string;
-      const email = formData.get("email") as string;
-      const password = formData.get("password") as string;
-
-      // hash password
-      const hashedPassword = await hashPassword(password);
-
-      const admin = await prisma.admin.create({
-        data: {
-          name: name,
-          email: email,
-          password: hashedPassword,
-        },
-      });
-
-      if (admin) {
-        return NextResponse.json(
-          { message: "Successfully create admin account" },
-          { status: 200 }
-        );
-      } else {
-        return NextResponse.json(
-          { message: "Unsuccesful create admin account" },
-          { status: 400 }
-        );
-      }
-
-      // create judge account
+      await createAdminAccount(name, password, email);
     } else if (type === "JUDGE") {
-      const name = formData.get("name") as string;
-      const email = formData.get("email") as string;
-      const password = formData.get("password") as string;
-      const association = formData.get("association") as string;
-
-      const hashedPassword = await hashPassword(password);
-
-      const judge = await prisma.judge.create({
-        data: {
-          name: name,
-          email: email,
-          password: hashedPassword,
-          association: association,
-        },
-      });
-
-      if (judge) {
-        return NextResponse.json(
-          { message: "Successfully create judge account" },
-          { status: 200 }
-        );
-      } else {
-        return NextResponse.json(
-          { message: "Unsuccesful create judge account" },
-          { status: 400 }
-        );
-      }
+      await createJudgeAccount(name, password, email, association);
+    } else {
+      console.error("Unspecified account type");
+      return NextResponse.json(
+        { message: "Unspecified account type" },
+        { status: 400 }
+      );
     }
   } catch (error) {
     console.error(error);
@@ -105,3 +59,61 @@ export const verifyPassword = async (
     throw error;
   }
 };
+
+async function createAdminAccount(
+  name: string,
+  password: string,
+  email: string
+) {
+  const hashedPassword = await hashPassword(password);
+
+  const admin = await prisma.admin.create({
+    data: {
+      name: name,
+      email: email,
+      password: hashedPassword,
+    },
+  });
+
+  if (admin) {
+    return NextResponse.json(
+      { message: "Successfully create admin account" },
+      { status: 200 }
+    );
+  } else {
+    return NextResponse.json(
+      { message: "Unsuccesful create admin account" },
+      { status: 400 }
+    );
+  }
+}
+
+async function createJudgeAccount(
+  name: string,
+  password: string,
+  email: string,
+  association: string
+) {
+  const hashedPassword = await hashPassword(password);
+
+  const judge = await prisma.judge.create({
+    data: {
+      name: name,
+      email: email,
+      password: hashedPassword,
+      association: association,
+    },
+  });
+
+  if (judge) {
+    return NextResponse.json(
+      { message: "Successfully create judge account" },
+      { status: 200 }
+    );
+  } else {
+    return NextResponse.json(
+      { message: "Unsuccesful create judge account" },
+      { status: 400 }
+    );
+  }
+}

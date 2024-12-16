@@ -14,16 +14,19 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { redirect } from "next/navigation";
 import { Spinner } from "@/components/spinner-loading";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loginStatus, setLoginStatus] = useState("idle");
+  const router = useRouter();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    let isAuth = false;
 
     try {
       const formData = new FormData();
@@ -37,7 +40,7 @@ export default function Login() {
       });
 
       if (res.ok) {
-        redirect("/judge");
+        isAuth = true;
       } else {
         setLoginStatus("failed");
       }
@@ -46,6 +49,8 @@ export default function Login() {
     } finally {
       setIsLoading(false);
       setLoginStatus("idle");
+
+      if (isAuth) router.push("/judge");
     }
   };
 
@@ -82,9 +87,9 @@ export default function Login() {
                 />
               </div>
               <Button type="submit" className="w-full">
-                {isLoading ? <Spinner /> : "Login"}
+                {isLoading ? <Spinner className="text-white" /> : "Login"}
               </Button>
-              <div className="flex justify-between mt-4">
+              {/* <div className="flex justify-between mt-4">
                 <Link
                   href="/admin/"
                   className="text-sm text-blue-500 hover:underline"
@@ -97,7 +102,7 @@ export default function Login() {
                 >
                   Go to Dashboard
                 </Link>
-              </div>
+              </div> */}
             </div>
           </CardContent>
         </Card>
