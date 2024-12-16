@@ -38,6 +38,11 @@ export async function POST(req: NextRequest) {
             { status: 401 }
           );
         }
+      } else {
+        return NextResponse.json(
+          { message: "Admin account not found" },
+          { status: 404 }
+        );
       }
       // login for judge account
     } else if (type === "JUDGE") {
@@ -62,9 +67,18 @@ export async function POST(req: NextRequest) {
             { status: 401 }
           );
         }
+      } else {
+        return NextResponse.json(
+          { message: "Judge account not found" },
+          { status: 404 }
+        );
       }
     } else {
-      return new Error("Login does not satisfy any type");
+      console.error("Unspecified account type");
+      return NextResponse.json(
+        { message: "Unspecified account type" },
+        { status: 400 }
+      );
     }
   } catch (error: any) {
     console.error(`Failed to login account`, error);

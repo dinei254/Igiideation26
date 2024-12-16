@@ -31,26 +31,29 @@ model Judge {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   JudgeProjectBridge JudgeProjectBridge[]
+  projectToBeJudged  String[]
 }
 
 model Project {
   id                      String               @id @default(uuid()) @map("_id")
-  teamName                String
-  advisorName             String
-  teamLeaderName          String
-  participantsName        String[]
-  email                   String
-  phoneNumber             String
   titleOfInnovation       String
-  categoryOfInnovation    String
   abstractLink            String
-  supportingDocumentLinks String[]
+  supportingDocumentLink1 String
+  supportingDocumentLink2 String
+  supportingDocumentLink3 String
   posterLink              String
   videoLink               String
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
+  status                  ProjectStatus
   JudgeProjectBridge      JudgeProjectBridge[]
+  assignedJudges          String[]
   marks                   Mark[]
+}
+
+enum ProjectStatus {
+  PENDING
+  COMPLETE
 }
 
 model Mark {
@@ -72,6 +75,8 @@ model JudgeProjectBridge {
   project   Project @relation(fields: [projectId], references: [id])
   judgeId   String
   projectId String
+
+  @@unique([judgeId, projectId])
 }
 
 model Session {

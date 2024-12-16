@@ -5,46 +5,21 @@ import { NextRequest, NextResponse } from "next/server";
 // create project title
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
-
-  const teamName = formData.get("teamName") as string;
-  const advisorName = formData.get("advisorName") as string;
-  const teamLeaderName = formData.get("teamLeaderName") as string;
-  const participantsName: { name: string }[] = JSON.parse(
-    formData.get("participantsName") as string
-  );
-  const participantNamesArr = participantsName.map(
-    (participant) => participant.name
-  );
-  const email = formData.get("email") as string;
-  const phoneNumber = formData.get("phoneNumber") as string;
-  const titleOfInnovation = formData.get("titleOfInnovation") as string;
-  const categoryOfInnovation = formData.get("categoryOfInnovation") as string;
-  const abstractLink = formData.get("abstractLink") as string;
-  const supportingDocumentLinks: { link: string }[] = JSON.parse(
-    formData.get("supportingDocumentLinks") as string
-  );
-  const supportingDocLinksArr = supportingDocumentLinks.map((doc) => doc.link);
-  const posterLink = formData.get("posterLink") as string;
-  const videoLink = formData.get("videoLink") as string;
+  const projectForm = JSON.parse(formData.get("project") as string);
 
   try {
     const project = await prisma.project.create({
       data: {
-        teamName: teamName,
-        advisorName: advisorName,
-        teamLeaderName: teamLeaderName,
-        participantsName: participantNamesArr,
-        email: email,
-        phoneNumber: phoneNumber,
-        titleOfInnovation: titleOfInnovation,
-        categoryOfInnovation: categoryOfInnovation,
-        abstractLink: abstractLink,
-        supportingDocumentLinks: supportingDocLinksArr,
-        posterLink: posterLink,
-        videoLink: videoLink,
+        titleOfInnovation: projectForm.titleOfInnovation,
+        abstractLink: projectForm.abstractLink,
+        supportingDocumentLink1: projectForm.supportingDocumentLink1,
+        supportingDocumentLink2: projectForm.supportingDocumentLink2,
+        supportingDocumentLink3: projectForm.supportingDocumentLink3,
+        posterLink: projectForm.posterLink,
+        videoLink: projectForm.videoLink,
+        status: "PENDING",
       },
     });
-
     return NextResponse.json(project, { status: 200 });
   } catch (error: any) {
     console.error(`Failed to create project`, error);
@@ -89,6 +64,7 @@ export async function PATCH(req: NextRequest) {
     const updatedProject: Project = JSON.parse(
       formData.get("project") as string
     );
+    const id = formData.get("id") as string;
 
     if (!updatedProject)
       return NextResponse.json(
@@ -98,19 +74,14 @@ export async function PATCH(req: NextRequest) {
 
     const project = await prisma.project.update({
       where: {
-        id: updatedProject.id,
+        id: id,
       },
       data: {
-        teamName: updatedProject.teamName,
-        advisorName: updatedProject.advisorName,
-        teamLeaderName: updatedProject.teamLeaderName,
-        participantsName: updatedProject.participantsName,
-        email: updatedProject.email,
-        phoneNumber: updatedProject.phoneNumber,
         titleOfInnovation: updatedProject.titleOfInnovation,
-        categoryOfInnovation: updatedProject.categoryOfInnovation,
         abstractLink: updatedProject.abstractLink,
-        supportingDocumentLinks: updatedProject.supportingDocumentLinks,
+        supportingDocumentLink1: updatedProject.supportingDocumentLink1,
+        supportingDocumentLink2: updatedProject.supportingDocumentLink2,
+        supportingDocumentLink3: updatedProject.supportingDocumentLink3,
         posterLink: updatedProject.posterLink,
         videoLink: updatedProject.videoLink,
       },

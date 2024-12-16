@@ -38,7 +38,7 @@ const createSession = async (userId: string) => {
   const payload = { userId, expiresAt };
   const jwt = await encrypt(payload);
 
-  cookies().set("session", jwt, {
+  (await cookies()).set("session", jwt, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -55,14 +55,14 @@ const createSession = async (userId: string) => {
 };
 
 const updateSession = async () => {
-  const session = cookies().get("session")?.value;
+  const session = (await cookies()).get("session")?.value;
   const payload = await decrypt(session);
 
   if (!session || !payload) return null;
 
   const expiresAt = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
 
-  cookies().set("session", session, {
+  (await cookies()).set("session", session, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -72,7 +72,7 @@ const updateSession = async () => {
 };
 
 const deleteSession = async (userId: string) => {
-  cookies().delete("session");
+  (await cookies()).delete("session");
 
   await prisma.session.delete({
     where: {

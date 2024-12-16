@@ -28,7 +28,7 @@ const formSchema = z.object({
   username: z.string().min(3, {
     message: "Please insert ypur username",
   }),
-  password: z.string().min(6, { 
+  password: z.string().min(6, {
     message: "",
   }),
 });
@@ -40,13 +40,12 @@ export default function AdminForm() {
     defaultValues: {
       name: "",
       number: "",
-      email: "", 
+      email: "",
       username: "",
-      password:"",
+      password: "",
     },
   });
 
-  
   // Submit handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values); // Handle form submission
