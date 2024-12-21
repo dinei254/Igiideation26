@@ -1,17 +1,15 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/BBmsuZhpyKI
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+
 import Link from "next/link";
 import Sponsor from "@/components/sponsors";
 import AdminPage from "./(admin)/admin/dashboard/projects/page";
 import Image from "next/image";
+import { WaveGradient } from '@/components/Wave-Gradient';
+
 
 export default function Landing() {
   return (
     <>
-      <div className="flex flex-col min-h-[100dvh]">
+      <div className="flex flex-col min-h-[100dvh] bg-black">
         {/* <header className="px-4 lg:px-6 h-14 flex items-center">
           <Link href="#" className="flex items-center justify-center" prefetch={false}>
             <MountainIcon className="h-6 w-6" />
@@ -32,15 +30,16 @@ export default function Landing() {
             </Link>
           </nav>
         </header> */}
-        <main className="flex-1">
-          <section className="w-full pt-12 md:pt-24 lg:pt-32 border-y">
-            <div className="px-4 md:px-6 space-y-10 xl:space-y-16">
+        <main className="flex-1 text-white">
+        <section className="w-full pt-12 md:pt-24 lg:pt-32 relative overflow-hidden">
+            <WaveGradient />
+            <div className="px-4 md:px-6 space-y-10 xl:space-y-16 relative z-10">
               <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
                 <div>
                   <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
                     IGIIDEATION Judging System
                   </h1>
-                  <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400 mt-10">
+                  <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl mt-10">
                     The International Grand Invention, Innovation, and Design
                     Expo (IGIIDeation) 2025 is a global event showcasing
                     advancements in fields like computer science, AI, IoT,
@@ -54,7 +53,7 @@ export default function Landing() {
                   </p>
                   <Link
                     href="/login"
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 w-full mb-10"
+                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-all duration-300 hover:scale-105 hover:-translate-y-1 relative before:absolute before:inset-0 before:rounded-md before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 w-full mb-10"
                     prefetch={false}
                   >
                     Login
@@ -62,7 +61,7 @@ export default function Landing() {
 
                   <Link
                     href="/admin/login"
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300 w-full mb-10"
+                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-all duration-300 hover:scale-105 hover:-translate-y-1 relative before:absolute before:inset-0 before:rounded-md before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 w-full mb-10"
                     prefetch={false}
                   >
                     Login as Admin
@@ -83,8 +82,8 @@ export default function Landing() {
             <div className="container space-y-12 px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
-                    New Features
+                  <div className="inline-block rounded-lg relative before:absolute before:inset-0 before:rounded-lg before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 bg-gray-900/50 px-3 py-1 text-sm backdrop-blur-sm">
+                    New Events
                   </div>
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                     IGIIDeation 2025: Where Innovation Meets Inspiration
@@ -99,44 +98,44 @@ export default function Landing() {
                 </div>
               </div>
               <div className="mx-auto grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-4">
-                <div className="grid gap-1">
-                  <h3 className="text-lg font-bold">
+                <div className="grid gap-1 p-4 rounded-lg relative before:absolute before:inset-0 before:rounded-lg before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-30 hover:before:opacity-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/10">
+                  <h3 className="text-lg font-bold text-gray-50">
                     Showcasing Cutting-Edge Advancements
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-300">
                     Discover pioneering projects and technologies in AI, IoT,
                     cybersecurity, Islamic science, and more. IGIIDeation 2025
                     highlights the ingenuity and creativity driving progress
                     across industries.
                   </p>
                 </div>
-                <div className="grid gap-1">
-                  <h3 className="text-lg font-bold">
+                <div className="grid gap-1 p-4 rounded-lg relative before:absolute before:inset-0 before:rounded-lg before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-30 hover:before:opacity-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/10">
+                  <h3 className="text-lg font-bold text-gray-50">
                     Fostering Knowledge Sharing and Collaboration
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-300">
                     Engage with researchers, innovators, and global industry
                     leaders to share insights, explore trends, and address
                     complex global challenges through interdisciplinary
                     approaches.
                   </p>
                 </div>
-                <div className="grid gap-1">
-                  <h3 className="text-lg font-bold">
+                <div className="grid gap-1 p-4 rounded-lg relative before:absolute before:inset-0 before:rounded-lg before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-30 hover:before:opacity-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/10">
+                  <h3 className="text-lg font-bold text-gray-50">
                     Inspiring Future Innovators
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-300">
                     Connect with experts and visionaries to celebrate creativity
                     and push boundaries. IGIIDeation 2025 encourages future
                     inventors to redefine possibilities and turn bold ideas into
                     reality.
                   </p>
                 </div>
-                <div className="grid gap-1">
-                  <h3 className="text-lg font-bold">
+                <div className="grid gap-1 p-4 rounded-lg relative before:absolute before:inset-0 before:rounded-lg before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-30 hover:before:opacity-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/10">
+                  <h3 className="text-lg font-bold text-gray-50">
                     Celebrating Interdisciplinary Solutions
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-300">
                     Highlight the importance of interdisciplinary approaches in
                     solving global challenges and creating transformative
                     solutions that shape the future.
@@ -146,7 +145,9 @@ export default function Landing() {
             </div>
           </section>
 
-          <section className="w-fit mx-auto  bg-white">
+
+
+          <section className="w-fit mx-auto bg-black text-white">
             <div className="container grid items-center justify-center  px-4 text-center md:px-6">
               <section className="w-full ">
                 <div className="space-y-3">
