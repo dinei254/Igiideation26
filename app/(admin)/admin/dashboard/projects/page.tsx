@@ -440,7 +440,7 @@ export default function AdminDashboardPage() {
                                 <FaUserCheck className="cursor-pointer" />
                               </TooltipTrigger>
                               <TooltipContent>
-                                <p>Assign Mentor</p>
+                                <p>Assign Judge</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
@@ -506,7 +506,7 @@ export default function AdminDashboardPage() {
                             className="w-full mt-5"
                             onClick={() => handleAssignJudges(project.id)}
                           >
-                            Assign Mentors
+                            Assign Judges
                           </Button>
                         </DialogContent>
                       </Dialog>
