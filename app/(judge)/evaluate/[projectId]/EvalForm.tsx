@@ -38,6 +38,10 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   const [accummulatedScore, setaccummulatedScore] = useState<number | null>(
     null
   );
+  const [platinumAward, setPlatinumAward] = useState<string>("");
+  const [sustainabilityAward, setSustainabilityAward] = useState<string>("");
+  const [innovatexAward, setInnovatexAward] = useState<string>("");
+
   const router = useRouter();
 
   const handleSubmit = async () => {
@@ -77,6 +81,9 @@ export default function EvalForm({ projectId }: { projectId: string }) {
     formData.append("statusOfInventionMark", result.ratings[questions[3]]);
     formData.append("videoPresentationMark", result.ratings[questions[4]]);
     formData.append("supportingDocumentMark", result.ratings[questions[5]]);
+    formData.append("platinumAward", platinumAward);
+    formData.append("sustainabilityAward", sustainabilityAward);
+    formData.append("innovatexAward", innovatexAward);
     formData.append("comments", result.jury_comments);
 
     try {
@@ -139,6 +146,81 @@ export default function EvalForm({ projectId }: { projectId: string }) {
             </RadioGroup>
           </div>
         ))}
+        <div>
+          <Label className="text-lg font-semibold">
+            Does this project eligible for Platinum Award?
+          </Label>
+          <RadioGroup
+            onValueChange={(value) => setPlatinumAward(value)}
+            className="flex justify-start gap-x-5"
+          >
+            {["Yes", "No"].map((value) => (
+              <div key={value} className="flex flex-col items-center">
+                <RadioGroupItem
+                  value={value}
+                  id={`platinum-award-${value}`}
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor={`platinum-award-${value}`}
+                  className="p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm font-medium ring-2 ring-transparent peer-data-[state=checked]:ring-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground transition-all hover:bg-muted"
+                >
+                  {value}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </div>
+        <div>
+          <Label className="text-lg font-semibold">
+            Does this project eligible for Sustainability Award?
+          </Label>
+          <RadioGroup
+            onValueChange={(value) => setSustainabilityAward(value)}
+            className="flex justify-start gap-x-5"
+          >
+            {["Yes", "No"].map((value) => (
+              <div key={value} className="flex flex-col items-center">
+                <RadioGroupItem
+                  value={value}
+                  id={`sustainability-award-${value}`}
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor={`sustainability-award-${value}`}
+                  className="p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm font-medium ring-2 ring-transparent peer-data-[state=checked]:ring-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground transition-all hover:bg-muted"
+                >
+                  {value}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </div>
+        <div>
+          <Label className="text-lg font-semibold">
+            Does this project eligible for Innovatex Award?
+          </Label>
+          <RadioGroup
+            onValueChange={(value) => setInnovatexAward(value)}
+            className="flex justify-start gap-x-5"
+          >
+            {["Yes", "No"].map((value) => (
+              <div key={value} className="flex flex-col items-center">
+                <RadioGroupItem
+                  value={value}
+                  id={`innovatex-award-${value}`}
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor={`innovatex-award-${value}`}
+                  className="p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm font-medium ring-2 ring-transparent peer-data-[state=checked]:ring-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground transition-all hover:bg-muted"
+                >
+                  {value}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </div>
         <div className="space-y-2">
           <Label className="text-lg font-semibold">
             JURY COMMENTS (IF ANY)
@@ -202,6 +284,18 @@ export default function EvalForm({ projectId }: { projectId: string }) {
             <div className="flex justify-between">
               <p>Supporting Documents</p>
               <p className="font-semibold">{ratings[questions[5]]}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Eligibility for Platinum Award</p>
+              <p className="font-semibold">{platinumAward}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Eligibility for Sustainability Award</p>
+              <p className="font-semibold">{sustainabilityAward}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Eligibility for Innovatex Award</p>
+              <p className="font-semibold">{innovatexAward}</p>
             </div>
             <Button className="mt-5" onClick={handleSubmit}>
               Submit mark

@@ -46,7 +46,7 @@ model Project {
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
   status                  ProjectStatus
-  JudgeProjectBridge      JudgeProjectBridge[] 
+  JudgeProjectBridge      JudgeProjectBridge[]
   // assignedJudges          String[]
   marks                   Mark[]
 }
@@ -65,14 +65,17 @@ model Mark {
   videoPresentationMark    Int
   supportingDocumentMark   Int
   comments                 String?
-  project                  Project? @relation(fields: [projectId], references: [id])
+  isPlatinumAward          Boolean  @default(false)
+  isSustainabilityAward    Boolean  @default(false)
+  isInnovatexAward         Boolean  @default(false)
+  project                  Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId                String?
 }
 
 model JudgeProjectBridge {
   id        String  @id @default(uuid()) @map("_id")
-  judge     Judge   @relation(fields: [judgeId], references: [id], onDelete :Cascade)
-  project   Project @relation(fields: [projectId], references: [id], onDelete :Cascade)
+  judge     Judge   @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   judgeId   String
   projectId String
 

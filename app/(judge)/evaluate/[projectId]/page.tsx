@@ -14,7 +14,7 @@ import {
 import { VideoViewer } from "@/app/(judge)/evaluate/[projectId]/VideoViewer";
 import { PosterViewer } from "@/app/(judge)/evaluate/[projectId]/PosterViewer";
 import { AbstractViewer } from "./AbstractViewer";
-import EvalForm from "@/components/eval-form";
+import EvalForm from "@/app/(judge)/evaluate/[projectId]/EvalForm";
 import { Project } from "@prisma/client";
 import JudgeHeader from "@/components/judge-header";
 import { SupportingDocumentsViewer } from "./SupportingDocumentsViewer";
@@ -203,44 +203,3 @@ export default function JudgeDashboard({
     </div>
   );
 }
-
-// function Abstract({ abstractLink }: { abstractLink: string }) {
-//   return (
-//     <div>
-//       <h2 className="text-xl font-semibold mb-2">Abstract</h2>
-//       <GoogleDrivePoster posterLink={abstractLink} />{" "}
-//       {/* replace with abstract */}
-//     </div>
-//   );
-// }
-
-// function UploadedVideos({ videoLink }: { videoLink: string }) {
-//   return (
-//     <div>
-//       <h2 className="text-xl font-semibold mb-2">Uploaded Videos</h2>
-//       <GoogleDriveVideo videoLink={videoLink} />
-//     </div>
-//   );
-// }
-
-// function SupportingDocumentsList({
-//   supportingDocumentLinks,
-// }: {
-//   supportingDocumentLinks: string;
-// }) {
-//   return (
-//     <div className="container mx-auto py-8">
-//       <h1 className="text-3xl font-bold mb-6">Supporting Documents</h1>
-//       <SupportingDocuments documents={data.documents} />
-//     </div>
-//   );
-// }
-
-// function Poster({ posterLink }: { posterLink: string }) {
-//   return (
-//     <div>
-//       <h2 className="text-xl font-semibold mb-2">Poster</h2>
-//       <GoogleDrivePoster posterLink={posterLink} />
-//     </div>
-//   );
-// }

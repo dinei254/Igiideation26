@@ -26,6 +26,14 @@ export async function POST(req: NextRequest) {
     const supportingDocumentMark = parseInt(
       formData.get("supportingDocumentMark") as string
     );
+    const platinumAward = formData.get("platinumAward") as string;
+    const sustainabilityAward = formData.get("sustainabilityAward") as string;
+    const innovatexAward = formData.get("innovatexAward") as string;
+
+    const isPlatinumAward = platinumAward === "Yes";
+    const isSustainabilityAward = sustainabilityAward === "Yes";
+    const isInnovatexAward = innovatexAward === "Yes";
+
     const comments = formData.get("comments") as string;
     const sessionCookie = req.cookies.get("session");
     const jwt = sessionCookie?.value;
@@ -72,6 +80,9 @@ export async function POST(req: NextRequest) {
             statusOfInventionMark: statusOfInventionMark,
             videoPresentationMark: videoPresentationMark,
             supportingDocumentMark: supportingDocumentMark,
+            isPlatinumAward: isPlatinumAward,
+            isSustainabilityAward: isSustainabilityAward,
+            isInnovatexAward: isInnovatexAward,
             comments: comments,
           },
         },
