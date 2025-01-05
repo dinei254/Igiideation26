@@ -71,8 +71,8 @@ model Mark {
 
 model JudgeProjectBridge {
   id        String  @id @default(uuid()) @map("_id")
-  judge     Judge   @relation(fields: [judgeId], references: [id])
-  project   Project @relation(fields: [projectId], references: [id])
+  judge     Judge   @relation(fields: [judgeId], references: [id], onDelete :Cascade)
+  project   Project @relation(fields: [projectId], references: [id], onDelete :Cascade)
   judgeId   String
   projectId String
 

@@ -76,10 +76,7 @@ export default function AdminPage() {
         </Breadcrumb>
 
         <div className="w-full">
-          <div className="flex items-center py-4 gap-[45rem] ">
-            <Input placeholder="Filter title..." className="max-w-sm" />
-            <div className="flex flex-row"></div>
-          </div>
+
           <div className="rounded-md">
             {projects.length <= 0 ? (
               <p className="h-screen text-center">No project assigned yet</p>
