@@ -39,6 +39,7 @@ const ProjectTableRow = ({
 }) => {
   const [selectedJudgesName, setSelectedJudgesName] = useState<Judge[]>([]);
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
+  const [updatedProject, setUpdatedProject] = useState(project);
 
   const handleUpdateProject = async (
     e: FormEvent<HTMLFormElement>,
@@ -48,10 +49,8 @@ const ProjectTableRow = ({
 
     try {
       const formData = new FormData();
-      // formData.append("project", JSON.stringify(updatedProjectForm));
+      formData.append("project", JSON.stringify(updatedProject));
       formData.append("id", id);
-
-      // console.log(updatedProjectForm)
 
       const res = await fetch("/api/project", {
         method: "PATCH",
@@ -165,7 +164,12 @@ const ProjectTableRow = ({
                 <Input
                   id="titleOfInnovation"
                   required
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      titleOfInnovation: e.target.value,
+                    })
+                  }
                   defaultValue={project.titleOfInnovation}
                 />
               </div>
@@ -173,7 +177,12 @@ const ProjectTableRow = ({
                 <Label>Abstract Link</Label>
                 <Input
                   id="abstractLink"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      abstractLink: e.target.value,
+                    })
+                  }
                   defaultValue={project.abstractLink}
                 />
               </div>
@@ -181,7 +190,12 @@ const ProjectTableRow = ({
                 <Label>Poster Link</Label>
                 <Input
                   id="posterLink"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      posterLink: e.target.value,
+                    })
+                  }
                   defaultValue={project.posterLink}
                 />
               </div>
@@ -189,7 +203,12 @@ const ProjectTableRow = ({
                 <Label>Video Link</Label>
                 <Input
                   id="videoLink"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      videoLink: e.target.value,
+                    })
+                  }
                   defaultValue={project.videoLink}
                 />
               </div>
@@ -197,20 +216,35 @@ const ProjectTableRow = ({
                 <Label>Supporting documents</Label>
                 <Input
                   placeholder="Supporting document 1"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      supportingDocumentLink1: e.target.value,
+                    })
+                  }
                   id="supportingDocumentLink1"
                   defaultValue={project.supportingDocumentLink1}
                 />
                 <Input
                   placeholder="Supporting document 2"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      supportingDocumentLink2: e.target.value,
+                    })
+                  }
                   id="supportingDocumentLink2"
                   defaultValue={project.supportingDocumentLink2}
                 />
                 <Input
                   placeholder="Supporting document 3"
                   id="supportingDocumentLink3"
-                  // onChange={(e) => handleUpdateProjectForm(e)}
+                  onChange={(e) =>
+                    setUpdatedProject({
+                      ...updatedProject,
+                      supportingDocumentLink3: e.target.value,
+                    })
+                  }
                   defaultValue={project.supportingDocumentLink3}
                 />
               </div>
