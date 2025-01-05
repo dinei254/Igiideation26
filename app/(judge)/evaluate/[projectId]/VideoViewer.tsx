@@ -15,7 +15,7 @@ export const VideoViewer: React.FC<GoogleDriveVideoProps> = ({
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Uploaded Videos</h2>
+      <h2 className="text-xl font-semibold mb-2">Uploaded Video :</h2>
       <div className="h-screen">
         <iframe
           src={embedUrl}
