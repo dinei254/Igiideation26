@@ -11,8 +11,9 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { GoogleDriveVideo } from "@/components/video-viewer";
-import { GoogleDrivePoster } from "@/components/poster-viewer";
+import { VideoViewer } from "@/app/(judge)/evaluate/[projectId]/VideoViewer";
+import { PosterViewer } from "@/app/(judge)/evaluate/[projectId]/PosterViewer";
+import { AbstractViewer } from "./AbstractViewer";
 import EvalForm from "@/components/eval-form";
 import { Project } from "@prisma/client";
 import JudgeHeader from "@/components/judge-header";
@@ -54,13 +55,13 @@ export default function JudgeDashboard({
   const renderContent = () => {
     switch (activeTab) {
       case "uploaded-videos":
-        return <UploadedVideos videoLink={project?.videoLink!} />;
+        return <VideoViewer videoLink={project?.videoLink!} />;
       case "abstract":
-        return <Abstract abstractLink={project?.abstractLink!} />;
+        return <AbstractViewer abstractLink={project?.abstractLink!} />;
       // case "supporting-documents-list":
       //   return <SupportingDocumentsList />;
       case "poster":
-        return <Poster posterLink={project?.posterLink!} />;
+        return <PosterViewer posterLink={project?.posterLink!} />;
       default:
         return null;
     }
@@ -130,12 +131,6 @@ export default function JudgeDashboard({
               <span className="fontsemibold">{project?.titleOfInnovation}</span>
             </h1>
             {renderContent()}
-            {/* <UploadedVideos videoLink="https://drive.google.com/file/d/1Q_mBewWcVhYwCZpJWFmzHU3-iZIlJqQU/view?usp=sharing"/> */}
-            {/* <Abstract
-              abstractLink={
-                "https://drive.google.com/file/d/1QW4-ADGE7FC4lePJSoHTAHXQiEpcWXjz/view?usp=sharing"
-              }
-            /> */}
           </main>
         </div>
         {/* Right Panel */}
@@ -166,24 +161,24 @@ export default function JudgeDashboard({
   );
 }
 
-function Abstract({ abstractLink }: { abstractLink: string }) {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Abstract</h2>
-      <GoogleDrivePoster posterLink={abstractLink} />{" "}
-      {/* replace with abstract */}
-    </div>
-  );
-}
+// function Abstract({ abstractLink }: { abstractLink: string }) {
+//   return (
+//     <div>
+//       <h2 className="text-xl font-semibold mb-2">Abstract</h2>
+//       <GoogleDrivePoster posterLink={abstractLink} />{" "}
+//       {/* replace with abstract */}
+//     </div>
+//   );
+// }
 
-function UploadedVideos({ videoLink }: { videoLink: string }) {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Uploaded Videos</h2>
-      <GoogleDriveVideo videoLink={videoLink} />
-    </div>
-  );
-}
+// function UploadedVideos({ videoLink }: { videoLink: string }) {
+//   return (
+//     <div>
+//       <h2 className="text-xl font-semibold mb-2">Uploaded Videos</h2>
+//       <GoogleDriveVideo videoLink={videoLink} />
+//     </div>
+//   );
+// }
 
 // function SupportingDocumentsList({
 //   supportingDocumentLinks,
@@ -198,11 +193,11 @@ function UploadedVideos({ videoLink }: { videoLink: string }) {
 //   );
 // }
 
-function Poster({ posterLink }: { posterLink: string }) {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Poster</h2>
-      <GoogleDrivePoster posterLink={posterLink} />
-    </div>
-  );
-}
+// function Poster({ posterLink }: { posterLink: string }) {
+//   return (
+//     <div>
+//       <h2 className="text-xl font-semibold mb-2">Poster</h2>
+//       <GoogleDrivePoster posterLink={posterLink} />
+//     </div>
+//   );
+// }
