@@ -21,7 +21,6 @@ import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -29,13 +28,8 @@ import {
 import { Admin, Judge } from "@prisma/client";
 import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import { useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import AdminTableRow from "./AdminTableRow";
+import JudgeTableRow from "./JudgeTableRow";
 
 const UsersDashboardPage = () => {
   const [adminForm, setAdminForm] = useState({
@@ -44,20 +38,7 @@ const UsersDashboardPage = () => {
     password: "",
   });
 
-  const [updatedAdminForm, setUpdatedAdminForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
   const [judgeForm, setJudgeForm] = useState({
-    name: "",
-    email: "",
-    association: "",
-    password: "",
-  });
-
-  const [updatedJudgeForm, setUpdatedJudgeForm] = useState({
     name: "",
     email: "",
     association: "",
@@ -74,26 +55,9 @@ const UsersDashboardPage = () => {
       [id]: value,
     });
   };
-
-  const handleChangeUpdatedAdminForm = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setUpdatedAdminForm({
-      ...adminForm,
-      [id]: value,
-    });
-  };
-
   const handleChangeJudgeForm = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setJudgeForm({
-      ...judgeForm,
-      [id]: value,
-    });
-  };
-
-  const handleChangeUpdatedJudgeForm = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setUpdatedJudgeForm({
       ...judgeForm,
       [id]: value,
     });
@@ -130,7 +94,9 @@ const UsersDashboardPage = () => {
       formData.append("type", "JUDGE");
       formData.append("association", judgeForm.association);
 
-      const res = await fetch("/api/user/create", {
+      console.log(formData);
+
+      const res = await fetch("/api/judge", {
         method: "POST",
         body: formData,
       });
@@ -140,42 +106,6 @@ const UsersDashboardPage = () => {
       }
     } catch (error: any) {
       console.error(`Failed to create judge account : ${error}`);
-    }
-  };
-
-  const handleDeleteJudge = async (judgeId: string) => {
-    try {
-      const formdata = new FormData();
-      formdata.append("judgeId", judgeId);
-
-      const res = await fetch("/api/judge", {
-        method: "DELETE",
-        body: formdata,
-      });
-
-      if (res.ok) {
-        location.reload();
-      }
-    } catch (error: any) {
-      console.error(`Failed to delete judge account : ${error}`);
-    }
-  };
-
-  const handleDeleteAdmin = async (adminId: string) => {
-    try {
-      const formdata = new FormData();
-      formdata.append("adminId", adminId);
-
-      const res = await fetch("/api/admin", {
-        method: "DELETE",
-        body: formdata,
-      });
-
-      if (res.ok) {
-        location.reload();
-      }
-    } catch (error: any) {
-      console.error(`Failed to delete admin account : ${error}`);
     }
   };
 
@@ -214,26 +144,13 @@ const UsersDashboardPage = () => {
     getData();
   }, []);
 
-  // const handleCreateJudge = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("name", adminForm.name);
-  //     formData.append("email", adminForm.email);
-  //     formData.append("password", adminForm.password);
-  //     formData.append("type", "ADMIN");
-
-  //   } catch (error: any) {
-  //     console.error(`Failed to create judge account :${error}`);
-  //   }
-  // };
-
   return (
     <div>
       <AdminHeader />
       <div className="m-20 px-5">
-        <h1 className="text-2xl font-semibold mb-5">Account Management Dashboard</h1>
+        <h1 className="text-2xl font-semibold mb-5">
+          Account Management Dashboard
+        </h1>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -349,90 +266,26 @@ const UsersDashboardPage = () => {
           </div>
         </div>
         {/* the table */}
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>User ID</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Account Type</TableHead>
-                <TableHead>Action(s)</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {admins?.map((admin) => (
-                <TableRow key={admin.id}>
-                  <TableCell>{admin.id}</TableCell>
-                  <TableCell>{admin.name}</TableCell>
-                  <TableCell>{admin.email}</TableCell>
-                  <TableCell className="font-semibold">ADMIN</TableCell>
-                  <TableCell className="flex items-center gap-x-2">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <FaTrash
-                            className="cursor-pointer"
-                            onClick={() => handleDeleteAdmin(admin.id)}
-                          />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Delete admin account</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>User ID</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Account Type</TableHead>
+              <TableHead>Action(s)</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {admins?.map((admin) => (
+              <AdminTableRow key={admin.id} admin={admin} />
+            ))}
 
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <FaEdit className="cursor-pointer" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Edit admin account</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableCell>
-                </TableRow>
-              ))}
-
-              {judges?.map((judge) => (
-                <TableRow key={judge.id}>
-                  <TableCell>{judge.id}</TableCell>
-                  <TableCell>{judge.name}</TableCell>
-                  <TableCell>{judge.email}</TableCell>
-                  <TableCell className="font-semibold">JUDGE</TableCell>
-                  <TableCell className="flex items-center gap-x-2">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <FaTrash
-                            className="cursor-pointer"
-                            onClick={() => handleDeleteJudge(judge.id)}
-                          />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Delete judge account</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <FaEdit className="cursor-pointer" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Edit judge account</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+            {judges?.map((judge) => (
+              <JudgeTableRow key={judge.id} judge={judge} />
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
@@ -40,6 +40,7 @@ const ProjectTableRow = ({
   const [selectedJudgesName, setSelectedJudgesName] = useState<Judge[]>([]);
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [updatedProject, setUpdatedProject] = useState(project);
+  const [totalAssignedJudges, setTotalAssignedJudges] = useState(0);
 
   const handleUpdateProject = async (
     e: FormEvent<HTMLFormElement>,
@@ -102,12 +103,31 @@ const ProjectTableRow = ({
     }
   };
 
+  const getTotalAssignedJudges = async () => {
+    try {
+      const res = await fetch(`/api/total-judges?projectId=${project.id}`, {
+        method: "GET",
+      });
+
+      const data = await res.json();
+      setTotalAssignedJudges(data.totalJudges)
+    } catch (error: any) {
+      console.error(
+        `Failed to get total assigned judges for project ${project.titleOfInnovation} : ${error}`
+      );
+    }
+  };
+
+  useEffect(() => {
+    getTotalAssignedJudges()
+  }, [])
+
   return (
     <TableRow key={project.id}>
       <TableCell>{project.id}</TableCell>
       <TableCell>{project.titleOfInnovation}</TableCell>
       <TableCell>{project.status}</TableCell>
-      <TableCell>{project.assignedJudges?.length || 0} judge(s)</TableCell>
+      <TableCell>{totalAssignedJudges} judge(s)</TableCell>
       <TableCell className="flex items-center gap-x-2">
         <Dialog>
           <DialogTrigger>

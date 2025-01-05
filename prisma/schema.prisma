@@ -46,8 +46,8 @@ model Project {
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
   status                  ProjectStatus
-  JudgeProjectBridge      JudgeProjectBridge[]
-  assignedJudges          String[]
+  JudgeProjectBridge      JudgeProjectBridge[] 
+  // assignedJudges          String[]
   marks                   Mark[]
 }
 

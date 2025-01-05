@@ -6,6 +6,7 @@ import prisma from "@/prisma/db";
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
+    console.log(formData);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     if (type == "ADMIN") {
       await createAdminAccount(name, password, email);
     } else if (type === "JUDGE") {
-      await createJudgeAccount(name, password, email, association);
+      // await createJudgeAccount(name, password, email, association);
     } else {
       console.error("Unspecified account type");
       return NextResponse.json(
@@ -34,7 +35,6 @@ export async function POST(req: NextRequest) {
     console.error(error);
   }
 }
-
 export const hashPassword = async (password: string) => {
   const saltRounds = 10;
   try {
@@ -42,20 +42,6 @@ export const hashPassword = async (password: string) => {
     return hashedPassword;
   } catch (error: any) {
     console.error("Error hashing password :", error);
-    throw error;
-  }
-};
-
-export const verifyPassword = async (
-  password: string,
-  hashedPassword: string
-) => {
-  try {
-    const isMatch = await bcrypt.compare(password, hashedPassword);
-
-    return isMatch;
-  } catch (error) {
-    console.error(`Failed to verify password : ${error}`);
     throw error;
   }
 };
@@ -83,36 +69,6 @@ async function createAdminAccount(
   } else {
     return NextResponse.json(
       { message: "Unsuccesful create admin account" },
-      { status: 400 }
-    );
-  }
-}
-
-async function createJudgeAccount(
-  name: string,
-  password: string,
-  email: string,
-  association: string
-) {
-  const hashedPassword = await hashPassword(password);
-
-  const judge = await prisma.judge.create({
-    data: {
-      name: name,
-      email: email,
-      password: hashedPassword,
-      association: association,
-    },
-  });
-
-  if (judge) {
-    return NextResponse.json(
-      { message: "Successfully create judge account" },
-      { status: 200 }
-    );
-  } else {
-    return NextResponse.json(
-      { message: "Unsuccesful create judge account" },
       { status: 400 }
     );
   }
