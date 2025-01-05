@@ -72,7 +72,7 @@ const UsersDashboardPage = () => {
       formData.append("password", adminForm.password);
       formData.append("type", "ADMIN");
 
-      const res = await fetch("/api/user/create", {
+      const res = await fetch("/api/admin", {
         method: "POST",
         body: formData,
       });
@@ -165,8 +165,8 @@ const UsersDashboardPage = () => {
             <BreadcrumbSeparator />
           </BreadcrumbList>
         </Breadcrumb>
-        <div className="flex items-center py-4 justify-between">
-          <Input placeholder="Filter User..." className="max-w-sm" />
+        <div className="flex items-center py-4 justify-end">
+          {/* <Input placeholder="Filter User..." className="max-w-sm" /> */}
           <div className="flex gap-x-5">
             <Dialog>
               <DialogTrigger asChild>

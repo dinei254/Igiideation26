@@ -1,6 +1,33 @@
 import prisma from "@/prisma/db";
+import hashPassword from "@/util/hashPassword";
 import { Admin } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  try {
+    const formdata = await req.formData();
+    const name = formdata.get("name") as string;
+    const email = formdata.get("email") as string;
+    const password = formdata.get("password") as string;
+
+    const hashedPassword = await hashPassword(password);
+
+    const admin = await prisma.admin.create({
+      data: {
+        name: name,
+        email: email,
+        password: hashedPassword,
+      },
+    });
+
+    return NextResponse.json(
+      { message: "Successfully create admin account" },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error(`Failed to create admin account : ${error}`);
+  }
+}
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -26,6 +53,8 @@ export async function PATCH(req: NextRequest) {
     const admin: Admin = JSON.parse(formdata.get("admin") as string);
     const adminId = formdata.get("adminId") as string;
 
+    const hashedPassword = await hashPassword(admin.password);
+
     const updatedAdmin = await prisma.admin.update({
       where: {
         id: adminId,
@@ -33,7 +62,7 @@ export async function PATCH(req: NextRequest) {
       data: {
         name: admin.name,
         email: admin.email,
-        password: admin.password,
+        password: hashedPassword,
       },
     });
 

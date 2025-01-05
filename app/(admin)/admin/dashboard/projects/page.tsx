@@ -1,15 +1,14 @@
 "use client";
 
-import { FaPlus,} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
-import React, { ChangeEvent, FormEvent, useEffect} from "react";
+import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
-
   TableHead,
   TableHeader,
   TableRow,
@@ -35,8 +34,10 @@ import { Label } from "@/components/ui/label";
 import AdminHeader from "@/components/admin-header";
 import ProjectTableRow from "./ProjectTableRow";
 
+type ProjectAndTotalJudgesType = Project & { totalJudges: number };
+
 export default function AdminDashboardPage() {
-  const [projects, setProjects] = useState<Project[]>();
+  const [projects, setProjects] = useState<ProjectAndTotalJudgesType[]>();
   const [judges, setJudges] = useState<Judge[]>();
   const [projectForm, setProjectForm] = useState({
     titleOfInnovation: "",
@@ -107,7 +108,6 @@ export default function AdminDashboardPage() {
       ...projectForm,
       [id]: value,
     });
-
   };
 
   useEffect(() => {
@@ -119,7 +119,6 @@ export default function AdminDashboardPage() {
     getData();
   }, []);
 
-  
   return (
     <div>
       <AdminHeader />
@@ -232,7 +231,11 @@ export default function AdminDashboardPage() {
 
               <TableBody>
                 {projects?.map((project) => (
-                  <ProjectTableRow project={project} judges={judges!} key={project.id}/>
+                  <ProjectTableRow
+                    project={project}
+                    judges={judges!}
+                    key={project.id}
+                  />
                 ))}
               </TableBody>
             </Table>
@@ -242,4 +245,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-

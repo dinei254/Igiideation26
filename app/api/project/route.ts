@@ -87,21 +87,21 @@ export async function PATCH(req: NextRequest) {
         { status: 400 }
       );
 
-      console.log(updatedProject)
+    console.log(updatedProject);
 
-      // modify google drive link
-      const abstractLink = modifyGoogleDriveLink(updatedProject.abstractLink);
-      const supportingDocumentLink1 = modifyGoogleDriveLink(
-        updatedProject.supportingDocumentLink1
-      );
-      const supportingDocumentLink2 = modifyGoogleDriveLink(
-        updatedProject.supportingDocumentLink2
-      );
-      const supportingDocumentLink3 = modifyGoogleDriveLink(
-        updatedProject.supportingDocumentLink3
-      );
-      const posterLink = modifyGoogleDriveLink(updatedProject.posterLink);
-      const videoLink = modifyGoogleDriveLink(updatedProject.videoLink);
+    // modify google drive link
+    const abstractLink = modifyGoogleDriveLink(updatedProject.abstractLink);
+    const supportingDocumentLink1 = modifyGoogleDriveLink(
+      updatedProject.supportingDocumentLink1
+    );
+    const supportingDocumentLink2 = modifyGoogleDriveLink(
+      updatedProject.supportingDocumentLink2
+    );
+    const supportingDocumentLink3 = modifyGoogleDriveLink(
+      updatedProject.supportingDocumentLink3
+    );
+    const posterLink = modifyGoogleDriveLink(updatedProject.posterLink);
+    const videoLink = modifyGoogleDriveLink(updatedProject.videoLink);
 
     const project = await prisma.project.update({
       where: {
@@ -114,7 +114,7 @@ export async function PATCH(req: NextRequest) {
         supportingDocumentLink2: supportingDocumentLink2,
         supportingDocumentLink3: supportingDocumentLink3,
         posterLink: posterLink,
-        videoLink: videoLink
+        videoLink: videoLink,
       },
     });
 

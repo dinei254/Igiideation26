@@ -1,9 +1,9 @@
 import prisma from "@/prisma/db";
 import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { verifyPassword } from "../create/route";
 import { createSession } from "@/util/session";
 import { AdminCard } from "@/components/admin-card";
+import verifyPassword from "@/util/verifyPassword";
 
 export async function POST(req: NextRequest) {
   try {

@@ -11,5 +11,7 @@ export async function GET(req: NextRequest) {
     },
   });
 
+  // console.log(totalJudges)
+
   return NextResponse.json(totalJudges, { status: 200 });
 }

@@ -2,6 +2,7 @@ import prisma from "@/prisma/db";
 import { NextRequest, NextResponse } from "next/server";
 import * as bcrypt from "bcrypt";
 import { Judge } from "@prisma/client";
+import hashPassword from "@/util/hashPassword";
 
 export async function POST(req: NextRequest) {
   try {
@@ -74,30 +75,9 @@ export async function DELETE(req: NextRequest) {
   }
 }
 
-export const hashPassword = async (password: string) => {
-  const saltRounds = 10;
-  try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    return hashedPassword;
-  } catch (error: any) {
-    console.error("Error hashing password :", error);
-    throw error;
-  }
-};
 
-export const verifyPassword = async (
-  password: string,
-  hashedPassword: string
-) => {
-  try {
-    const isMatch = await bcrypt.compare(password, hashedPassword);
 
-    return isMatch;
-  } catch (error) {
-    console.error(`Failed to verify password : ${error}`);
-    throw error;
-  }
-};
+
 
 async function createJudgeAccount(
   name: string,

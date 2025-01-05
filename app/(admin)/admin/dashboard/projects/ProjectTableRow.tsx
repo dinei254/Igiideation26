@@ -37,7 +37,6 @@ const ProjectTableRow = ({
   project: Project;
   judges: Judge[];
 }) => {
-  const [selectedJudgesName, setSelectedJudgesName] = useState<Judge[]>([]);
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [updatedProject, setUpdatedProject] = useState(project);
   const [totalAssignedJudges, setTotalAssignedJudges] = useState(0);
@@ -110,6 +109,7 @@ const ProjectTableRow = ({
       });
 
       const data = await res.json();
+      console.log(data.totalJudges)
       setTotalAssignedJudges(data.totalJudges)
     } catch (error: any) {
       console.error(
@@ -127,7 +127,7 @@ const ProjectTableRow = ({
       <TableCell>{project.id}</TableCell>
       <TableCell>{project.titleOfInnovation}</TableCell>
       <TableCell>{project.status}</TableCell>
-      <TableCell>{totalAssignedJudges} judge(s)</TableCell>
+      <TableCell>{totalAssignedJudges || 0} judge(s)</TableCell>
       <TableCell className="flex items-center gap-x-2">
         <Dialog>
           <DialogTrigger>
