@@ -1,10 +1,10 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Judge, Project } from "@prisma/client";
+import { Judge } from "@prisma/client";
 import {
   Dialog,
   DialogContent,
@@ -29,17 +29,17 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { ImCross } from "react-icons/im";
+import { ProjectAndTotalJudgesType } from "@/util/type";
 
 const ProjectTableRow = ({
   project,
   judges,
 }: {
-  project: Project;
+  project: ProjectAndTotalJudgesType;
   judges: Judge[];
 }) => {
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [updatedProject, setUpdatedProject] = useState(project);
-  const [totalAssignedJudges, setTotalAssignedJudges] = useState(0);
 
   const handleUpdateProject = async (
     e: FormEvent<HTMLFormElement>,
@@ -102,32 +102,12 @@ const ProjectTableRow = ({
     }
   };
 
-  const getTotalAssignedJudges = async () => {
-    try {
-      const res = await fetch(`/api/total-judges?projectId=${project.id}`, {
-        method: "GET",
-      });
-
-      const data = await res.json();
-      console.log(data.totalJudges)
-      setTotalAssignedJudges(data.totalJudges)
-    } catch (error: any) {
-      console.error(
-        `Failed to get total assigned judges for project ${project.titleOfInnovation} : ${error}`
-      );
-    }
-  };
-
-  useEffect(() => {
-    getTotalAssignedJudges()
-  }, [])
-
   return (
     <TableRow key={project.id}>
       <TableCell>{project.id}</TableCell>
       <TableCell>{project.titleOfInnovation}</TableCell>
       <TableCell>{project.status}</TableCell>
-      <TableCell>{totalAssignedJudges || 0} judge(s)</TableCell>
+      <TableCell>{project.totalJudges} judge(s)</TableCell>
       <TableCell className="flex items-center gap-x-2">
         <Dialog>
           <DialogTrigger>
@@ -311,12 +291,21 @@ const ProjectTableRow = ({
                 <SelectValue placeholder="Select judges" />
               </SelectTrigger>
               <SelectContent>
-                {judges?.map((judge) => (
-                  <SelectItem key={judge.id} value={JSON.stringify(judge)}>
-                    {judge.name} (Currently judging :{" "}
-                    {judge.projectToBeJudged?.length || 0} project)
-                  </SelectItem>
-                ))}
+                {judges?.map((judge) => {
+                  const isJudgeAssigned = project.assignedJudges.includes(
+                    judge.id
+                  );
+                  return (
+                    <SelectItem
+                      key={judge.id}
+                      value={JSON.stringify(judge)}
+                      disabled={isJudgeAssigned}
+                    >
+                      {judge.name} (Currently judging :{" "}
+                      {judge.projectToBeJudged?.length || 0} project)
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             <div className="mt-3 flex-wrap ">

@@ -47,13 +47,14 @@ export default function Login() {
         judge?.setJudgeId(judgeInfo.id);
       } else {
         setLoginStatus("failed");
+        setTimeout(() => {
+          setLoginStatus("idle");
+        }, 2000);
       }
     } catch (error: any) {
       console.error(`Failed to login`, error);
     } finally {
       setIsLoading(false);
-      setLoginStatus("idle");
-
       if (isAuth) router.push("/judge");
     }
   };
@@ -95,27 +96,17 @@ export default function Login() {
               <Button type="submit" className="w-full">
                 {isLoading ? <Spinner className="text-white" /> : "Login"}
               </Button>
-              {/* <div className="flex justify-between mt-4">
-                <Link
-                  href="/admin/"
-                  className="text-sm text-blue-500 hover:underline"
-                >
-                  Go to Admin Page
-                </Link>
-                <Link
-                  href="/judge"
-                  className="text-sm text-blue-500 hover:underline"
-                >
-                  Go to Dashboard
-                </Link>
-              </div> */}
+
+              {loginStatus === "failed" && (
+                <p className="text-red-500 text-center">
+                  Wrong email or password
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
       </form>
-      {loginStatus === "failed" && (
-        <p className="text-red-500">Wrong username or password</p>
-      )}
+     
     </div>
   );
 }

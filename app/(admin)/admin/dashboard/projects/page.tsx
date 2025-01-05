@@ -33,8 +33,7 @@ import { Label } from "@/components/ui/label";
 
 import AdminHeader from "@/components/admin-header";
 import ProjectTableRow from "./ProjectTableRow";
-
-type ProjectAndTotalJudgesType = Project & { totalJudges: number };
+import { ProjectAndTotalJudgesType } from "@/util/type";
 
 export default function AdminDashboardPage() {
   const [projects, setProjects] = useState<ProjectAndTotalJudgesType[]>();
@@ -58,6 +57,7 @@ export default function AdminDashboardPage() {
       const res = await fetch("/api/projects", { method: "GET" });
       if (res.ok) {
         const data = await res.json();
+        console.log(data)
         setProjects(data);
       }
     } catch (error: any) {
@@ -142,8 +142,8 @@ export default function AdminDashboardPage() {
             </BreadcrumbList>
           </Breadcrumb>
 
-          <div className="flex items-center py-4 justify-between">
-            <Input placeholder="Filter title..." className="max-w-sm" />
+          <div className="flex items-center py-4 justify-end">
+            {/* <Input placeholder="Filter title..." className="max-w-sm" /> */}
             <div className="flex flex-row">
               <Button
                 className="mr-5 text-black bg-white border-2 hover:bg-gray-200"

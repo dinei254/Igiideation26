@@ -94,8 +94,6 @@ const UsersDashboardPage = () => {
       formData.append("type", "JUDGE");
       formData.append("association", judgeForm.association);
 
-      console.log(formData);
-
       const res = await fetch("/api/judge", {
         method: "POST",
         body: formData,

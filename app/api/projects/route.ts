@@ -1,4 +1,5 @@
 import prisma from "@/prisma/db";
+import { ProjectAndTotalJudgesType } from "@/util/type";
 import { Project } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -35,7 +36,20 @@ export async function GET(req: NextRequest) {
     } else {
       // return all projects
       const projects = await prisma.project.findMany({});
-      if (projects) return NextResponse.json(projects, { status: 200 });
+      const projectsAndTotalJudges: ProjectAndTotalJudgesType[] = [];
+
+      for (const project of projects) {
+        const totalJudges = await prisma.judgeProjectBridge.count({
+          where: {
+            projectId: project.id,
+          },
+        });
+
+        projectsAndTotalJudges.push({ ...project, totalJudges });
+      }
+
+      if (projectsAndTotalJudges)
+        return NextResponse.json(projectsAndTotalJudges, { status: 200 });
       else
         NextResponse.json({ message: "Projects not found" }, { status: 404 });
     }
