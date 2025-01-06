@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         },
       });
 
-      let projects: Project[] = [];
+      const projects: Project[] = [];
       for (const projectId of judge?.projectToBeJudged || []) {
         const project = await prisma.project.findFirst({
           where: {
@@ -36,7 +36,6 @@ export async function GET(req: NextRequest) {
 
         if (project) {
           projects.push(project);
-          console.log(project);
         }
       }
 
@@ -44,9 +43,9 @@ export async function GET(req: NextRequest) {
     } else {
       // return all projects
       const projects = await prisma.project.findMany({
-        include : {
-          JudgeProjectBridge : true
-        }
+        include: {
+          JudgeProjectBridge: true,
+        },
       });
       const projectsAndTotalJudges: ProjectAndTotalJudgesType[] = [];
 

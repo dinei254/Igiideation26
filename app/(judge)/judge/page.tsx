@@ -1,20 +1,16 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { useContext, useEffect, useState } from "react";
 import { JudgeContext } from "@/hooks/JudgeProvider";
-import { JudgeProjectBridge, Project } from "@prisma/client";
 import { Spinner } from "@/components/spinner-loading";
 import JudgeHeader from "@/components/judge-header";
-import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,7 +18,6 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
 import JudgeTableRow from "./JudgeTableRow";
 import { ProjectAndJudgeProjectBridge } from "@/util/type";
 
@@ -52,7 +47,9 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (judge?.judgeId) handleGetProjects();
-  }, [judge]);
+  }, [judge?.judgeId]);
+
+  if (judge?.isLoading) return <p>Loading judge id ...</p>;
 
   if (isLoading)
     return (
@@ -84,7 +81,7 @@ export default function AdminPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Project title</TableHead>
-                    <TableHead >Marks given</TableHead>
+                    <TableHead>Marks given</TableHead>
                     <TableHead>Action</TableHead>
                   </TableRow>
                 </TableHeader>

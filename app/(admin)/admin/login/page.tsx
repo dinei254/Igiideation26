@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import Link from "next/link";
 import React from "react";
 
 const AdminLoginPage = () => {

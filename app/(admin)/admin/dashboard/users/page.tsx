@@ -65,6 +65,7 @@ const UsersDashboardPage = () => {
 
   const handleCreateAdmin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       const admin = {
         name: adminForm.name,
@@ -92,6 +93,8 @@ const UsersDashboardPage = () => {
   };
 
   const handleCreateJudge = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     try {
       const judge = {
         name: judgeForm.name,
@@ -267,7 +270,7 @@ const UsersDashboardPage = () => {
                     />
                   </div>
 
-                  <Button className="w-full mt-5" type="submit">Create Admin</Button>
+                  <Button className="w-full mt-5" type="submit">Create Judge</Button>
                 </form>
               </DialogContent>
             </Dialog>

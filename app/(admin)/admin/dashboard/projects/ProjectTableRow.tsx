@@ -88,7 +88,7 @@ const ProjectTableRow = ({
       const formdata = new FormData();
       formdata.append("judges", JSON.stringify(selectedJudges));
       formdata.append("projectId", projectId);
-      1;
+      
       const res = await fetch("/api/assign-judge", {
         method: "POST",
         body: formdata,
@@ -271,8 +271,8 @@ const ProjectTableRow = ({
             <DialogHeader>
               <DialogTitle>Assign Judges</DialogTitle>
               <DialogDescription>
-                Choose judges to be assigned to project "
-                {project.titleOfInnovation}"
+                Choose judges to be assigned to project
+                {project.titleOfInnovation}
               </DialogDescription>
             </DialogHeader>
             <Select

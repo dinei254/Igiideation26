@@ -1,7 +1,6 @@
 import prisma from "@/prisma/db";
 import { decrypt } from "@/util/session";
 import { NextRequest, NextResponse } from "next/server";
-import { JudgeProjectBridge } from "@prisma/client";
 
 // mark project
 export async function POST(req: NextRequest) {

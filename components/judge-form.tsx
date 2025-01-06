@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,7 +42,7 @@ export default function JudgeForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      association:"",
+      association: "",
       number: "",
       email: "",
       username: "",

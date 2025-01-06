@@ -1,17 +1,11 @@
 import prisma from "@/prisma/db";
 import { NextRequest, NextResponse } from "next/server";
-import * as bcrypt from "bcrypt";
 import { Judge } from "@prisma/client";
 import hashPassword from "@/util/hashPassword";
 
 export async function POST(req: NextRequest) {
   try {
-    // const formdata = await req.formData();
-    // const name = formdata.get("name") as string;
-    // const email = formdata.get("email") as string;
-    // const association = formdata.get("association") as string;
-    // const password = formdata.get("password") as string;
-    const { name, email, password, association, type } = await req.json();
+    const { name, email, password, association } = await req.json();
 
     const hashedPassword = await hashPassword(password);
 
@@ -47,7 +41,7 @@ export async function PATCH(req: NextRequest) {
     const judgeId = formdata.get("judgeId") as string;
 
     const hashedPassword = await hashPassword(judge.password);
-    console.log(hashedPassword)
+    console.log(hashedPassword);
 
     await prisma.judge.update({
       where: {
@@ -88,10 +82,3 @@ export async function DELETE(req: NextRequest) {
     throw error;
   }
 }
-
-async function createJudgeAccount(
-  name: string,
-  password: string,
-  email: string,
-  association: string
-) {}

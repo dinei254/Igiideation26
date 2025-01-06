@@ -8,6 +8,7 @@ export const JudgeContext = createContext<
   | {
       judgeId: string | undefined;
       setJudgeId: React.Dispatch<React.SetStateAction<string | undefined>>;
+      isLoading: boolean;
     }
   | undefined
 >(undefined);
@@ -34,12 +35,12 @@ const JudgeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     handleGetJudge();
-  }, [judgeId]);
+  }, []);
 
   if (isLoading) return <p>Loading data ...</p>;
   else
     return (
-      <JudgeContext.Provider value={{ judgeId, setJudgeId }}>
+      <JudgeContext.Provider value={{ judgeId, setJudgeId, isLoading }}>
         {children}
       </JudgeContext.Provider>
     );

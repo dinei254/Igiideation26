@@ -48,7 +48,7 @@ export default function AdminDashboardPage() {
     supportingDocumentLink3: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [_, setIsLoading] = useState(false);
 
   const handleGetProjects = async () => {
     setIsLoading(true);

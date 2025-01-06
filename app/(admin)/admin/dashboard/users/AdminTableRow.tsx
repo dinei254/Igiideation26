@@ -41,6 +41,8 @@ const AdminTableRow = ({ admin }: { admin: Admin }) => {
   };
 
   const handleUpdateAdmin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    
     try {
       const formdata = new FormData();
       formdata.append("admin", JSON.stringify(updatedAdmin));

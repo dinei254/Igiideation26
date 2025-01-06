@@ -53,6 +53,40 @@ export default function CreateUser() {
     }
   };
 
+  const calculateTotalProject = () => {
+    return projects?.length;
+  };
+
+  const calculateTotalJudges = () => {
+    return judges?.length;
+  };
+
+  const calculateUncompleteEvaluatedProject = () => {
+    let total = 0;
+    projects?.forEach((project) =>
+      project.JudgeProjectBridge.forEach((mark) => {
+        if (!mark.isProjectMarked) {
+          total++;
+        }
+      })
+    );
+
+    return total;
+  };
+
+  const calculateCompleteEvaluatedProject = () => {
+    let total = 0;
+    projects?.forEach((project) =>
+      project.JudgeProjectBridge.forEach((mark) => {
+        if (mark.isProjectMarked) {
+          total++;
+        }
+      })
+    );
+
+    return total;
+  };
+
   useEffect(() => {
     const getData = async () => {
       await handleGetAllProjects();
@@ -95,11 +129,23 @@ export default function CreateUser() {
               <TableBody>
                 <TableRow>
                   <TableCell>Total projects</TableCell>
-                  <TableCell>{projects?.length}</TableCell>
+                  <TableCell>{calculateTotalProject()}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Total judges</TableCell>
-                  <TableCell>{judges?.length}</TableCell>
+                  <TableCell>{calculateTotalJudges()}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    The total number of judges has not yet finished marking.
+                  </TableCell>
+                  <TableCell>{calculateUncompleteEvaluatedProject()}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    The total number of judges has finished marking.
+                  </TableCell>
+                  <TableCell>{calculateCompleteEvaluatedProject()}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

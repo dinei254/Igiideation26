@@ -28,7 +28,7 @@ export default function JudgeDashboard({
   const [isRightOpen, setIsRightOpen] = useState(true);
   const [project, setProject] = useState<Project | undefined>(undefined);
   const projectId = params.projectId;
-  const [isLoading, setIsLoading] = useState(false);
+  const [_, setIsLoading] = useState(false);
 
   const handleGetProject = async () => {
     setIsLoading(true);

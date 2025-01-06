@@ -25,7 +25,7 @@ const JudgeTableRow = ({
     <TableRow key={project.id}>
       <TableCell className="w-4/6">{project.titleOfInnovation}</TableCell>
       <TableCell className="font-semibold w-1/6">
-        {totalMark < 0 ? "Not marked yet" : `${totalMark} / 25`}
+        {totalMark < 0 ? "Not marked yet" : `${totalMark} / 30`}
       </TableCell>
       <TableCell className="w-1/6">
         <Button disabled={judgeProjectBridge.isProjectMarked}>
