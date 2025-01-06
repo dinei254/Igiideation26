@@ -25,10 +25,18 @@ export async function GET(req: NextRequest) {
           where: {
             id: projectId,
           },
+          include: {
+            JudgeProjectBridge: {
+              where: {
+                AND: [{ projectId: projectId }, { judgeId: judgeId }],
+              },
+            },
+          },
         });
 
         if (project) {
           projects.push(project);
+          console.log(project);
         }
       }
 

@@ -47,8 +47,7 @@ model Project {
   updatedAt               DateTime             @updatedAt
   status                  ProjectStatus
   JudgeProjectBridge      JudgeProjectBridge[]
-  // assignedJudges          String[]
-  marks                   Mark[]
+  assignedJudges          String[]
 }
 
 enum ProjectStatus {
@@ -56,28 +55,23 @@ enum ProjectStatus {
   COMPLETE
 }
 
-model Mark {
-  id                       String   @id @default(uuid()) @map("_id")
-  noveltyAndUniquenessMark Int
-  benefitToMankindMark     Int
-  commercializationMark    Int
-  statusOfInventionMark    Int
-  videoPresentationMark    Int
-  supportingDocumentMark   Int
-  comments                 String?
-  isPlatinumAward          Boolean  @default(false)
-  isSustainabilityAward    Boolean  @default(false)
-  isInnovatexAward         Boolean  @default(false)
-  project                  Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId                String?
-}
-
 model JudgeProjectBridge {
-  id        String  @id @default(uuid()) @map("_id")
-  judge     Judge   @relation(fields: [judgeId], references: [id], onDelete: Cascade)
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  judgeId   String
-  projectId String
+  id                       String  @id @default(uuid()) @map("_id")
+  judge                    Judge   @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+  project                  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  judgeId                  String
+  projectId                String
+  noveltyAndUniquenessMark Int?
+  benefitToMankindMark     Int?
+  commercializationMark    Int?
+  statusOfInventionMark    Int?
+  videoPresentationMark    Int?
+  supportingDocumentMark   Int?
+  comments                 String?
+  isPlatinumAward          Boolean @default(false)
+  isSustainabilityAward    Boolean @default(false)
+  isInnovatexAward         Boolean @default(false)
+  isProjectMarked          Boolean @default(false)
 
   @@unique([judgeId, projectId])
 }

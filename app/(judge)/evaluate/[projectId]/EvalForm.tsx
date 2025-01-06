@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Card,
   CardContent,
@@ -21,6 +21,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+import { JudgeContext } from "@/hooks/JudgeProvider";
 
 const questions = [
   "Novelty & Uniqueness",
@@ -43,6 +44,9 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   const [innovatexAward, setInnovatexAward] = useState<string>("");
 
   const router = useRouter();
+
+  const judge = useContext(JudgeContext);
+  const judgeId = judge?.judgeId;
 
   const handleSubmit = async () => {
     // Check if all questions are rated
@@ -75,6 +79,7 @@ export default function EvalForm({ projectId }: { projectId: string }) {
 
     const formData = new FormData();
     formData.append("projectId", result.project_id);
+    formData.append("judgeId", judgeId!);
     formData.append("noveltyAndUniquenessMark", result.ratings[questions[0]]);
     formData.append("benefitToMankindMark", result.ratings[questions[1]]);
     formData.append("commercializationMark", result.ratings[questions[2]]);

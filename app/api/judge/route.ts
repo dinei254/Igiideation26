@@ -6,13 +6,24 @@ import hashPassword from "@/util/hashPassword";
 
 export async function POST(req: NextRequest) {
   try {
-    const formdata = await req.formData();
-    const name = formdata.get("name") as string;
-    const email = formdata.get("email") as string;
-    const association = formdata.get("association") as string;
-    const password = formdata.get("password") as string;
+    // const formdata = await req.formData();
+    // const name = formdata.get("name") as string;
+    // const email = formdata.get("email") as string;
+    // const association = formdata.get("association") as string;
+    // const password = formdata.get("password") as string;
+    const { name, email, password, association, type } = await req.json();
 
-    const judge = await createJudgeAccount(name, password, email, association);
+    const hashedPassword = await hashPassword(password);
+
+    const judge = await prisma.judge.create({
+      data: {
+        name: name,
+        email: email,
+        password: hashedPassword,
+        association: association,
+      },
+    });
+
     if (judge)
       return NextResponse.json(
         { message: "Successfully create judge account" },
@@ -35,6 +46,9 @@ export async function PATCH(req: NextRequest) {
     const judge: Judge = JSON.parse(formdata.get("judge") as string);
     const judgeId = formdata.get("judgeId") as string;
 
+    const hashedPassword = await hashPassword(judge.password);
+    console.log(hashedPassword)
+
     await prisma.judge.update({
       where: {
         id: judgeId,
@@ -43,7 +57,7 @@ export async function PATCH(req: NextRequest) {
         name: judge.name,
         email: judge.email,
         association: judge.association,
-        password: judge.password,
+        password: hashedPassword,
       },
     });
 
@@ -75,30 +89,9 @@ export async function DELETE(req: NextRequest) {
   }
 }
 
-
-
-
-
 async function createJudgeAccount(
   name: string,
   password: string,
   email: string,
   association: string
-) {
-  const hashedPassword = await hashPassword(password);
-
-  const judge = await prisma.judge.create({
-    data: {
-      name: name,
-      email: email,
-      password: hashedPassword,
-      association: association,
-    },
-  });
-
-  if (judge) {
-    return judge;
-  } else {
-    return null;
-  }
-}
+) {}

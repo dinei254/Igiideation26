@@ -66,15 +66,21 @@ const UsersDashboardPage = () => {
   const handleCreateAdmin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("name", adminForm.name);
-      formData.append("email", adminForm.email);
-      formData.append("password", adminForm.password);
-      formData.append("type", "ADMIN");
+      const admin = {
+        name: adminForm.name,
+        email: adminForm.email,
+        password: adminForm.password,
+        type: "ADMIN",
+      };
+
+      console.log(admin);
 
       const res = await fetch("/api/admin", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(admin),
       });
 
       if (res.ok) {
@@ -87,16 +93,20 @@ const UsersDashboardPage = () => {
 
   const handleCreateJudge = async (e: FormEvent<HTMLFormElement>) => {
     try {
-      const formData = new FormData();
-      formData.append("name", judgeForm.name);
-      formData.append("email", judgeForm.email);
-      formData.append("password", judgeForm.password);
-      formData.append("type", "JUDGE");
-      formData.append("association", judgeForm.association);
+      const judge = {
+        name: judgeForm.name,
+        email: judgeForm.email,
+        password: judgeForm.password,
+        association: judgeForm.association,
+        type: "JUDGE",
+      };
 
       const res = await fetch("/api/judge", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(judge),
       });
 
       if (res.ok) {
@@ -257,7 +267,7 @@ const UsersDashboardPage = () => {
                     />
                   </div>
 
-                  <Button className="w-full mt-5">Create Admin</Button>
+                  <Button className="w-full mt-5" type="submit">Create Admin</Button>
                 </form>
               </DialogContent>
             </Dialog>

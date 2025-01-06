@@ -14,6 +14,8 @@ export const JudgeContext = createContext<
 
 const JudgeProvider = ({ children }: { children: React.ReactNode }) => {
   const [judgeId, setJudgeId] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleGetJudge = async () => {
     try {
       const res = await fetch("/api/user");
@@ -25,6 +27,8 @@ const JudgeProvider = ({ children }: { children: React.ReactNode }) => {
       console.error(
         `Failed to get judge account information : ${error.message}"`
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -32,9 +36,13 @@ const JudgeProvider = ({ children }: { children: React.ReactNode }) => {
     handleGetJudge();
   }, [judgeId]);
 
-  return (
-    <JudgeContext.Provider value={{judgeId, setJudgeId}}>{children}</JudgeContext.Provider>
-  );
+  if (isLoading) return <p>Loading data ...</p>;
+  else
+    return (
+      <JudgeContext.Provider value={{ judgeId, setJudgeId }}>
+        {children}
+      </JudgeContext.Provider>
+    );
 };
 
 export default JudgeProvider;

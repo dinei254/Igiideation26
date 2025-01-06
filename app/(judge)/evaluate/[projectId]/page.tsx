@@ -131,9 +131,7 @@ export default function JudgeDashboard({
                 </Button>
                 <Button
                   variant={
-                    activeTab === "supporting-document-1"
-                      ? "default"
-                      : "ghost"
+                    activeTab === "supporting-document-1" ? "default" : "ghost"
                   }
                   className="justify-start"
                   onClick={() => setActiveTab("supporting-document-1")}
@@ -143,9 +141,7 @@ export default function JudgeDashboard({
                 </Button>
                 <Button
                   variant={
-                    activeTab === "supporting-document-2"
-                      ? "default"
-                      : "ghost"
+                    activeTab === "supporting-document-2" ? "default" : "ghost"
                   }
                   className="justify-start"
                   onClick={() => setActiveTab("supporting-document-2")}
@@ -155,9 +151,7 @@ export default function JudgeDashboard({
                 </Button>
                 <Button
                   variant={
-                    activeTab === "supporting-document-3"
-                      ? "default"
-                      : "ghost"
+                    activeTab === "supporting-document-3" ? "default" : "ghost"
                   }
                   className="justify-start"
                   onClick={() => setActiveTab("supporting-document-3")}

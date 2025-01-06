@@ -1,13 +1,14 @@
 import prisma from "@/prisma/db";
 import { decrypt } from "@/util/session";
-import { Mark } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { JudgeProjectBridge } from "@prisma/client";
 
 // mark project
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const projectId = formData.get("projectId") as string;
+    const judgeId = formData.get("judgeId") as string;
     const noveltyAndUniquenessMark = parseInt(
       formData.get("noveltyAndUniquenessMark") as string
     );
@@ -72,18 +73,27 @@ export async function POST(req: NextRequest) {
         id: projectId,
       },
       data: {
-        marks: {
-          create: {
-            noveltyAndUniquenessMark: noveltyAndUniquenessMark,
-            benefitToMankindMark: benefitToMankindMark,
-            commercializationMark: commercializationMark,
-            statusOfInventionMark: statusOfInventionMark,
-            videoPresentationMark: videoPresentationMark,
-            supportingDocumentMark: supportingDocumentMark,
-            isPlatinumAward: isPlatinumAward,
-            isSustainabilityAward: isSustainabilityAward,
-            isInnovatexAward: isInnovatexAward,
-            comments: comments,
+        JudgeProjectBridge: {
+          update: {
+            where: {
+              judgeId_projectId: {
+                judgeId: judgeId,
+                projectId: projectId,
+              },
+            },
+            data: {
+              noveltyAndUniquenessMark: noveltyAndUniquenessMark,
+              benefitToMankindMark: benefitToMankindMark,
+              commercializationMark: commercializationMark,
+              statusOfInventionMark: statusOfInventionMark,
+              videoPresentationMark: videoPresentationMark,
+              supportingDocumentMark: supportingDocumentMark,
+              isPlatinumAward: isPlatinumAward,
+              isSustainabilityAward: isSustainabilityAward,
+              isInnovatexAward: isInnovatexAward,
+              isProjectMarked: true,
+              comments: comments,
+            },
           },
         },
       },

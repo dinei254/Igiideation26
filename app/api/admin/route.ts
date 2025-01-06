@@ -5,14 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const formdata = await req.formData();
-    const name = formdata.get("name") as string;
-    const email = formdata.get("email") as string;
-    const password = formdata.get("password") as string;
-
+    const { name, email, password, type } = await req.json();
     const hashedPassword = await hashPassword(password);
 
-    const admin = await prisma.admin.create({
+    await prisma.admin.create({
       data: {
         name: name,
         email: email,

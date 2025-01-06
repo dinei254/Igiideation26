@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { useContext, useEffect, useState } from "react";
 import { JudgeContext } from "@/hooks/JudgeProvider";
-import { Project } from "@prisma/client";
+import { JudgeProjectBridge, Project } from "@prisma/client";
 import { Spinner } from "@/components/spinner-loading";
 import JudgeHeader from "@/components/judge-header";
 import { Button } from "@/components/ui/button";
@@ -23,10 +23,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import JudgeTableRow from "./JudgeTableRow";
+import { ProjectAndJudgeProjectBridge } from "@/util/type";
 
 export default function AdminPage() {
   const judge = useContext(JudgeContext);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<ProjectAndJudgeProjectBridge[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGetProjects = async () => {
@@ -47,8 +49,6 @@ export default function AdminPage() {
       setIsLoading(false);
     }
   };
-
-  const handleEvaluateProject = async () => {};
 
   useEffect(() => {
     if (judge?.judgeId) handleGetProjects();
@@ -76,7 +76,6 @@ export default function AdminPage() {
         </Breadcrumb>
 
         <div className="w-full">
-
           <div className="rounded-md">
             {projects.length <= 0 ? (
               <p className="h-screen text-center">No project assigned yet</p>
@@ -84,24 +83,14 @@ export default function AdminPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-full">Project title</TableHead>
+                    <TableHead>Project title</TableHead>
+                    <TableHead >Marks given</TableHead>
                     <TableHead>Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {projects.map((project) => (
-                    <TableRow key={project.id}>
-                      <TableCell className="w-full">
-                        {project.titleOfInnovation}
-                      </TableCell>
-                      <TableCell>
-                        <Link href={`/evaluate/${project.id}`}>
-                          <Button onClick={handleEvaluateProject}>
-                            Evaluate
-                          </Button>
-                        </Link>
-                      </TableCell>
-                    </TableRow>
+                    <JudgeTableRow key={project.id} project={project} />
                   ))}
                 </TableBody>
               </Table>
