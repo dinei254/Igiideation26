@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import { Judge, Project } from "@prisma/client";
+import { Judge } from "@prisma/client";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -57,7 +57,7 @@ export default function AdminDashboardPage() {
       const res = await fetch("/api/projects", { method: "GET" });
       if (res.ok) {
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         setProjects(data);
       }
     } catch (error: any) {
@@ -223,7 +223,6 @@ export default function AdminDashboardPage() {
                 <TableRow>
                   <TableHead>Project ID</TableHead>
                   <TableHead>Project title</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Judges assigned</TableHead>
                   <TableHead>Action(s)</TableHead>
                 </TableRow>

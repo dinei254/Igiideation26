@@ -18,12 +18,15 @@ const JudgeTableRow = ({
       judgeProjectBridge.commercializationMark! +
       judgeProjectBridge.noveltyAndUniquenessMark! +
       judgeProjectBridge.supportingDocumentMark! +
-      judgeProjectBridge.videoPresentationMark!;
+      judgeProjectBridge.videoPresentationMark! +
+      judgeProjectBridge.statusOfInventionMark!;
 
   return (
     <TableRow key={project.id}>
       <TableCell className="w-4/6">{project.titleOfInnovation}</TableCell>
-      <TableCell className="font-semibold w-1/6">{totalMark < 0 ? "Not marked yet" : `${totalMark} / 25`}</TableCell>
+      <TableCell className="font-semibold w-1/6">
+        {totalMark < 0 ? "Not marked yet" : `${totalMark} / 25`}
+      </TableCell>
       <TableCell className="w-1/6">
         <Button disabled={judgeProjectBridge.isProjectMarked}>
           <Link href={`/evaluate/${project.id}`}>

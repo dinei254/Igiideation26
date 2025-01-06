@@ -43,7 +43,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(projects, { status: 200 });
     } else {
       // return all projects
-      const projects = await prisma.project.findMany({});
+      const projects = await prisma.project.findMany({
+        include : {
+          JudgeProjectBridge : true
+        }
+      });
       const projectsAndTotalJudges: ProjectAndTotalJudgesType[] = [];
 
       for (const project of projects) {

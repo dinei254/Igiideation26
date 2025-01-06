@@ -106,7 +106,6 @@ const ProjectTableRow = ({
     <TableRow key={project.id}>
       <TableCell>{project.id}</TableCell>
       <TableCell>{project.titleOfInnovation}</TableCell>
-      <TableCell>{project.status}</TableCell>
       <TableCell>{project.totalJudges} judge(s)</TableCell>
       <TableCell className="flex items-center gap-x-2">
         <Dialog>
