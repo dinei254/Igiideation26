@@ -31,7 +31,6 @@ type ProjectRowType = {
   total_judges: number;
 
   judge1_name: string;
-  judge1_total_mark: number;
   judge1_novelty_and_uniqueness_mark: number;
   judge1_benefit_to_mankind_mark: number;
   judge1_commercialization_mark: number;
@@ -44,7 +43,6 @@ type ProjectRowType = {
   judge1_comment: string | null;
 
   judge2_name: string;
-  judge2_total_mark: number;
   judge2_novelty_and_uniqueness_mark: number;
   judge2_benefit_to_mankind_mark: number;
   judge2_commercialization_mark: number;
@@ -57,7 +55,6 @@ type ProjectRowType = {
   judge2_comment: string | null;
 
   judge3_name: string;
-  judge3_total_mark: number;
   judge3_novelty_and_uniqueness_mark: number;
   judge3_benefit_to_mankind_mark: number;
   judge3_commercialization_mark: number;
@@ -70,7 +67,6 @@ type ProjectRowType = {
   judge3_comment: string | null;
 
   judge4_name: string;
-  judge4_total_mark: number;
   judge4_novelty_and_uniqueness_mark: number;
   judge4_benefit_to_mankind_mark: number;
   judge4_commercialization_mark: number;
@@ -83,7 +79,6 @@ type ProjectRowType = {
   judge4_comment: string | null;
 
   judge5_name: string;
-  judge5_total_mark: number;
   judge5_novelty_and_uniqueness_mark: number;
   judge5_benefit_to_mankind_mark: number;
   judge5_commercialization_mark: number;
@@ -122,7 +117,6 @@ export async function GET(req: NextRequest) {
       "status_of_invention_mark_judge1",
       "video_presentation_mark_judge1",
       "supporting_document_mark_judge1",
-      "total_mark_judge1",
       "is_platinum_award_judge1",
       "is_sustainability_award_judge1",
       "is_innovatex_award_judge1",
@@ -135,7 +129,6 @@ export async function GET(req: NextRequest) {
       "status_of_invention_mark_judge2",
       "video_presentation_mark_judge2",
       "supporting_document_mark_judge2",
-      "total_mark_judge2",
       "is_platinum_award_judge2",
       "is_sustainability_award_judge2",
       "is_innovatex_award_judge2",
@@ -148,7 +141,6 @@ export async function GET(req: NextRequest) {
       "status_of_invention_mark_judge3",
       "video_presentation_mark_judge3",
       "supporting_document_mark_judge3",
-      "total_mark_judge3",
       "is_platinum_award_judge3",
       "is_sustainability_award_judge3",
       "is_innovatex_award_judge3",
@@ -161,7 +153,6 @@ export async function GET(req: NextRequest) {
       "status_of_invention_mark_judge4",
       "video_presentation_mark_judge4",
       "supporting_document_mark_judge4",
-      "total_mark_judge4",
       "is_platinum_award_judge4",
       "is_sustainability_award_judge4",
       "is_innovatex_award_judge4",
@@ -174,7 +165,6 @@ export async function GET(req: NextRequest) {
       "status_of_invention_mark_judge5",
       "video_presentation_mark_judge5",
       "supporting_document_mark_judge5",
-      "total_mark_judge5",
       "is_platinum_award_judge5",
       "is_sustainability_award_judge5",
       "is_innovatex_award_judge5",
@@ -204,66 +194,71 @@ export async function GET(req: NextRequest) {
         average_mark: averageMark,
         badge: classifyMark(averageMark),
         total_judges: totalJudges,
-        judge1_name: "",
-        judge1_total_mark: 0,
-        judge1_novelty_and_uniqueness_mark: 0,
-        judge1_benefit_to_mankind_mark: 0,
-        judge1_commercialization_mark: 0,
-        judge1_status_of_invention_mark: 0,
-        judge1_video_presentation_mark: 0,
-        judge1_supporting_document_mark: 0,
-        judge1_is_platinum_award: false,
-        judge1_is_sustainability_award: false,
-        judge1_is_innovatex_award: false,
-        judge1_comment: null,
-        judge2_name: "",
-        judge2_total_mark: 0,
-        judge2_novelty_and_uniqueness_mark: 0,
-        judge2_benefit_to_mankind_mark: 0,
-        judge2_commercialization_mark: 0,
-        judge2_status_of_invention_mark: 0,
-        judge2_video_presentation_mark: 0,
-        judge2_supporting_document_mark: 0,
-        judge2_is_platinum_award: false,
-        judge2_is_sustainability_award: false,
-        judge2_is_innovatex_award: false,
-        judge2_comment: null,
-        judge3_name: "",
-        judge3_total_mark: 0,
-        judge3_novelty_and_uniqueness_mark: 0,
-        judge3_benefit_to_mankind_mark: 0,
-        judge3_commercialization_mark: 0,
-        judge3_status_of_invention_mark: 0,
-        judge3_video_presentation_mark: 0,
-        judge3_supporting_document_mark: 0,
-        judge3_is_platinum_award: false,
-        judge3_is_sustainability_award: false,
-        judge3_is_innovatex_award: false,
-        judge3_comment: null,
-        judge4_name: "",
-        judge4_total_mark: 0,
-        judge4_novelty_and_uniqueness_mark: 0,
-        judge4_benefit_to_mankind_mark: 0,
-        judge4_commercialization_mark: 0,
-        judge4_status_of_invention_mark: 0,
-        judge4_video_presentation_mark: 0,
-        judge4_supporting_document_mark: 0,
-        judge4_is_platinum_award: false,
-        judge4_is_sustainability_award: false,
-        judge4_is_innovatex_award: false,
-        judge4_comment: null,
-        judge5_name: "",
-        judge5_total_mark: 0,
-        judge5_novelty_and_uniqueness_mark: 0,
-        judge5_benefit_to_mankind_mark: 0,
-        judge5_commercialization_mark: 0,
-        judge5_status_of_invention_mark: 0,
-        judge5_video_presentation_mark: 0,
-        judge5_supporting_document_mark: 0,
-        judge5_is_platinum_award: false,
-        judge5_is_sustainability_award: false,
-        judge5_is_innovatex_award: false,
-        judge5_comment: null,
+
+        judge1_name: project.JudgeProjectBridge[0].judge.name,
+        judge1_novelty_and_uniqueness_mark:
+          project.JudgeProjectBridge[0].noveltyAndUniquenessMark ?? 0,
+        judge1_benefit_to_mankind_mark: project.JudgeProjectBridge[0].benefitToMankindMark ?? 0,
+        judge1_commercialization_mark: project.JudgeProjectBridge[0].commercializationMark ?? 0,
+        judge1_status_of_invention_mark: project.JudgeProjectBridge[0].statusOfInventionMark ?? 0,
+        judge1_video_presentation_mark: project.JudgeProjectBridge[0].videoPresentationMark ?? 0,
+        judge1_supporting_document_mark: project.JudgeProjectBridge[0].supportingDocumentMark ?? 0,
+        judge1_is_platinum_award: project.JudgeProjectBridge[0].isPlatinumAward ?? 0,
+        judge1_is_sustainability_award: project.JudgeProjectBridge[0].isSustainabilityAward ?? 0,
+        judge1_is_innovatex_award: project.JudgeProjectBridge[0].isInnovatexAward ?? 0,
+        judge1_comment: project.JudgeProjectBridge[0].comments ?? "no comment",
+
+        judge2_name: project.JudgeProjectBridge[1].judge.name,
+        judge2_novelty_and_uniqueness_mark:
+          project.JudgeProjectBridge[1].noveltyAndUniquenessMark ?? 0,
+        judge2_benefit_to_mankind_mark: project.JudgeProjectBridge[1].benefitToMankindMark ?? 0,
+        judge2_commercialization_mark: project.JudgeProjectBridge[1].commercializationMark ?? 0,
+        judge2_status_of_invention_mark: project.JudgeProjectBridge[1].statusOfInventionMark ?? 0,
+        judge2_video_presentation_mark: project.JudgeProjectBridge[1].videoPresentationMark ?? 0,
+        judge2_supporting_document_mark: project.JudgeProjectBridge[1].supportingDocumentMark ?? 0,
+        judge2_is_platinum_award: project.JudgeProjectBridge[1].isPlatinumAward ?? 0,
+        judge2_is_sustainability_award: project.JudgeProjectBridge[1].isSustainabilityAward ?? 0,
+        judge2_is_innovatex_award: project.JudgeProjectBridge[1].isInnovatexAward ?? 0,
+        judge2_comment: project.JudgeProjectBridge[1].comments ?? "no comment",
+
+        judge3_name: project.JudgeProjectBridge[2].judge.name,
+        judge3_novelty_and_uniqueness_mark:
+          project.JudgeProjectBridge[2].noveltyAndUniquenessMark ?? 0,
+        judge3_benefit_to_mankind_mark: project.JudgeProjectBridge[2].benefitToMankindMark ?? 0,
+        judge3_commercialization_mark: project.JudgeProjectBridge[2].commercializationMark ?? 0,
+        judge3_status_of_invention_mark: project.JudgeProjectBridge[2].statusOfInventionMark ?? 0,
+        judge3_video_presentation_mark: project.JudgeProjectBridge[2].videoPresentationMark ?? 0,
+        judge3_supporting_document_mark: project.JudgeProjectBridge[2].supportingDocumentMark ?? 0,
+        judge3_is_platinum_award: project.JudgeProjectBridge[2].isPlatinumAward ?? 0,
+        judge3_is_sustainability_award: project.JudgeProjectBridge[2].isSustainabilityAward ?? 0,
+        judge3_is_innovatex_award: project.JudgeProjectBridge[2].isInnovatexAward ?? 0,
+        judge3_comment: project.JudgeProjectBridge[2].comments ?? "no comment",
+
+        judge4_name: project.JudgeProjectBridge[3].judge.name,
+        judge4_novelty_and_uniqueness_mark:
+          project.JudgeProjectBridge[3].noveltyAndUniquenessMark ?? 0,
+        judge4_benefit_to_mankind_mark: project.JudgeProjectBridge[3].benefitToMankindMark ?? 0,
+        judge4_commercialization_mark: project.JudgeProjectBridge[3].commercializationMark ?? 0,
+        judge4_status_of_invention_mark: project.JudgeProjectBridge[3].statusOfInventionMark ?? 0,
+        judge4_video_presentation_mark: project.JudgeProjectBridge[3].videoPresentationMark ?? 0,
+        judge4_supporting_document_mark: project.JudgeProjectBridge[3].supportingDocumentMark ?? 0,
+        judge4_is_platinum_award: project.JudgeProjectBridge[3].isPlatinumAward ?? 0,
+        judge4_is_sustainability_award: project.JudgeProjectBridge[3].isSustainabilityAward ?? 0,
+        judge4_is_innovatex_award: project.JudgeProjectBridge[3].isInnovatexAward ?? 0,
+        judge4_comment: project.JudgeProjectBridge[3].comments ?? "no comment",
+
+        judge5_name: project.JudgeProjectBridge[4].judge.name,
+        judge5_novelty_and_uniqueness_mark:
+          project.JudgeProjectBridge[4].noveltyAndUniquenessMark ?? 0,
+        judge5_benefit_to_mankind_mark: project.JudgeProjectBridge[4].benefitToMankindMark ?? 0,
+        judge5_commercialization_mark: project.JudgeProjectBridge[4].commercializationMark ?? 0,
+        judge5_status_of_invention_mark: project.JudgeProjectBridge[4].statusOfInventionMark ?? 0,
+        judge5_video_presentation_mark: project.JudgeProjectBridge[4].videoPresentationMark ?? 0,
+        judge5_supporting_document_mark: project.JudgeProjectBridge[4].supportingDocumentMark ?? 0,
+        judge5_is_platinum_award: project.JudgeProjectBridge[4].isPlatinumAward ?? 0,
+        judge5_is_sustainability_award: project.JudgeProjectBridge[4].isSustainabilityAward ?? 0,
+        judge5_is_innovatex_award: project.JudgeProjectBridge[4].isInnovatexAward ?? 0,
+        judge5_comment: project.JudgeProjectBridge[4].comments ?? "no comment",
       };
 
       return row;
@@ -273,7 +268,7 @@ export async function GET(req: NextRequest) {
       Object.values(projObj).join(",")
     );
 
-    const csvContent = [header.join(","), ...projectRows].join("\n")
+    const csvContent = [header.join(","), ...projectRows].join("\n");
 
     return new NextResponse(csvContent as any, {
       headers: {
@@ -286,11 +281,3 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error }, { status: 500 });
   }
 }
-
-// const calculateAverageMarks = (projectId: string) => {
-//   try {
-//   } catch (error: any) {
-//     console.log(`Error calculating average marks`);
-//     throw new Error(error);
-//   }
-// };

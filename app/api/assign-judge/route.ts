@@ -8,6 +8,18 @@ export async function POST(req: NextRequest) {
     const judges: Judge[] = JSON.parse(formdata.get("judges") as string);
     const projectId = formdata.get("projectId") as string;
 
+    const totalAssignedJudges = await prisma.judgeProjectBridge.count({
+      where: {
+        projectId: projectId,
+      },
+    });
+
+    if (totalAssignedJudges >= 5)
+      return NextResponse.json(
+        { message: "Total number of judges has exceeded five people" },
+        { status: 400 }
+      );
+
     judges.forEach(async (judge) => {
       await prisma.judgeProjectBridge.create({
         data: {
@@ -45,7 +57,6 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     console.error(error);
-    return NextResponse.json(error, {status : 500})
-
+    return NextResponse.json(error, { status: 500 });
   }
 }

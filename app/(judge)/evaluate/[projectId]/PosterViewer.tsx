@@ -16,7 +16,10 @@ export const PosterViewer: React.FC<GoogleDrivePosterViewerProps> = ({
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">Poster: </h2>
-      <div style={{ position: "relative", paddingBottom: "56.25%"}} className="h-screen">
+      <div
+        style={{ position: "relative", paddingBottom: "56.25%" }}
+        className="h-screen"
+      >
         <iframe
           src={viewerUrl}
           width={width}

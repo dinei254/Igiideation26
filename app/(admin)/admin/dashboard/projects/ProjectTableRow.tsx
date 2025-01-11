@@ -40,6 +40,7 @@ const ProjectTableRow = ({
 }) => {
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [updatedProject, setUpdatedProject] = useState(project);
+  const [totalJudges, setTotalJudges] = useState(project.totalJudges);
 
   const handleUpdateProject = async (
     e: FormEvent<HTMLFormElement>,
@@ -88,7 +89,7 @@ const ProjectTableRow = ({
       const formdata = new FormData();
       formdata.append("judges", JSON.stringify(selectedJudges));
       formdata.append("projectId", projectId);
-      
+
       const res = await fetch("/api/assign-judge", {
         method: "POST",
         body: formdata,
@@ -281,9 +282,12 @@ const ProjectTableRow = ({
                 if (
                   selectedJudges.find(
                     (judge) => judge.name === parsedJudge.name
-                  ) === undefined
-                )
+                  ) === undefined &&
+                  totalJudges < 5
+                ) {
                   setSelectedJudges([...selectedJudges!, parsedJudge]);
+                  setTotalJudges((prev) => prev + 1);
+                }
               }}
             >
               <SelectTrigger className="w-full">

@@ -17,7 +17,7 @@ export const SupportingDocumentsViewer: React.FC<
         className="h-screen"
       >
         {supportingDocumentLink === undefined ? (
-          <p>Supporting document 1 is not provided.</p>
+          <p>Supporting document is not provided.</p>
         ) : (
           <iframe
             src={supportingDocumentLink}

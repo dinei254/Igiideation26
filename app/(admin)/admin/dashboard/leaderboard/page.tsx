@@ -20,6 +20,8 @@ import { useEffect, useState } from "react";
 import { ProjectAndJudgeProjectBridge } from "@/util/type";
 import { Judge } from "@prisma/client";
 import LeaderboardTableRow from "./LeaderboardTableRow";
+import { Button } from "@/components/ui/button";
+import { FaFileExport } from "react-icons/fa";
 
 export default function CreateUser() {
   const [projects, setProjects] = useState<ProjectAndJudgeProjectBridge[]>();
@@ -87,6 +89,14 @@ export default function CreateUser() {
     return total;
   };
 
+  const handleExportToCSV = async () => {
+    try {
+      const res = await fetch("/api/export", { method: "GET" });
+    } catch (error: any) {
+      console.error(`Failed to export to CSV : ${error}`);
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
       await handleGetAllProjects();
@@ -150,6 +160,16 @@ export default function CreateUser() {
               </TableBody>
             </Table>
           </div>
+
+          <div className="flex justify-end">
+            <a href="/api/export" download={"data.csv"}>
+              <Button>
+                <FaFileExport />
+                Export to CSV
+              </Button>
+            </a>
+          </div>
+
           <div className="w-full mt-10">
             {/* the table */}
             <div className="rounded-md border">
