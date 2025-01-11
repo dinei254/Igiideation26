@@ -7,27 +7,3 @@ bende nak buat
 6. deployment ke digitalocean
 7. feature export ke csv file
 
-  const sessionValue = isCookieExists();
-  if (!sessionValue) {
-    const loginUrl = `${req.nextUrl.origin}/login`;
-    const res = await deleteSession(sessionValue)
-    return NextResponse.redirect(loginUrl);
-  }
-
-  const sessionData = await isSessionExists(sessionValue);
-  if (!sessionData) {
-    const loginUrl = `${req.nextUrl.origin}/login`;
-    const res = NextResponse.redirect(loginUrl);
-    res.cookies.delete("session");
-    return res;
-  }
-
-  const accessLevel = await checkAccessLevel(sessionData.userId);
-
-  if (accessLevel === "not identified") {
-    const unauthorizedUrl = `${req.nextUrl.origin}/unauthorized`;
-    return NextResponse.redirect(unauthorizedUrl);
-  }
-
-  return NextResponse.next(); // Allow access if all checks pass
-}

@@ -61,12 +61,12 @@ model JudgeProjectBridge {
   project                  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   judgeId                  String
   projectId                String
-  noveltyAndUniquenessMark Int?
-  benefitToMankindMark     Int?
-  commercializationMark    Int?
-  statusOfInventionMark    Int?
-  videoPresentationMark    Int?
-  supportingDocumentMark   Int?
+  noveltyAndUniquenessMark Int @default(0)
+  benefitToMankindMark     Int @default(0)
+  commercializationMark    Int @default(0)
+  statusOfInventionMark    Int @default(0)
+  videoPresentationMark    Int @default(0)
+  supportingDocumentMark   Int @default(0)
   comments                 String?
   isPlatinumAward          Boolean @default(false)
   isSustainabilityAward    Boolean @default(false)
