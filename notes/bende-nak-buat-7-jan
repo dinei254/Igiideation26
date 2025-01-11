@@ -1,0 +1,8 @@
+bende nak buat
+1. redirect ke main page kalau session still ade
+2. middleware utk access control
+3. alihkan table statistic ke page lain 
+4. tambah feature remove judges
+5. tambah nexresponse for status code 500 utk smua endpoints
+6. deployment ke digitalocean
+7. feature export ke csv file

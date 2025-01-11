@@ -10,11 +10,12 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Spinner } from "@/components/spinner-loading";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { JudgeContext } from "@/hooks/JudgeProvider";
+import isCookiesExists from "@/util/isCookiesExists";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -58,6 +59,16 @@ export default function Login() {
       if (isAuth) router.push("/judge");
     }
   };
+
+  const handleCheckCookie = async () => {
+    const isExists = await isCookiesExists();
+    console.log(isExists)
+    if (isExists) router.push("/admin/dashboard/projects");
+  };
+
+  useEffect(() => {
+    handleCheckCookie();
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Spinner } from "@/components/spinner-loading";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import React from "react";
+import isCookiesExists from "@/util/isCookiesExists";
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
@@ -55,6 +56,16 @@ const AdminLoginPage = () => {
       }
     }
   };
+
+  const handleCheckCookie = async () => {
+    const isExists = await isCookiesExists();
+    console.log(isExists)
+    if (isExists) router.push("/admin/dashboard/projects");
+  };
+
+  useEffect(() => {
+    handleCheckCookie();
+  }, []);
 
   return (
     <div>

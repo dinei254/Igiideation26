@@ -8,8 +8,8 @@ interface GoogleDrivePosterViewerProps {
 
 export const PosterViewer: React.FC<GoogleDrivePosterViewerProps> = ({
   posterLink,
-  width = 640,
-  height = 480,
+  width = 841,
+  height = 1189,
 }) => {
   const viewerUrl = posterLink;
 
