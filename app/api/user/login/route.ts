@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
   } catch (error: any) {
     console.error(`Failed to login account`, error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }
 

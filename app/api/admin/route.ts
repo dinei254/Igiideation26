@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password} = await req.json();
+    const { name, email, password } = await req.json();
     const hashedPassword = await hashPassword(password);
 
     await prisma.admin.create({
@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     console.error(`Failed to create admin account : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -65,5 +66,34 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json(updatedAdmin, { status: 200 });
   } catch (error: any) {
     console.error(`failed to update admin account : ${error}`);
+    return NextResponse.json(error, { status: 500 });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const searchParams = req.nextUrl.searchParams;
+    const adminId = searchParams.get("id");
+
+    if (!adminId)
+      return NextResponse.json(
+        { message: "Admin id not provided" },
+        { status: 400 }
+      );
+
+    const admin = await prisma.admin.findUnique({
+      where: {
+        id: adminId,
+      },
+    });
+
+    if (admin) {
+      return NextResponse.json(admin, { status: 200 });
+    } else {
+      return NextResponse.json({ message: "Admin not found" }, { status: 404 });
+    }
+  } catch (error: any) {
+    console.error(`Failed to get admin information : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }

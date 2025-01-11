@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(project, { status: 200 });
   } catch (error: any) {
     console.error(`Failed to create project`, error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -68,7 +68,7 @@ export async function GET(req: NextRequest) {
       );
   } catch (error: any) {
     console.error("Failed to fetch project", error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -86,8 +86,6 @@ export async function PATCH(req: NextRequest) {
         { message: "Bad request. Provide updated project" },
         { status: 400 }
       );
-
-    console.log(updatedProject);
 
     // modify google drive link
     const abstractLink = modifyGoogleDriveLink(updatedProject.abstractLink);
@@ -132,7 +130,7 @@ export async function PATCH(req: NextRequest) {
       );
   } catch (error: any) {
     console.error("Failed to edit project", error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -166,6 +164,6 @@ export async function DELETE(req: NextRequest) {
       );
   } catch (error: any) {
     console.error(`Failed to delete project`, error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }

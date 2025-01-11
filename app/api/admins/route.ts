@@ -7,6 +7,7 @@ export async function GET() {
 
     return NextResponse.json(admins, { status: 200 });
   } catch (error: any) {
-    throw error;
+    console.error(`Failed to get all admins : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }

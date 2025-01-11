@@ -8,5 +8,6 @@ export async function GET() {
     return NextResponse.json(judges, { status: 200 });
   } catch (error: any) {
     console.error(`Failed to all judges : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }

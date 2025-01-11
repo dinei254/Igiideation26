@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
       );
   } catch (error: any) {
     console.error(`Failed to create judge : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -61,6 +62,7 @@ export async function PATCH(req: NextRequest) {
     );
   } catch (error: any) {
     console.error(`Failed to update judge : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }
 
@@ -79,6 +81,7 @@ export async function DELETE(req: NextRequest) {
     else
       return NextResponse.json({ message: "Judge not found" }, { status: 404 });
   } catch (error: any) {
-    throw error;
+    console.error(`Failed to delete judge : ${error}`);
+    return NextResponse.json(error, { status: 500 });
   }
 }

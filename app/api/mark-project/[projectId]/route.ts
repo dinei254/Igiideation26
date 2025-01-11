@@ -110,6 +110,6 @@ export async function POST(req: NextRequest) {
       );
   } catch (error: any) {
     console.error(`Failed to change project status`, error);
-    throw error;
+    return NextResponse.json(error, { status: 500 });
   }
 }

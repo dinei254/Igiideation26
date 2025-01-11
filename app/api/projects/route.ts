@@ -66,6 +66,6 @@ export async function GET(req: NextRequest) {
     }
   } catch (error: any) {
     console.error(`Failed to get all projects`, error);
-    throw error;
+    return NextResponse.json(error, {status : 500})
   }
 }
