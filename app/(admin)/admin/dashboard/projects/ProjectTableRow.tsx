@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { FaCross, FaUserCheck } from "react-icons/fa";
+import { FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

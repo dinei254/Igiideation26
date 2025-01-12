@@ -9,7 +9,6 @@ const LeaderboardTableRow = ({
 }: {
   project: ProjectAndJudgeProjectBridge;
 }) => {
-  const [Badge, setBadge] = useState<string>();
 
   const judgeProjectBridge = project.JudgeProjectBridge;
   const projectMarks = judgeProjectBridge.map((project) => {

@@ -89,14 +89,6 @@ export default function CreateUser() {
     return total;
   };
 
-  const handleExportToCSV = async () => {
-    try {
-      const res = await fetch("/api/export", { method: "GET" });
-    } catch (error: any) {
-      console.error(`Failed to export to CSV : ${error}`);
-    }
-  };
-
   useEffect(() => {
     const getData = async () => {
       await handleGetAllProjects();
@@ -162,7 +154,7 @@ export default function CreateUser() {
           </div>
 
           <div className="flex justify-end">
-            <a href="/api/export" >
+            <a href="/api/export">
               <Button>
                 <FaFileExport />
                 Export to CSV
