@@ -162,7 +162,7 @@ export default function CreateUser() {
           </div>
 
           <div className="flex justify-end">
-            <a href="/api/export" download={"data.csv"}>
+            <a href="/api/export" >
               <Button>
                 <FaFileExport />
                 Export to CSV
