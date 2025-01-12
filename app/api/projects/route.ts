@@ -44,9 +44,15 @@ export async function GET(req: NextRequest) {
       // return all projects
       const projects = await prisma.project.findMany({
         include: {
-          JudgeProjectBridge: true,
+          JudgeProjectBridge: {
+            include : {
+              judge : true
+            }
+          }
         },
       });
+      
+
       const projectsAndTotalJudges: ProjectAndTotalJudgesType[] = [];
 
       for (const project of projects) {

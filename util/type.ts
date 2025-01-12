@@ -1,4 +1,9 @@
-import { Project, JudgeProjectBridge } from "@prisma/client";
+import { Project, JudgeProjectBridge, Judge } from "@prisma/client";
 
-export type ProjectAndTotalJudgesType = Project & { totalJudges: number };
-export type ProjectAndJudgeProjectBridge = Project & {JudgeProjectBridge : JudgeProjectBridge[]};
+type JudgeProjectBridgeAndJudge = JudgeProjectBridge & { judge: Judge };
+export type ProjectAndTotalJudgesType = Project & {
+  JudgeProjectBridge: JudgeProjectBridgeAndJudge[];
+} & { totalJudges: number };
+export type ProjectAndJudgeProjectBridge = Project & {
+  JudgeProjectBridge: JudgeProjectBridge[];
+};

@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { FaUserCheck } from "react-icons/fa";
+import { FaCross, FaUserCheck } from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ImCross } from "react-icons/im";
 import { ProjectAndTotalJudgesType } from "@/util/type";
+import { FaUserMinus } from "react-icons/fa";
 
 const ProjectTableRow = ({
   project,
@@ -41,6 +42,10 @@ const ProjectTableRow = ({
   const [selectedJudges, setSelectedJudges] = useState<Judge[]>([]);
   const [updatedProject, setUpdatedProject] = useState(project);
   const [totalJudges, setTotalJudges] = useState(project.totalJudges);
+  const [assignedJudges, setAssignedJudges] = useState<Judge[]>(
+    project.JudgeProjectBridge.map((judgeProj) => judgeProj.judge)
+  );
+  const [judgesToBeRemoved, setJudgesToBeRemoved] = useState<Judge[]>();
 
   const handleUpdateProject = async (
     e: FormEvent<HTMLFormElement>,
@@ -100,6 +105,25 @@ const ProjectTableRow = ({
       }
     } catch (error: any) {
       console.error(`Failed to assign judges : ${error}`);
+    }
+  };
+
+  const handleRemoveJudges = async (projectId: string) => {
+    try {
+      const formdata = new FormData();
+      formdata.append("judges", JSON.stringify(judgesToBeRemoved));
+      formdata.append("projectId", projectId);
+
+      const res = await fetch("/api/deassign-judge", {
+        method: "POST",
+        body: formdata,
+      });
+
+      if (res.ok) {
+        location.reload();
+      }
+    } catch (error: any) {
+      console.error(`Failed to deassign judge : ${error}`);
     }
   };
 
@@ -333,6 +357,59 @@ const ProjectTableRow = ({
               onClick={() => handleAssignJudges(project.id)}
             >
               Assign Judges
+            </Button>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog>
+          <DialogTrigger>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <FaUserMinus className="cursor-pointer" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Remove Judge</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Remove Judges</DialogTitle>
+              <DialogDescription>
+                Choose judges to be removed from the list
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="my-5 flex flex-wrap gap-1">
+              {assignedJudges.map((judge) => (
+                <Badge key={judge.id} className="">
+                  <ImCross
+                    size={10}
+                    className="mr-2 cursor-pointer"
+                    onClick={() => {
+                      setAssignedJudges(
+                        assignedJudges.filter(
+                          (_judge) => _judge.id !== judge.id
+                        )
+                      );
+                      setJudgesToBeRemoved([
+                        ...(judgesToBeRemoved ?? []),
+                        judge,
+                      ]);
+                    }}
+                  />
+                  {judge.name}
+                </Badge>
+              ))}
+            </div>
+
+            <Button
+              className="w-full mt-5"
+              onClick={() => handleRemoveJudges(project.id)}
+            >
+              Remove Judge
             </Button>
           </DialogContent>
         </Dialog>

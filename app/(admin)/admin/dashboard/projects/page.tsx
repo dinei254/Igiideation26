@@ -57,7 +57,6 @@ export default function AdminDashboardPage() {
       const res = await fetch("/api/projects", { method: "GET" });
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setProjects(data);
       }
     } catch (error: any) {
