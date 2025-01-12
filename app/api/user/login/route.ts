@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 import { createSession } from "@/util/session";
 import verifyPassword from "@/util/verifyPassword";
 
+export const dynamic = 'force-dynamic'
+
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();

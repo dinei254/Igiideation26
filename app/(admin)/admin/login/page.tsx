@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { Spinner } from "@/components/spinner-loading";
@@ -59,7 +61,7 @@ const AdminLoginPage = () => {
 
   const handleCheckCookie = async () => {
     const isExists = await isCookiesExists();
-    console.log(isExists)
+    console.log(isExists);
     if (isExists) router.push("/admin/dashboard/projects");
   };
 

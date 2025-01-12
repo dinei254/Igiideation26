@@ -1,16 +1,15 @@
-
 import Link from "next/link";
 import Image from "next/image";
-import { WaveGradient } from '@/components/Wave-Gradient';
+import { WaveGradient } from "@/components/Wave-Gradient";
 
+export const dynamic = "force-dynamic";
 
 export default function Landing() {
   return (
     <>
       <div className="flex flex-col min-h-[100dvh] bg-black">
-       
         <main className="flex-1 text-white">
-        <section className="w-full pt-12 md:pt-24 lg:pt-32 relative overflow-hidden">
+          <section className="w-full pt-12 md:pt-24 lg:pt-32 relative overflow-hidden">
             <WaveGradient />
             <div className="px-4 md:px-6 space-y-10 xl:space-y-16 relative z-10">
               <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
@@ -123,8 +122,6 @@ export default function Landing() {
               </div>
             </div>
           </section>
-
-
 
           <section className="w-fit mx-auto bg-black text-white">
             <div className="container grid items-center justify-center  px-4 text-center md:px-6">

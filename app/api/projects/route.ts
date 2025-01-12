@@ -3,6 +3,9 @@ import { ProjectAndTotalJudgesType } from "@/util/type";
 import { Project } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
+
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;

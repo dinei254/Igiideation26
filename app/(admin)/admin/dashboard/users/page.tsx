@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import AdminHeader from "@/components/admin-header";
 import {
   Breadcrumb,
@@ -93,7 +95,7 @@ const UsersDashboardPage = () => {
   };
 
   const handleCreateJudge = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       const judge = {
@@ -270,7 +272,9 @@ const UsersDashboardPage = () => {
                     />
                   </div>
 
-                  <Button className="w-full mt-5" type="submit">Create Judge</Button>
+                  <Button className="w-full mt-5" type="submit">
+                    Create Judge
+                  </Button>
                 </form>
               </DialogContent>
             </Dialog>

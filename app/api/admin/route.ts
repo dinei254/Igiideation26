@@ -3,6 +3,9 @@ import hashPassword from "@/util/hashPassword";
 import { Admin } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
+
 export async function POST(req: NextRequest) {
   try {
     const { name, email, password } = await req.json();

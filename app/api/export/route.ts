@@ -1,7 +1,9 @@
 import prisma from "@/prisma/db";
 import classifyMark from "@/util/classifyMark";
-import { Project } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+
+export const dynamic = 'force-dynamic'
+
 // export format
 // project id, title of innovation, mark judge1, judge2, judge3, judge4, judge5, average mark, badge
 

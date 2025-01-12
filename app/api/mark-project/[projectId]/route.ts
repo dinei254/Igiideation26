@@ -2,6 +2,9 @@ import prisma from "@/prisma/db";
 import { decrypt } from "@/util/session";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
+
 // mark project
 export async function POST(req: NextRequest) {
   try {

@@ -35,6 +35,8 @@ import AdminHeader from "@/components/admin-header";
 import ProjectTableRow from "./ProjectTableRow";
 import { ProjectAndTotalJudgesType } from "@/util/type";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminDashboardPage() {
   const [projects, setProjects] = useState<ProjectAndTotalJudgesType[]>();
   const [judges, setJudges] = useState<Judge[]>();

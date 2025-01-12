@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { Judge } from "@prisma/client";
 import hashPassword from "@/util/hashPassword";
 
+export const dynamic = 'force-dynamic'
+
+
 export async function POST(req: NextRequest) {
   try {
     const { name, email, password, association } = await req.json();
