@@ -11,39 +11,46 @@ export async function middleware(req: NextRequest, response: NextResponse) {
     return value || null;
   };
 
-  const isSessionExists = async (sessionVal: string) => {
-    const payload = await decrypt(sessionVal);
+  // const isSessionExists = async (sessionVal: string) => {
+  //   const payload = await decrypt(sessionVal);
 
-    if (!payload?.userId) return null;
+  //   if (!payload?.userId) return null;
 
-    const url = `${rootUrl}/api/session?userId=${payload.userId}`;
-    const res = await fetch(url, { method: "GET" });
+  //   const url = `${rootUrl}/api/session?userId=${payload.userId}`;
+  //   const res = await fetch(url, { method: "GET" });
 
-    if (res.ok) {
-      const sessionData = await res.json();
-      return sessionData;
-    }
-  };
+  //   if (res.ok) {
+  //     const sessionData = await res.json();
+  //     return sessionData;
+  //   }
+  // };
 
-  const checkAccessLevel = async (userId: string) => {
-    const adminUrl = `${rootUrl}/api/admin?id=${userId}`;
-    const judgeUrl = `${rootUrl}/api/judge?id=${userId}`;
+  // const checkAccessLevel = async (userId: string) => {
+  //   const adminUrl = `${rootUrl}/api/admin?id=${userId}`;
+  //   const judgeUrl = `${rootUrl}/api/judge?id=${userId}`;
 
-    const resAdmin = await fetch(adminUrl, { method: "GET" });
-    const resJudge = await fetch(judgeUrl, { method: "GET" });
+  //   const resAdmin = await fetch(adminUrl, { method: "GET" });
+  //   const resJudge = await fetch(judgeUrl, { method: "GET" });
 
-    const isAdmin = resAdmin.ok;
-    const isJudge = resJudge.ok;
+  //   const isAdmin = resAdmin.ok;
+  //   const isJudge = resJudge.ok;
 
-    if (isAdmin) return "admin";
-    if (isJudge) return "judge";
-    else return "not identified";
-  };
+  //   if (isAdmin) return "admin";
+  //   if (isJudge) return "judge";
+  //   else return "not identified";
+  // };
 
   // Main Execution
   const excludedPaths = ["/admin/login", "/login"];
   if (excludedPaths.includes(req.nextUrl.pathname)) {
     return NextResponse.next();
+  }
+
+  const isHasSession = isCookieExists();
+  if (isHasSession) {
+    return NextResponse.next();
+  } else {
+    return NextResponse.redirect(req.nextUrl.origin);
   }
 }
 
