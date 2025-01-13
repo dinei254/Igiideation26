@@ -17,7 +17,7 @@ export default function Landing() {
                   <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
                     IGIIDEATION Judging System
                   </h1>
-                  <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl mt-10">
+                  <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl mt-10 text-justify">
                     The International Grand Invention, Innovation, and Design
                     Expo (IGIIDeation) 2025 is a global event showcasing
                     advancements in fields like computer science, AI, IoT,
@@ -123,7 +123,7 @@ export default function Landing() {
             </div>
           </section>
 
-          <section className="w-fit mx-auto bg-black text-white">
+          <section className="flex justify-center  bg-gray-100 text-black py-10">
             <div className="container grid items-center justify-center  px-4 text-center md:px-6">
               <section className="w-full ">
                 <div className="space-y-3">
@@ -220,7 +220,7 @@ export default function Landing() {
             </div>
           </section>
         </main>
-        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-gray-100">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             &copy; 2024 QuantumLeap Technologies. All rights reserved.
           </p>
