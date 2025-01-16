@@ -1,14 +1,14 @@
 import React from "react";
 
 interface GoogleDrivePosterViewerProps {
-  supportingDocumentLink: string;
+  supportingDocumentLink: string | undefined;
   width?: number;
   height?: number;
 }
 
 export const SupportingDocumentsViewer: React.FC<
   GoogleDrivePosterViewerProps
-> = ({ supportingDocumentLink, width = 640, height = 480 }) => {
+> = ({ supportingDocumentLink = "", width = 640, height = 480 }) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">Supporting Document: </h2>

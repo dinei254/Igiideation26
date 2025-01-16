@@ -1,13 +1,13 @@
 import React from "react";
 
 interface GoogleDriveVideoProps {
-  videoLink: string;
+  videoLink: string | undefined;
   width?: number;
   height?: number;
 }
 
 export const VideoViewer: React.FC<GoogleDriveVideoProps> = ({
-  videoLink,
+  videoLink = "",
   width = 640,
   height = 640,
 }) => {

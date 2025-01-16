@@ -1,13 +1,13 @@
 import React from "react";
 
 interface GoogleDrivePosterViewerProps {
-  posterLink: string
+  posterLink: string |undefined
   width?: number;
   height?: number;
 }
 
 export const PosterViewer: React.FC<GoogleDrivePosterViewerProps> = ({
-  posterLink,
+  posterLink = "",
   width = 841,
   height = 1189,
 }) => {

@@ -1,13 +1,13 @@
 import React from "react";
 
 interface GoogleDrivePosterViewerProps {
-  abstractLink: string
+  abstractLink: string | undefined;
   width?: number;
   height?: number;
 }
 
 export const AbstractViewer: React.FC<GoogleDrivePosterViewerProps> = ({
-  abstractLink,
+  abstractLink = "",
   width = 640,
   height = 480,
 }) => {
