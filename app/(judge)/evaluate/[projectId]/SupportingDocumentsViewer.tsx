@@ -1,7 +1,7 @@
 import React from "react";
 
 interface GoogleDrivePosterViewerProps {
-  supportingDocumentLink: string | undefined;
+  supportingDocumentLink: string;
   width?: number;
   height?: number;
 }
@@ -16,8 +16,10 @@ export const SupportingDocumentsViewer: React.FC<
         style={{ position: "relative", paddingBottom: "56.25%" }}
         className="h-screen"
       >
-        {supportingDocumentLink === undefined ? (
-          <p>Supporting document is not provided.</p>
+        {supportingDocumentLink.length <= 0 ? (
+          <div className="flex justify-center h-max text-center">
+            <p>Supporting document is not provided.</p>
+          </div>
         ) : (
           <iframe
             src={supportingDocumentLink}

@@ -12,18 +12,25 @@ export const VideoViewer: React.FC<GoogleDriveVideoProps> = ({
   height = 640,
 }) => {
   const embedUrl = videoLink;
+  console.log(videoLink);
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">Uploaded Video :</h2>
       <div className="h-screen">
-        <iframe
-          src={embedUrl}
-          width={width}
-          height={height}
-          allow="autoplay; fullscreen"
-          className="w-full h-full"
-        ></iframe>
+        {videoLink.length <= 0 ? (
+          <div className="flex justify-center text-center h-max">
+            <p>No video provided</p>
+          </div>
+        ) : (
+          <iframe
+            src={embedUrl}
+            width={width}
+            height={height}
+            allow="autoplay; fullscreen"
+            className="w-full h-full"
+          ></iframe>
+        )}
       </div>
     </div>
   );

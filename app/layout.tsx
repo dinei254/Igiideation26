@@ -32,14 +32,14 @@ export default function RootLayout({
       >
         <div className="text-center text-red-500">
           <span className="font-semibold">
-            This website is still in Beta phase and under testing!
+            This system is still in Beta phase and under testing!
           </span>{" "}
           <br />
           The system will fully online on 8 February 2024 12:00 a.m until 12
           February 2024 12:00 pm <br /> <br />
           If you encounter any bug or broken feature, please report to
           hakimnazry@gmail.com <br />
-          Thank you for you cooperation.
+          Thank you for your cooperation.
         </div>
         {children}
       </body>

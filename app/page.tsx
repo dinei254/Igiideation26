@@ -31,19 +31,13 @@ export default function Landing() {
                   </p>
                   <Link
                     href="/login"
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-all duration-300 hover:scale-105 hover:-translate-y-1 relative before:absolute before:inset-0 before:rounded-md before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 w-full mb-10"
+                    className="mt-5 inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-all duration-300 hover:scale-105 hover:-translate-y-1 relative before:absolute before:inset-0 before:rounded-md before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 w-full mb-10"
                     prefetch={false}
                   >
-                    Login
+                    Login as Judge
                   </Link>
 
-                  <Link
-                    href="/admin/login"
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-all duration-300 hover:scale-105 hover:-translate-y-1 relative before:absolute before:inset-0 before:rounded-md before:border before:border-gradient-to-r before:from-purple-500 before:via-pink-500 before:to-orange-500 before:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 w-full mb-10"
-                    prefetch={false}
-                  >
-                    Login as Admin
-                  </Link>
+                 
                 </div>
                 <div className="flex flex-col items-start space-y-4 justify-center">
                   <img

@@ -1,6 +1,8 @@
 function modifyGoogleDriveLink(url : string) {
-    const cleanedURL = url.split('/view')[0]; // Removes everything from '/view' onwards
-    return `${cleanedURL}/preview`;
+    // const cleanedURL = url.split('/view')[0];
+    // return `${cleanedURL}/preview`;
+
+    return url
   }
 
 export default modifyGoogleDriveLink
