@@ -120,10 +120,6 @@ export default function EvalForm({ projectId }: { projectId: string }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <Label className="text-lg font-semibold">Project ID:</Label>
-          <p className="text-base font-medium">{projectId}</p>
-        </div>
         {questions.map((question, index) => (
           <div key={index} className="space-y-2">
             <Label className="text-lg font-semibold">{question}</Label>
