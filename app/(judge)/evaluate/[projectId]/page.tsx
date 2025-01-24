@@ -70,14 +70,14 @@ export default function JudgeDashboard({
       case "supporting-document-2":
         return (
           <SupportingDocumentsViewer
-            supportingDocumentLink={project?.supportingDocumentLink1}
+            supportingDocumentLink={project?.supportingDocumentLink2}
           />
         );
 
       case "supporting-document-3":
         return (
           <SupportingDocumentsViewer
-            supportingDocumentLink={project?.supportingDocumentLink1}
+            supportingDocumentLink={project?.supportingDocumentLink3}
           />
         );
 
