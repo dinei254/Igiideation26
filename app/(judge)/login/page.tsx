@@ -65,7 +65,7 @@ export default function Login() {
   const handleCheckCookie = async () => {
     const isExists = await isCookiesExists();
     console.log(isExists)
-    if (isExists) router.push("/admin/dashboard/projects");
+    if (isExists) router.push("/judge");
   };
 
   useEffect(() => {
