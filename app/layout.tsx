@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="text-center text-red-500">
+        {/* <div className="text-center text-red-500">
           <span className="font-semibold">
             This system is still in Beta phase and under testing!
           </span>{" "}
@@ -40,7 +40,7 @@ export default function RootLayout({
           If you encounter any bug or broken feature, please report to
           hakimnazry@gmail.com <br />
           Thank you for your cooperation.
-        </div>
+        </div> */}
         {children}
       </body>
     </html>

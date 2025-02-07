@@ -104,7 +104,7 @@ export default function JudgeDashboard({
         >
           <nav className="bg-gray-100 p-4 flex justify-between">
             <ScrollArea className="w-full">
-              <div className="flex space-x-2">
+              <div className="">
                 <Button
                   variant={activeTab === "abstract" ? "default" : "ghost"}
                   className="justify-start"
