@@ -176,7 +176,7 @@ export default function JudgeDashboard({
         <div
           className={`bg-background fixed top-0 right-0 h-full transition-all duration-300 ease-in-out ${
             isRightOpen ? "w-1/3" : "w-0"
-          } overflow-hidden`}
+          } `}
         >
           <div className="p-4">
             <EvalForm projectId={project?.id!} />
