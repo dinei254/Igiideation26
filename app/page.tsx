@@ -41,7 +41,7 @@ export default function Landing() {
                 </div>
                 <div className="flex flex-col items-start space-y-4 justify-center">
                   <img
-                    src="image/IGIIDeation-2025-BANNER.png"
+                    src="image/IGIIDeation-2026-BANNER.png"
                     alt="Hero"
                     className="mx-auto overflow-hidden rounded-t-xl object-cover w-auto h-auto"
                   />
@@ -136,7 +136,7 @@ export default function Landing() {
                 <div className="container px-4 grid items-center justify-center text-center md:px-6">
                   <div className="mt-10 flex flex-col md:flex-row justify-center gap-x-10">
                     <Image
-                      src="/iium.png"
+                      src="/iiumtawhidic.png"
                       alt="Logo"
                       width={300}
                       height={200}
@@ -150,10 +150,10 @@ export default function Landing() {
                       className="w-auto h-auto"
                     />
                     <Image
-                      src="/mbot.png"
+                      src="/ioteams.png"
                       alt="Logo"
                       width={100}
-                      height={100}
+                      height={300}
                       className="w-auto h-auto"
                     />
                   </div>
@@ -163,14 +163,7 @@ export default function Landing() {
                   <div className="mx-auto grid max-w-[900px] gap- lg:grid-cols-5 xl:gap-8 mt-10">
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
-                        src="/usk.png"
-                        alt="Logo"
-                        className="aspect-[2/1] w-auto h-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-0   overflow-hidden">
-                      <img
-                        src="/mila.png"
+                        src="/inti.png"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />
@@ -178,6 +171,13 @@ export default function Landing() {
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
                         src="/silver.png"
+                        alt="Logo"
+                        className="aspect-[2/1] w-auto h-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-0   overflow-hidden">
+                      <img
+                        src="/sunway.png"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />
@@ -194,6 +194,20 @@ export default function Landing() {
                         src="/uitm.png"
                         alt="Logo"
                         className="w-full h-auto object-center"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-0   overflow-hidden">
+                      <img
+                        src="/usk.png"
+                        alt="Logo"
+                        className="aspect-[2/1] w-auto h-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-0   overflow-hidden">
+                      <img
+                        src="/unirazak.png"
+                        alt="Logo"
+                        className="aspect-[2/1] w-auto h-auto"
                       />
                     </div>
                   </div>
