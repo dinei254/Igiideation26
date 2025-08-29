@@ -117,7 +117,7 @@ export default function Landing() {
             </div>
           </section>
 
-          <section className="flex justify-center  bg-gray-100 text-black py-10">
+          <section className="flex justify-center  bg-white text-black py-10">
             <div className="container grid items-center justify-center  px-4 text-center md:px-6">
               <section className="w-full ">
                 <div className="space-y-3">
@@ -160,7 +160,7 @@ export default function Landing() {
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-4xl mt-20 md:mt-14">
                     In Collaboration:
                   </h2>
-                  <div className="mx-auto grid max-w-[900px] gap- lg:grid-cols-5 xl:gap-8 mt-10">
+                  <div className="mx-auto grid max-w-[900px] gap- lg:grid-cols-4 xl:gap-8 mt-10">
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
                         src="/inti.png"
