@@ -19,13 +19,13 @@ export default function Landing() {
                   </h1>
                   <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl mt-10 text-justify">
                     The International Grand Invention, Innovation, and Design
-                    Expo (IGIIDeation) 2025 is a global event showcasing
+                    Expo (IGIIDeation) is a global event showcasing
                     advancements in fields like computer science, AI, IoT,
                     cybersecurity, and more. It promotes collaboration among
                     innovators, researchers, and industry leaders, offering a
                     platform for presenting projects, exploring trends, and
                     engaging with cutting-edge technologies. Emphasizing
-                    interdisciplinary solutions, IGIIDeation 2025 aims to
+                    interdisciplinary solutions, IGIIDeation 2026 aims to
                     inspire future innovators and celebrate creativity and
                     transformative ideas.
                   </p>
@@ -58,11 +58,11 @@ export default function Landing() {
                     New Events
                   </div>
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                    IGIIDeation 2025: Where Innovation Meets Inspiration
+                    IGIIDeation 2026: Where Innovation Meets Inspiration
                   </h2>
                   <p className="max-w-[900px] mx-auto text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                     Join the International Grand Invention, Innovation, and
-                    Design Expo 2025, a premier global event dedicated to
+                    Design Expo 2026, a premier global event dedicated to
                     showcasing groundbreaking ideas and fostering collaboration
                     across diverse fields. Celebrate the spirit of innovation
                     and explore transformative solutions shaping the future.
@@ -76,7 +76,7 @@ export default function Landing() {
                   </h3>
                   <p className="text-sm text-gray-300">
                     Discover pioneering projects and technologies in AI, IoT,
-                    cybersecurity, Islamic science, and more. IGIIDeation 2025
+                    cybersecurity, Islamic science, and more. IGIIDeation 2026
                     highlights the ingenuity and creativity driving progress
                     across industries.
                   </p>
@@ -98,7 +98,7 @@ export default function Landing() {
                   </h3>
                   <p className="text-sm text-gray-300">
                     Connect with experts and visionaries to celebrate creativity
-                    and push boundaries. IGIIDeation 2025 encourages future
+                    and push boundaries. IGIIDeation 2026 encourages future
                     inventors to redefine possibilities and turn bold ideas into
                     reality.
                   </p>
