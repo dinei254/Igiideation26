@@ -138,7 +138,7 @@ export default function Landing() {
                     <Image
                       src="/iiumtawhidic.png"
                       alt="Logo"
-                      width={300}
+                      width={1300}
                       height={200}
                       className="w-auto h-auto"
                     />
@@ -206,6 +206,13 @@ export default function Landing() {
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
                         src="/unirazak.png"
+                        alt="Logo"
+                        className="aspect-[2/1] w-auto h-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-0   overflow-hidden">
+                      <img
+                        src="/tunrazak.png"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />
