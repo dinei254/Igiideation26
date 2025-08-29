@@ -134,11 +134,11 @@ export default function Landing() {
                   </p>
                 </div>
                 <div className="container px-4 grid items-center justify-center text-center md:px-6">
-                  <div className="mt-10 flex flex-col md:flex-row justify-center gap-x-10">
+                  <div className="mt-10 flex flex-col md:flex-row justify-center gap-x-5">
                     <Image
                       src="/iiumtawhidic.png"
                       alt="Logo"
-                      width={1300}
+                      width={1400}
                       height={200}
                       className="w-auto h-auto"
                     />
