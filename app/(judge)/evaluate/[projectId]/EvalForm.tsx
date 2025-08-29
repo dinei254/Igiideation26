@@ -108,7 +108,7 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   };
 
   const handleReviewRubrics = () => {
-    const rubricUrl = "/rubrics.pdf";
+    const rubricUrl = "/rubricigii26.pdf";
     window.open(rubricUrl, "_blank");
   };
 

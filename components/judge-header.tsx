@@ -28,7 +28,7 @@ const JudgeHeader = () => {
     <div className="w-full flex items-center p-4 shadow-md justify-between">
       <Link href={"/"}>
         <Image
-          src={"/image/IGIIDeation-2025-BANNER.png"}
+          src={"/image/IGIIDeation-2026-BANNER.png"}
           width={200}
           height={200}
           alt="IGIIDeation Logo"
