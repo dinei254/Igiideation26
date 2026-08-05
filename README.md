@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IGIIDeation Judging and Evaluation Platform
 
-## Getting Started
+A web-based platform developed for the **IGIIDeation Innovation Competition** to manage project submissions, judge assignments, and evaluation processes. The system provides dedicated dashboards for administrators and judges, allowing efficient project management and assessment.
 
-First, run the development server:
+---
+
+## Features
+
+### Administrator
+
+* User authentication
+* Manage projects
+* Manage judges
+* Assign judges to projects
+* Update project information
+* Delete projects
+* Monitor project submissions
+
+### Judge
+
+* Secure login
+* View assigned projects
+* Review project materials
+* Submit evaluation scores
+* Update submitted evaluations
+
+---
+
+## Technology Stack
+
+| Technology     | Version |
+| -------------- | ------- |
+| Next.js        | 16      |
+| React          | 19      |
+| TypeScript     | Latest  |
+| Tailwind CSS   | Latest  |
+| Prisma ORM     | 6       |
+| MongoDB        | Latest  |
+| Docker Desktop | Latest  |
+
+---
+
+## Prerequisites
+
+Before running this project, install:
+
+* Node.js 22 LTS
+* npm
+* Docker Desktop
+* MongoDB (Docker Container)
+* Git
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd Igiideation26
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root.
+
+Example:
+
+```env
+DATABASE_URL="mongodb://localhost:27017/igiideation?authSource=admin&directConnection=true"
+SECRET_KEY="your_secret_key_here"
+```
+
+A sample configuration is provided in `.env.example`.
+
+---
+
+## Running MongoDB
+
+Start Docker Desktop and run your MongoDB container.
+
+Example:
+
+```bash
+docker compose up -d
+```
+
+Verify the MongoDB container is running before starting the application.
+
+---
+
+## Running the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and visit:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Production Build
 
-To learn more about Next.js, take a look at the following resources:
+Build the application:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Start the production server:
 
-## Deploy on Vercel
+```bash
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```text
+app/            Next.js App Router
+components/     Reusable UI components
+lib/            Utility functions
+prisma/         Database schema
+public/         Static assets
+util/           Helper functions
+```
+
+---
+
+## Migration Notes
+
+The project has been upgraded from **Next.js 14** to **Next.js 16**.
+
+Migration updates include:
+
+* Updated Cookies API
+* Updated Route Parameters API
+* Updated React 19 compatibility
+* Updated Radix UI components
+* Dependency updates
+* Improved compatibility with the latest Next.js App Router
+
+---
+
+## Credits
+
+Originally developed by:
+
+* BR. MUHAMMAD HAKIM BIN MD NAZR (https://hakimnazry.dev/)
+* SR. AINUL HANI BINTI MOHD MANOJ
+  
+
+Current maintenance and enhancements by the IGIIDeation development team.
+
+---
+
+## License
+
+This project is intended for the IGIIDeation platform and its contributors. Please obtain permission before redistributing or using it outside the intended purpose.
