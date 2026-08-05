@@ -37,8 +37,9 @@ const createSession = async (userId: string) => {
   const expiresAt = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
   const payload = { userId, expiresAt };
   const jwt = await encrypt(payload);
+   const cookieStore = await cookies();
 
-  cookies().set("session", jwt, {
+  cookieStore.set("session", jwt, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,

@@ -11,7 +11,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { FileText } from "lucide-react";
+import { FileText, ChevronDown } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +32,41 @@ const questions = [
   "Supporting Documents",
 ];
 
+type RubricBand = { range: string; desc: string };
+
+const rubricText: Record<string, RubricBand[]> = {
+  "Novelty & Uniqueness": [
+    { range: "0–1", desc: "Lacks originality and is not unique in concept or design." },
+    { range: "2–3", desc: "Has some originality but may include elements that aren't completely unique." },
+    { range: "4–5", desc: "Highly original and unique, showcasing innovative ideas and approaches." },
+  ],
+  "Benefit to Mankind": [
+    { range: "0–1", desc: "Offers minimal benefit to potential end users and doesn't address significant needs." },
+    { range: "2–3", desc: "Provides basic benefits to potential end users, addressing some needs." },
+    { range: "4–5", desc: "Greatly benefits end users at various levels (nation, community, field) and addresses significant needs." },
+  ],
+  "Commercialization": [
+    { range: "0–1", desc: "Not marketable and lacks user-friendliness, making it difficult to adopt." },
+    { range: "2–3", desc: "Has some marketability and user-friendliness but needs improvement for wider adoption." },
+    { range: "4–5", desc: "Highly marketable and user-friendly, making it easy to adopt and use." },
+  ],
+  "Status of Invention / Innovation / Design": [
+    { range: "0–1", desc: "Not a prototype or ready for use, and lacks recognition or publication." },
+    { range: "2–3", desc: "Is a prototype or ready for use but has limited recognition or publication." },
+    { range: "4–5", desc: "Is a prototype or ready for use with excellent recognition or publication, indicating credibility and validation." },
+  ],
+  "Video Presentation": [
+    { range: "0–1", desc: "Poor quality, unclear, and not concise. Exceeds 7 minutes." },
+    { range: "2–3", desc: "Moderate quality, clear but not concise, exactly five minutes long." },
+    { range: "4–5", desc: "High quality, very clear, and concise. Within 7 minutes." },
+  ],
+  "Supporting Documents": [
+    { range: "0–1", desc: "No related documents." },
+    { range: "2–3", desc: "Only one related document such as copyright, publication, patent, or LOI." },
+    { range: "4–5", desc: "Many remarkable achievements such as copyright, publication, patent, LOI, etc." },
+  ],
+};
+
 export default function EvalForm({ projectId }: { projectId: string }) {
   const [ratings, setRatings] = useState<Record<string, string>>({});
   const [juryComments, setJuryComments] = useState<string>("");
@@ -42,11 +77,16 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   const [platinumAward, setPlatinumAward] = useState<string>("");
   const [sustainabilityAward, setSustainabilityAward] = useState<string>("");
   const [innovatexAward, setInnovatexAward] = useState<string>("");
+  const [openRubric, setOpenRubric] = useState<string | null>(null);
 
   const router = useRouter();
 
   const judge = useContext(JudgeContext);
   const judgeId = judge?.judgeId;
+
+  const toggleRubric = (question: string) => {
+    setOpenRubric((prev) => (prev === question ? null : question));
+  };
 
   const handleSubmit = async () => {
     // Check if all questions are rated
@@ -108,7 +148,7 @@ export default function EvalForm({ projectId }: { projectId: string }) {
   };
 
   const handleReviewRubrics = () => {
-    const rubricUrl = "/rubricigii26.pdf";
+    const rubricUrl = "/rubricigii27.pdf";
     window.open(rubricUrl, "_blank");
   };
 
@@ -120,33 +160,67 @@ export default function EvalForm({ projectId }: { projectId: string }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {questions.map((question, index) => (
-          <div key={index} className="space-y-2">
-            <Label className="text-lg font-semibold">{question}</Label>
-            <RadioGroup
-              onValueChange={(value) =>
-                setRatings((prev) => ({ ...prev, [question]: value }))
-              }
-              className="flex justify-between"
-            >
-              {[1, 2, 3, 4, 5].map((value) => (
-                <div key={value} className="flex flex-col items-center">
-                  <RadioGroupItem
-                    value={value.toString()}
-                    id={`${question}-${value}`}
-                    className="peer sr-only"
-                  />
-                  <Label
-                    htmlFor={`${question}-${value}`}
-                    className="p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm font-medium ring-2 ring-transparent peer-data-[state=checked]:ring-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground transition-all hover:bg-muted"
-                  >
-                    {value}
-                  </Label>
+        {questions.map((question, index) => {
+          const isOpen = openRubric === question;
+          return (
+            <div key={index} className="space-y-2">
+              <button
+                type="button"
+                onClick={() => toggleRubric(question)}
+                className="w-full flex items-center justify-between gap-2 group"
+                aria-expanded={isOpen}
+              >
+                <Label className="text-lg font-semibold cursor-pointer">
+                  {question}
+                </Label>
+                <ChevronDown
+                  className={`h-5 w-5 text-muted-foreground transition-transform group-hover:text-primary ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isOpen && (
+                <div className="rounded-md border bg-muted/50 divide-y">
+                  {rubricText[question]?.map((band) => (
+                    <div key={band.range} className="flex gap-3 px-3 py-2.5">
+                      <span className="text-xs font-semibold text-primary shrink-0 w-10 pt-0.5">
+                        {band.range}
+                      </span>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {band.desc}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </RadioGroup>
-          </div>
-        ))}
+              )}
+
+              <RadioGroup
+                aria-label={question}
+                onValueChange={(value) =>
+                  setRatings((prev) => ({ ...prev, [question]: value }))
+                }
+                className="flex justify-between"
+              >
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <div key={value} className="flex flex-col items-center">
+                    <RadioGroupItem
+                      value={value.toString()}
+                      id={`${question}-${value}`}
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor={`${question}-${value}`}
+                      className="p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm font-medium ring-2 ring-transparent peer-data-[state=checked]:ring-primary peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground transition-all hover:bg-muted"
+                    >
+                      {value}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          );
+        })}
         <div>
           <Label className="text-lg font-semibold">
             Does this project eligible for Platinum Award?

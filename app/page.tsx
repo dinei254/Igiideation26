@@ -15,7 +15,7 @@ export default function Landing() {
               <div className="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
                 <div>
                   <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-                    IGIIDeation Judging System 2026
+                    IGIIDeation Judging System 2027
                   </h1>
                   <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl mt-10 text-justify">
                     The International Grand Invention, Innovation, and Design
@@ -41,7 +41,7 @@ export default function Landing() {
                 </div>
                 <div className="flex flex-col items-start space-y-4 justify-center">
                   <img
-                    src="image/IGIIDeation-2026-BANNER.png"
+                    src="image/IGIIDEATION 2027.png"
                     alt="Hero"
                     className="mx-auto overflow-hidden rounded-t-xl object-cover w-auto h-auto"
                   />
@@ -58,11 +58,11 @@ export default function Landing() {
                     New Events
                   </div>
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                    IGIIDeation 2026: Where Innovation Meets Inspiration
+                    IGIIDeation 2027: Where Innovation Meets Inspiration
                   </h2>
                   <p className="max-w-[900px] mx-auto text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                     Join the International Grand Invention, Innovation, and
-                    Design Expo 2026, a premier global event dedicated to
+                    Design Expo 2027, a premier global event dedicated to
                     showcasing groundbreaking ideas and fostering collaboration
                     across diverse fields. Celebrate the spirit of innovation
                     and explore transformative solutions shaping the future.
@@ -163,18 +163,18 @@ export default function Landing() {
                   <div className="mx-auto grid max-w-[900px] gap- lg:grid-cols-4 xl:gap-8 mt-10">
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
-                        src="/inti.png"
+                        src="/utm.svg"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />
                     </div>
-                    <div className="flex flex-col gap-0   overflow-hidden">
+                    {/* <div className="flex flex-col gap-0   overflow-hidden">
                       <img
                         src="/silver.png"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />
-                    </div>
+                    </div> */}
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
                         src="/sunway.png"
@@ -184,7 +184,7 @@ export default function Landing() {
                     </div>
                     <div className="flex flex-col gap-0   overflow-hidden">
                       <img
-                        src="/mmu.png"
+                        src="/usim.png"
                         alt="Logo"
                         className="aspect-[2/1] w-auto h-auto"
                       />

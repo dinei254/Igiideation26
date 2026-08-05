@@ -192,7 +192,8 @@ export default function AdminDashboardPage() {
                         onChange={(e) => handleChangeProjectForm(e)}
                       />
                     </div>
-                    <div>
+                    <div className="space-y-3">
+                      
                       <Label>Supporting documents</Label>
                       <Input
                         placeholder="Supporting document 1"
@@ -211,7 +212,7 @@ export default function AdminDashboardPage() {
                       />
                     </div>
                     <Button className="w-full mt-5" type="submit">
-                      Create Title
+                      Create Poject
                     </Button>
                   </form>
                 </DialogContent>

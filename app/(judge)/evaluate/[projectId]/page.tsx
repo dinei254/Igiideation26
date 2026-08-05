@@ -20,16 +20,14 @@ import EvalForm from "@/app/(judge)/evaluate/[projectId]/EvalForm";
 import { Project } from "@prisma/client";
 import JudgeHeader from "@/components/judge-header";
 import { SupportingDocumentsViewer } from "./SupportingDocumentsViewer";
+import { useParams } from "next/navigation";
 
-export default function JudgeDashboard({
-  params,
-}: {
-  params: { projectId: string };
-}) {
+export default function JudgeDashboard() {
   const [activeTab, setActiveTab] = useState("abstract");
   const [isRightOpen, setIsRightOpen] = useState(true);
   const [project, setProject] = useState<Project | undefined>(undefined);
-  const projectId = params.projectId;
+
+  const { projectId } = useParams<{ projectId: string }>();
   const [_, setIsLoading] = useState(false);
 
   const handleGetProject = async () => {

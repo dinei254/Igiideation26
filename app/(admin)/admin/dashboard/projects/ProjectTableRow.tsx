@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { FaUserCheck } from "react-icons/fa";
+import { FaUserCheck,FaUserMinus} from "react-icons/fa";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ImCross } from "react-icons/im";
 import { ProjectAndTotalJudgesType } from "@/util/type";
-import { FaUserMinus } from "react-icons/fa";
 
 const ProjectTableRow = ({
   project,
@@ -133,51 +132,64 @@ const ProjectTableRow = ({
       <TableCell>{project.titleOfInnovation}</TableCell>
       <TableCell>{project.totalJudges} judge(s)</TableCell>
       <TableCell className="flex items-center gap-x-2">
-        <Dialog>
-          <DialogTrigger>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <FaTrash className="cursor-pointer" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Delete Project</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Delete Project</DialogTitle>
-            </DialogHeader>
-            <p>Are you sure to delete this project?</p>
-            <p className="text-red-500 font-semibold">
-              The process is irreversible.
-            </p>
-            <div className="mt-5 flex justify-end gap-x-4">
-              <Button
-                variant={"destructive"}
-                onClick={() => handleDeleteProject(project.id)}
-              >
-                Delete Project
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+       <Dialog>
+  <TooltipProvider>
+    <Tooltip>
+      <DialogTrigger asChild>
+        <TooltipTrigger asChild>
+          <button type="button" className="cursor-pointer">
+            <FaTrash />
+          </button>
+        </TooltipTrigger>
+      </DialogTrigger>
+
+      <TooltipContent>
+        <p>Delete Project</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Delete Project</DialogTitle>
+    </DialogHeader>
+
+    <p>Are you sure to delete this project?</p>
+    <p className="text-red-500 font-semibold">
+      The process is irreversible.
+    </p>
+
+    <div className="mt-5 flex justify-end gap-x-4">
+      <Button
+        variant="destructive"
+        onClick={() => handleDeleteProject(project.id)}
+      >
+        Delete Project
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
 
         <Dialog>
-          <DialogTrigger>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <FaEdit className="cursor-pointer" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Edit project</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </DialogTrigger>
+          <TooltipProvider>
+    <Tooltip>
+      <DialogTrigger asChild>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <FaEdit />
+          </button>
+        </TooltipTrigger>
+      </DialogTrigger>
+
+      <TooltipContent>
+        <p>Edit project</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+  
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Update Project</DialogTitle>
@@ -280,18 +292,24 @@ const ProjectTableRow = ({
         </Dialog>
 
         <Dialog>
-          <DialogTrigger>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <FaUserCheck className="cursor-pointer" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Assign Judge</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </DialogTrigger>
+          <TooltipProvider>
+    <Tooltip>
+      <DialogTrigger asChild>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <FaUserCheck />
+          </button>
+        </TooltipTrigger>
+      </DialogTrigger>
+
+      <TooltipContent>
+        <p>Assign Judge</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Assign Judges</DialogTitle>
@@ -362,18 +380,24 @@ const ProjectTableRow = ({
         </Dialog>
 
         <Dialog>
-          <DialogTrigger>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <FaUserMinus className="cursor-pointer" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Remove Judge</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </DialogTrigger>
+          <TooltipProvider>
+    <Tooltip>
+      <DialogTrigger asChild>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <FaUserMinus />
+          </button>
+        </TooltipTrigger>
+      </DialogTrigger>
+
+      <TooltipContent>
+        <p>Remove Judge</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Remove Judges</DialogTitle>
